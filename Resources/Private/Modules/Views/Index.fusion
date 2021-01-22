@@ -54,7 +54,10 @@ Carbon.Plausible.PlausibleController {
                     />
                     <tr>
                         <td width='1%' style='white-space:nowrap'>Resulting Javascript source</td>
-                        <td colspan='2'><code><Carbon.Plausible:Helper.Src {...props.default} /></code></td>
+                        <td colspan='2'>
+                            <code class='-js-source-check'><Carbon.Plausible:Helper.Src {...props.default} /></code>
+                            <div class='neos-hide -js-source-invalid'>The requested path returns an <code>404</code> error. Please check your settings.</div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

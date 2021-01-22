@@ -12,3 +12,17 @@ function cookie(domain, maxAge) {
     document.cookie = "disabledPlausible=true; path=/; max-age=" + maxAge + "; domain=" + domain;
     window.location.reload();
 }
+
+window.addEventListener("load", () => {
+    [...document.querySelectorAll(".-js-source-check")].forEach((code) => {
+        const source = code.innerText;
+        if (source) {
+            fetch(source).catch((error) => {
+                code.parentNode.querySelector(".-js-source-invalid").classList.remove("neos-hide");
+                [...code.closest("tr").querySelectorAll("td")].forEach((td) => {
+                    td.style.background = "#ff8700";
+                });
+            });
+        }
+    });
+});
