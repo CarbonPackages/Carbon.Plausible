@@ -5,7 +5,7 @@
       type: boolean
       ui:
         label: 'Do not track on Plausible'
-        reloadIfChanged: true
+        reloadIfChanged: false
         inspector:
           group: seometa
           position: 300
