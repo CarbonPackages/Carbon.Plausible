@@ -82,9 +82,9 @@ Carbon:
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
 
-## Carbon.Plausible:Component.TrackingCode
+## Fusion Component
 
-The main Fusion component is [Carbon.Plausible:Component.TrackingCode]. This component gets included into [Neos.Neos:Page] under the path `plausibleTrackingCode`. So if you want to add a [custom event] to a ceratin document, you can do it like this:
+The main Fusion component is [Carbon.Plausible:Component.TrackingCode]. This component gets included into [Neos.Neos:Page] under the path `plausibleTrackingCode`. So if you want to add a [custom event][custom events] to a ceratin document, you can do it like this:
 
 ```
 prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
