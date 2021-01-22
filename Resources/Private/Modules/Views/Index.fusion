@@ -129,6 +129,9 @@ Carbon.Plausible.PlausibleController {
                 >
                     <i class='fas fa-check'></i> Track visits in this browser
                 </button>
+                <a class='neos-button' href='https://plausible.io/docs' target='_blank' rel='nofollow noopener'>
+                    <i class='fas fa-book'></i> Open documentation
+                </a>
             </div>
         `
     }
