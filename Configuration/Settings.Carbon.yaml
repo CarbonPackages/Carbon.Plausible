@@ -1,0 +1,13 @@
+Carbon:
+  Plausible:
+    enable: false
+    default:
+      host: null
+      domain: null
+      outboundLinks: false
+      customEvents: false
+    # sites:
+    #   rootNodeName:
+    #     host: stats.domain.tld
+    #     domain: domain.tld
+    #     outboundLinks: true

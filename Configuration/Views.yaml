@@ -1,0 +1,6 @@
+- requestFilter: 'isPackage("Carbon.Plausible") && isController("Plausible")'
+  viewObjectName: 'Neos\Fusion\View\FusionView'
+  options:
+    fusionPathPatterns:
+      - 'resource://Neos.Fusion/Private/Fusion'
+      - 'resource://Carbon.Plausible/Private/Modules'

@@ -1,0 +1,38 @@
+prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Component) {
+    enable = ${Configuration.setting('Carbon.Plausible.enable')}
+    disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
+
+    defaultSettings = ${Configuration.setting('Carbon.Plausible.default')}
+    siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
+    siteSettings.@process {
+        isDefined = ${Type.isArray(value) && Type.isArray(value[site.name]) ? value[site.name] : this.defaultSettings}
+    }
+
+    host = ${this.siteSettings.host || this.defaultSettings.host}
+    domain = ${this.siteSettings.domain || this.defaultSettings.domain}
+    outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
+    customEvents = ${Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
+
+    async = true
+    defer = true
+
+    // Internal
+    requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
+
+    @if {
+        isEnabled = ${this.enable && !this.disableBecauseOfCookie}
+        notInBackend = ${!node.context.inBackend}
+        hasDomain = ${this.domain}
+        domainIsTheSameAsRequestDomain = ${this.domain == this.requestMainDomain}
+    }
+
+    renderer = afx`
+        <script async={props.async} defer={props.defer} data-domain={props.domain}>
+            <Carbon.Plausible:Helper.Src @path='attributes.src' {...props} />
+        </script>
+        <script @if.set={props.customEvents}>
+            {'window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};'}
+            {Type.isString(props.customEvents) ? props.customEvents : ''}
+        </script>
+    `
+}

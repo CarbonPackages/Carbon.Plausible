@@ -1,0 +1,135 @@
+Carbon.Plausible.PlausibleController {
+    index = Neos.Fusion:Component {
+        settings = ${Configuration.setting('Carbon.Plausible')}
+        default = ${this.settings.default}
+
+        requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
+        disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
+
+        renderer = afx`
+            <h1 style='margin-bottom:20px'>
+                <img width='152' alt='Plausible'>
+                    <Neos.Fusion:ResourceUri @path='attributes.src' path='resource://Carbon.Plausible/Public/Logo.png' />
+                </img>
+            </h1>
+
+            <h2 style='font-size:18px;margin:2em 0 1em'>
+                <i class='fas fa-check' style='color:#00a338;margin-right:0.5em' @if.set={props.settings.enable}></i>
+                <i class='fas fa-times' style='color:#ff8700;margin-right:0.5em' @if.set={!props.settings.enable}></i>
+                Plausible is {props.settings.enable ? 'enabled' : 'disabled'}
+            </h2>
+
+            <p>
+                Tracking from {props.requestMainDomain} is <strong style='font-weight:bold'>{props.disableBecauseOfCookie ? 'disabled' : 'enabled'}</strong> in this browser
+            </p>
+
+            <h2 style='font-size:18px;margin:2em 0 1em'>Default settings</h2>
+            <table class='neos-table'>
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                        <th>Fallback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <Carbon.Plausible:Component.StringValue
+                        label='host'
+                        value={props.default.host}
+                        required={false}
+                        fallback='plausible.io'
+                    />
+                    <Carbon.Plausible:Component.StringValue
+                        label='domain'
+                        value={props.default.domain}
+                        required={true}
+                    />
+                    <Carbon.Plausible:Component.BooleanValue
+                        label='outboundLinks'
+                        value={props.default.outboundLinks}
+                    />
+                    <Carbon.Plausible:Component.BooleanValue
+                        label='customEvents'
+                        value={props.default.customEvents}
+                    />
+                    <tr>
+                        <td width='1%' style='white-space:nowrap'>Resulting Javascript source</td>
+                        <td colspan='2'><code><Carbon.Plausible:Helper.Src {...props.default} /></code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 style='font-size:18px;margin:2em 0 1em'>Site mapping</h2>
+            <p @if.set={!props.settings.sites}>No site mapping set.</p>
+            <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+                <table class='neos-table'>
+                    <thead>
+                        <tr>
+                            <th>Root node name</th>
+                            <th colspan='2'>{itemKey}</th>
+                        </tr>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th>Fallback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <Carbon.Plausible:Component.StringValue
+                            label='host'
+                            value={item.host}
+                            required={false}
+                            fallback={props.default.host || 'plausible.io'}
+                        />
+                        <Carbon.Plausible:Component.StringValue
+                            label='domain'
+                            value={item.domain}
+                            required={true}
+                            fallback={props.default.domain}
+                        />
+                        <Carbon.Plausible:Component.BooleanValue
+                            label='outboundLinks'
+                            value={item.outboundLinks}
+                            fallback={props.default.outboundLinks}
+                        />
+                        <Carbon.Plausible:Component.BooleanValue
+                            label='customEvents'
+                            value={item.customEvents}
+                            fallback={props.default.customEvents}
+                        />
+                        <tr>
+                            <td width='1%' style='white-space:nowrap'>Resulting Javascript source</td>
+                            <td colspan='2'><code>
+                                <Carbon.Plausible:Helper.Src
+                                    host={item.host || props.default.host}
+                                    domain={item.domain || props.default.domain}
+                                    outboundLinks={Type.isBoolean(item.outboundLinks) ?item.outboundLinks : props.default.outboundLinks}
+                                />
+                            </code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </Neos.Fusion:Loop>
+
+            <div class='neos-footer'>
+                <button
+                    type='button'
+                    onclick={'setCookie("' + props.requestMainDomain + '")'}
+                    class='neos-button neos-button-primary'
+                    @if.set={!props.disableBecauseOfCookie}
+                >
+                    <i class='fas fa-times'></i> Don't track visits in this browser
+                </button>
+                <button
+                    type='button'
+                    onclick={'deleteCookie("' + props.requestMainDomain + '")'}
+                    class='neos-button'
+                    @if.set={props.disableBecauseOfCookie}
+                >
+                    <i class='fas fa-check'></i> Track visits in this browser
+                </button>
+            </div>
+        `
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "carbon/plausible",
+    "type": "neos-carbon",
+    "description": "Track visits of your Neos site with plausible.io",
+    "require": {
+        "neos/neos": "^5.0 || ^7.0",
+        "neos/fusion-afx": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Carbon\\Plausible\\": "Classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://jonnitto.ch",
+            "role": "Developer"
+        }
+    ]
+}

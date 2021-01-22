@@ -1,0 +1,5 @@
+prototype(Neos.Neos:Page) {
+    plausibleTrackingCode = Carbon.Plausible:Component.TrackingCode {
+        @position = 'before closingHeadTag 100'
+    }
+}

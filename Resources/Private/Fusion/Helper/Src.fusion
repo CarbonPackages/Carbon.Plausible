@@ -1,0 +1,14 @@
+prototype(Carbon.Plausible:Helper.Src) < prototype(Neos.Fusion:Component) {
+    host = null
+    host.@process.fallback = ${value || 'plausible.io'}
+    outboundLinks = null
+
+    renderer = Neos.Fusion:Join {
+        protocol = 'https://'
+        host = ${props.host}
+        jsFolder = '/js/'
+        filename = ${props.host != 'plausible.io' ? 'index' : 'plausible'}
+        outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
+        fileextension = '.js'
+    }
+}
