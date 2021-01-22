@@ -2,6 +2,8 @@
 
 # Carbon.Plausible Package for Neos CMS
 
+[![screenshot]]
+
 ## Installation
 
 ```bash
@@ -18,4 +20,4 @@ composer require carbon/plausible
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-
+[screenshot]: https://user-images.githubusercontent.com/4510166/105513189-4e364880-5cd2-11eb-9d83-7ecad484c736.png
