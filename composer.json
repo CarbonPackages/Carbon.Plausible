@@ -9,7 +9,7 @@
         "neos/fusion-afx": "*"
     },
     "suggest": {
-        "neos/seo": "SEO configuration and tools for Neos.",
+        "neos/seo": "SEO configuration and tools for Neos."
     },
     "autoload": {
         "psr-4": {
