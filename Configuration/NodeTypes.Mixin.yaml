@@ -1,0 +1,11 @@
+'Carbon.Plausible.Mixin:DoNotTrack':
+  abstract: true
+  properties:
+    plausibleDoNotTrack:
+      type: boolean
+      ui:
+        label: 'Do not track on Plausible'
+        reloadIfChanged: true
+        inspector:
+          group: seometa
+          position: 300

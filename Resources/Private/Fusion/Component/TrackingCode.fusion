@@ -1,6 +1,7 @@
 prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Component) {
     enable = ${Configuration.setting('Carbon.Plausible.enable')}
     disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
+    doNotTrack = ${q(node).is('[instanceof Carbon.Plausible.Mixin:DoNotTrack]') && q(node).property('plausibleDoNotTrack')}
 
     defaultSettings = ${Configuration.setting('Carbon.Plausible.default')}
     siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
@@ -20,7 +21,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
 
     @if {
-        isEnabled = ${this.enable && !this.disableBecauseOfCookie}
+        isEnabled = ${this.enable && !this.disableBecauseOfCookie && !this.doNotTrack}
         notInBackend = ${!node.context.inBackend}
         hasDomain = ${this.domain}
         domainIsTheSameAsRequestDomain = ${this.domain == this.requestMainDomain}
