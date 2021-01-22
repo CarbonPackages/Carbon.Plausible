@@ -2,21 +2,94 @@
 
 # Carbon.Plausible Package for Neos CMS
 
+Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 
-## Backend module to check the settings
+## Introduction
 
-You can also set a cookie for the current domain to opt-out for tracking
+[Plausible] is a lightweight and open-source website analytics tool. It doesn’t use cookies and is fully compliant with GDPR, CCPA, and PECR. This plugin is meant to remove all friction from adding the [Plausible Analytics tracking script code] to your Neos site. All you need to do is define your [Plausible domain] in your Neos [`Settings.yaml`] file.
+
+## Features
+
+-   Multi-site compatibility
+-   Backend module
+-   Check if the requested domain matches the defined domain to track
+-   Enabled per default only on `Production` environment
+
+### Multi-site compatibility
+
+If you run a multi-site setup, we got you covered! You can set different trackings for the sites based on the root node name.
+
+### Backend module
+
+This package adds a backend module to your Neos instance, which helps check your configuration and opt-out your browser for tracking.
 
 ![screenshot of backend module]
 
-## NodeType mixins for disable tracking on a document or set custom events
+It also checks if the resulting javascript path don't return a 404 error:
+
+![error in the backend module]
+
+### NodeType mixins for disable tracking on a document or set custom events
+
+This package contains two mixins:
+
+-   [Carbon.Plausible.Mixin:CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
+-   [Carbon.Plausible.Mixin:DoNotTrack]: This allows you to disable the tracking for a specific document
 
 ![video of the inspector]
 
 ## Installation
 
+Run the following command in your site package
+
 ```bash
-composer require carbon/plausible
+composer require --no-update carbon/plausible
+```
+
+Then run `composer update` in your project root.
+
+## Configuration
+
+### Single-site setup
+
+If you have a single site setup, you can adjust the configuration under the key `Carbon.Plausible.default` in your [`Settings.yaml`]:
+
+| Key             | Default | Description                                                                                                                                                                                                                                                |
+| --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `domain`        | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                  |
+| `host`          | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                       |
+| `outboundLinks` | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                  |
+| `customEvents`  | `false` | If you want to set [custom events] in your javascript, set this to `true`. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] Mmixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. |
+
+### Multisite setup
+
+If you run multiple sites on one Neos installation, you can set this under the key `Carbon.Plausible.sites` in your [`Settings.yaml`]. Be aware that if you set one value in `Carbon.Plausible.default`, these are set as the new fallback value. For example, if you set `Carbon.Plausible.default.outboundLinks` to `true`, is `outboundLinks` set to `true` per default for all sites. Of course, you can disable this again if you set this to `false` on your site setting.
+
+Example:
+
+```yaml
+Carbon:
+    Plausible:
+        enable: false
+        sites:
+            myfirstsite:
+                host: stats.domain.com
+                domain: domain.com
+                outboundLinks: true
+            mysecondsite:
+                domain: domain.org
+```
+
+The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
+
+## Carbon.Plausible:Component.TrackingCode
+
+The main Fusion component is [Carbon.Plausible:Component.TrackingCode]. This component gets included into [Neos.Neos:Page] under the path `plausibleTrackingCode`. So if you want to add a [custom event] to a ceratin document, you can do it like this:
+
+```
+prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
+    plausibleTrackingCode.customEvents = 'plausible("404",{ props: { path: document.location.pathname } });'
+}
 ```
 
 [packagist]: https://packagist.org/packages/carbon/plausible
@@ -30,4 +103,17 @@ composer require carbon/plausible
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
 [screenshot of backend module]: https://user-images.githubusercontent.com/4510166/105546720-01686700-5cfe-11eb-8d7b-e96c2c394a4c.png
+[error in the backend module]: https://user-images.githubusercontent.com/4510166/105556701-d2a4bd80-5d0a-11eb-91c8-f6753fca1991.png
 [video of the inspector]: https://user-images.githubusercontent.com/4510166/105546876-29f06100-5cfe-11eb-98d3-a5f37ad5af2a.gif
+[neos]: https://www.neos.io
+[plausible]: https://plausible.io
+[plausible analytics tracking script code]: https://docs.plausible.io/plausible-script
+[plausible domain]: https://docs.plausible.io/add-website
+[carbon.plausible.mixin:customevent]: Configuration/NodeTypes.Mixin.CustomEvent.yaml
+[carbon.plausible.mixin:donottrack]: Configuration/NodeTypes.Mixin.DoNotTrack.yaml
+[custom events]: https://plausible.io/docs/custom-event-goals
+[`settings.yaml`]: Configuration/Settings.Carbon.yaml
+[custom domain]: https://plausible.io/docs/custom-domain
+[outbound link click tracking]: https://plausible.io/docs/outbound-link-click-tracking
+[carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
+[neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion
