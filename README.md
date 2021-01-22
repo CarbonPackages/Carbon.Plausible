@@ -2,7 +2,7 @@
 
 # Carbon.Plausible Package for Neos CMS
 
-[![screenshot]]
+![screenshot]
 
 ## Installation
 
