@@ -8,6 +8,9 @@
         "neos/neos": "^5.0 || ^7.0",
         "neos/fusion-afx": "*"
     },
+    "suggest": {
+        "neos/seo": "SEO configuration and tools for Neos.",
+    },
     "autoload": {
         "psr-4": {
             "Carbon\\Plausible\\": "Classes"
