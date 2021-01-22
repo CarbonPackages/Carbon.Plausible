@@ -2,7 +2,16 @@
 
 # Carbon.Plausible Package for Neos CMS
 
-![screenshot]
+
+## Backend module to check the settings
+
+You can also set a cookie for the current domain to opt-out for tracking
+
+![screenshot of backend module]
+
+## NodeType mixins for disable tracking on a document or set custom events
+
+![video of the inspector]
 
 ## Installation
 
@@ -20,4 +29,5 @@ composer require carbon/plausible
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot]: https://user-images.githubusercontent.com/4510166/105513189-4e364880-5cd2-11eb-9d83-7ecad484c736.png
+[screenshot of backend module]: https://user-images.githubusercontent.com/4510166/105546720-01686700-5cfe-11eb-8d7b-e96c2c394a4c.png
+[video of the inspector]: https://user-images.githubusercontent.com/4510166/105546876-29f06100-5cfe-11eb-98d3-a5f37ad5af2a.gif
