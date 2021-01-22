@@ -3,6 +3,10 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
     doNotTrack = ${q(node).is('[instanceof Carbon.Plausible.Mixin:DoNotTrack]') && q(node).property('plausibleDoNotTrack')}
 
+    hasCustomEventMixin = ${q(node).is('[instanceof Carbon.Plausible.Mixin:CustomEvent]')}
+    eventName = ${this.hasCustomEventMixin ? q(node).property('plausibleCustomEventName') : null}
+    eventJSON = ${this.eventName ? String.trim(q(node).property('plausibleCustomEventJSON')) : null}
+
     defaultSettings = ${Configuration.setting('Carbon.Plausible.default')}
     siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
     siteSettings.@process {
@@ -17,23 +21,32 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     async = true
     defer = true
 
-    // Internal
-    requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
-
     @if {
         isEnabled = ${this.enable && !this.disableBecauseOfCookie && !this.doNotTrack}
         notInBackend = ${!node.context.inBackend}
         hasDomain = ${this.domain}
-        domainIsTheSameAsRequestDomain = ${this.domain == this.requestMainDomain}
     }
 
-    renderer = afx`
-        <script async={props.async} defer={props.defer} data-domain={props.domain}>
-            <Carbon.Plausible:Helper.Src @path='attributes.src' {...props} />
-        </script>
-        <script @if.set={props.customEvents}>
-            {'window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};'}
-            {Type.isString(props.customEvents) ? props.customEvents : ''}
-        </script>
-    `
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+        requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
+
+        eventFromNode = afx`
+            plausible('{props.eventName}'{props.eventJSON ? ',' + props.eventJSON : ''})
+        `
+        eventFromNode.@if.set = ${props.eventName}
+
+        @if.domainIsTheSameAsRequestDomain = ${props.domain == this.requestMainDomain}
+
+        renderer = afx`
+            <script async={props.async} defer={props.defer} data-domain={props.domain}>
+                <Carbon.Plausible:Helper.Src @path='attributes.src' {...props} />
+            </script>
+            <script @if.set={props.customEvents || props.eventFromNode}>
+                {'window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};'}
+                {props.eventFromNode}
+                {Type.isString(props.customEvents) ? props.customEvents : ''}
+            </script>
+        `
+    }
 }

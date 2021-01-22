@@ -1,0 +1,45 @@
+'Carbon.Plausible.Mixin:CustomEvent':
+  abstract: true
+  properties:
+    plausibleCustomEventName:
+      type: string
+      ui:
+        label: 'Plausible custom event name'
+        help:
+          message: 'Add here the exact custom event name, who you have entered on your settings page on plausible.io. The event name can be anything. [More information](https://plausible.io/docs/custom-event-goals)'
+        reloadIfChanged: false
+        inspector:
+          group: seometa
+          position: 310
+      validation:
+        Neos.Neos/Validation/LabelValidator: []
+    plausibleCustomEventJSON:
+      type: string
+      ui:
+        label: 'Plausible custom event options'
+        help:
+          message: 'As a second parameter, you can also send an object with options. The supported options at the moment are:  
+
+            **`callback`** – a function that is called once the event is logged successfully  
+
+            **`props`** – an object with custom properties for the event  
+
+            Examle:  
+            ```
+              { props: { path: document.location.pathname }, callback: myFunction() }
+            ```'
+        reloadIfChanged: false
+        inspector:
+          group: seometa
+          position: 320
+          hidden: 'ClientEval:node.properties.plausibleCustomEventName ? false : true'
+          editor: 'Neos.Neos/Inspector/Editors/CodeEditor'
+          editorOptions:
+            buttonLabel: 'Edit JSON'
+            highlightingMode: 'text/javascript'
+            placeholder: '{ props: { path: document.location.pathname }, callback: myFunction() }'
+      validation:
+        Neos.Neos/Validation/StringValidator: []
+        Neos.Neos/Validation/RegularExpressionValidator:
+          # Very basic JSON validation
+          regularExpression: '/^\s*\{.*\:.*\}\s*$/'
