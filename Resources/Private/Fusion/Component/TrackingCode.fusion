@@ -16,6 +16,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     domain = ${this.siteSettings.domain || this.defaultSettings.domain}
     outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
     hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
+    exclusions = ${this.siteSettings.exclusions || Type.isBoolean(this.siteSettings.exclusions) ? this.siteSettings.exclusions : this.defaultSettings.exclusions}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
 
     async = true
@@ -36,6 +37,11 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
 
         eventFromNode = afx`plausible('{props.eventName}'{props.eventJSON ? ',' + props.eventJSON : ''})`
         eventFromNode.@if.hasEventName = ${props.eventName}
+        dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
+        dataExclude.@if {
+            exclusionIsSet = ${props.exclusions}
+            isStringOrArray = ${Type.isString(props.exclusions) || (Type.isArray(props.exclusions) && Array.length(props.exclusions))}
+        }
 
         @if {
             hasDomain = ${this.domain}
@@ -47,6 +53,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 async={props.async}
                 defer={props.defer}
                 data-domain={props.domain}
+                data-exclude={props.dataExclude}
             >
                 <Carbon.Plausible:Component.Src @path='attributes.src' {...props} />
             </script>
