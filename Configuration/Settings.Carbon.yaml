@@ -2,8 +2,8 @@ Carbon:
   Plausible:
     enable: false
     default:
-      host: null
       domain: null
+      host: null
       outboundLinks: false
       customEvents: false
     # sites:
