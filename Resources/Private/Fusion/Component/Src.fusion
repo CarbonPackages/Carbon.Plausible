@@ -10,9 +10,9 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
         host = ${props.host}
         jsFolder = '/js/'
         filename = ${props.host != 'plausible.io' ? 'index' : 'plausible'}
-        outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
         hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
         exclusions = ${props.exclusions ? '.exclusions' : ''}
+        outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
         fileextension = '.js'
     }
 }
