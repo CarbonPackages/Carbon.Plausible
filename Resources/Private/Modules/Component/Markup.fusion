@@ -1,0 +1,29 @@
+prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Component.TrackingCode) {
+    enable = true
+    disableBecauseOfCookie = false
+    doNotTrack = false
+    hasCustomEventMixin = null
+    eventName = null
+    eventJSON = null
+
+    siteName = null
+
+    checkIfDomainIsTheSameAsRequest = false
+
+    @if.notInBackend = true
+    renderer.@process.wrap = afx`
+        <code style='display:block;padding:16px;background:#141414'>
+            {String.htmlSpecialChars(value)}
+        </code>
+    `
+
+    @process.wrap = afx`
+        <h3 style='margin:2em 0 1em'>Resulting Markup</h3>
+        <div class='-js-source-check' style='margin:0 0 2em'>
+            {value}
+            <p class='neos-hide -js-error-domain' style='background:#ff8700;padding:16px'><strong style='font-weight:bold'>No domain defined.</strong> Please update your configuration.</p>
+            <p class='neos-hide -js-error-host' style='background:#ff8700;padding:16px'><strong style='font-weight:bold'>The requested source returns a 404 error.</strong> Please check your host url.</p>
+            <p class='neos-hide -js-error-plausible' style='background:#ff8700;padding:16px'><strong style='font-weight:bold'>The host was found, but the file is not available on this server.</strong> Please check your settings</p>
+        </div>
+    `
+}

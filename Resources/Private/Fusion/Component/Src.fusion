@@ -1,4 +1,4 @@
-prototype(Carbon.Plausible:Helper.Src) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     host = null
     host.@process.fallback = ${value || 'plausible.io'}
     outboundLinks = null

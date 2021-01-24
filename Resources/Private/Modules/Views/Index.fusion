@@ -3,8 +3,10 @@ Carbon.Plausible.PlausibleController {
         settings = ${Configuration.setting('Carbon.Plausible')}
         default = ${this.settings.default}
 
-        requestMainDomain = Carbon.Plausible:Helper.RequestMainDomain
+        requestMainDomain = Carbon.Plausible:Component.RequestMainDomain
         disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
+
+        table = ${['domain', 'host', 'outboundLinks', 'customEvents']}
 
         renderer = afx`
             <h1 style='margin-bottom:20px'>
@@ -23,96 +25,54 @@ Carbon.Plausible.PlausibleController {
                 Tracking from {props.requestMainDomain} is <strong style='font-weight:bold'>{props.disableBecauseOfCookie ? 'disabled' : 'enabled'}</strong> in this browser
             </p>
 
-            <h2 style='font-size:18px;margin:2em 0 1em'>Default settings</h2>
-            <table class='neos-table'>
-                <thead>
-                    <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                        <th>Fallback</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <Carbon.Plausible:Component.StringValue
-                        label='host'
-                        value={props.default.host}
-                        required={false}
-                        fallback='plausible.io'
-                    />
-                    <Carbon.Plausible:Component.StringValue
-                        label='domain'
-                        value={props.default.domain}
-                        required={true}
-                    />
-                    <Carbon.Plausible:Component.BooleanValue
-                        label='outboundLinks'
-                        value={props.default.outboundLinks}
-                    />
-                    <Carbon.Plausible:Component.BooleanValue
-                        label='customEvents'
-                        value={props.default.customEvents}
-                    />
-                    <tr>
-                        <td width='1%' style='white-space:nowrap'>Resulting Javascript source</td>
-                        <td colspan='2'>
-                            <code class='-js-source-check'><Carbon.Plausible:Helper.Src {...props.default} /></code>
-                            <div class='neos-hide -js-source-invalid'><strong style='font-weight:bold'>The requested path returns a 404 error.</strong> Please check your settings.</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2 style='font-size:18px;margin:2em 0 1em'>Site mapping</h2>
-            <p @if.set={!props.settings.sites}>No site mapping set.</p>
-            <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+            <section>
+                <h2 style='font-size:18px;margin:2em 0 1em'>Default settings</h2>
                 <table class='neos-table'>
                     <thead>
                         <tr>
-                            <th>Root node name</th>
-                            <th colspan='2'>{itemKey}</th>
-                        </tr>
-                        <tr>
-                            <th>Key</th>
+                            <th width='1%'>Key</th>
                             <th>Value</th>
-                            <th>Fallback</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
-                        <Carbon.Plausible:Component.StringValue
-                            label='host'
-                            value={item.host}
-                            required={false}
-                            fallback={props.default.host || 'plausible.io'}
-                        />
-                        <Carbon.Plausible:Component.StringValue
-                            label='domain'
-                            value={item.domain}
-                            required={true}
-                            fallback={props.default.domain}
-                        />
-                        <Carbon.Plausible:Component.BooleanValue
-                            label='outboundLinks'
-                            value={item.outboundLinks}
-                            fallback={props.default.outboundLinks}
-                        />
-                        <Carbon.Plausible:Component.BooleanValue
-                            label='customEvents'
-                            value={item.customEvents}
-                            fallback={props.default.customEvents}
-                        />
-                        <tr>
-                            <td width='1%' style='white-space:nowrap'>Resulting Javascript source</td>
-                            <td colspan='2'><code>
-                                <Carbon.Plausible:Helper.Src
-                                    host={item.host || props.default.host}
-                                    domain={item.domain || props.default.domain}
-                                    outboundLinks={Type.isBoolean(item.outboundLinks) ?item.outboundLinks : props.default.outboundLinks}
-                                />
-                            </code></td>
-                        </tr>
+                        <Neos.Fusion:Loop items={props.table}>
+                            <Carbon.Plausible:Component.Value
+                                key={item}
+                                value={props.default[item]}
+                            />
+                        </Neos.Fusion:Loop>
                     </tbody>
                 </table>
+                <Carbon.Plausible:Component.Markup />
+            </section>
+
+            <h2 style='font-size:18px;margin:2em 0 1em'>Site mappings</h2>
+            <p @if.set={!props.settings.sites}>No site mapping set.</p>
+            <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+                <section>
+                    <table class='neos-table'>
+                        <thead>
+                            <tr>
+                                <th width='1%' style='white-space:nowrap'>Root node name</th>
+                                <th>{itemKey}</th>
+                            </tr>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <Neos.Fusion:Loop items={props.table} itemName='row'>
+                                <Carbon.Plausible:Component.Value
+                                    key={row}
+                                    value={item[row]}
+                                    fallback={props.default[row]}
+                                />
+                            </Neos.Fusion:Loop>
+                        </tbody>
+                    </table>
+                    <Carbon.Plausible:Component.Markup siteName={itemKey} />
+                </section>
             </Neos.Fusion:Loop>
 
             <div class='neos-footer'>

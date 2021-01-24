@@ -1,0 +1,42 @@
+prototype(Carbon.Plausible:Component.Value) < prototype(Neos.Fusion:Component) {
+    key = null
+    value = null
+    fallback = null
+
+    // Internal
+    isDomain = ${this.key == 'domain'}
+    domainValue = ${this.value || this.fallback}
+    hasString = ${this.value && Type.isString(this.value)}
+    valueIsBoolean = ${Type.isBoolean(this.value)}
+
+    @if.set = ${this.isDomain || this.valueIsBoolean || this.hasString}
+
+    renderer = afx`
+        <tr class={'-js-row-' + String.toLowercase(props.key)}>
+            <td>
+                {props.key}
+            </td>
+
+            <td @if.set={props.isDomain}>
+                <a
+                    @if.set={props.domainValue && Type.isString(props.domainValue)}
+                    href={'https://plausible.io/' + props.value}
+                    target='_blank'
+                    rel='nofollow noopener'
+                    title={'Open ' + props.domainValue + ' on plausible.io'}
+                >
+                    {props.domainValue}
+                </a>
+                {' '}
+                <small @if.set={!props.value && props.domainValue}>(Fallback)</small>
+                <code @if.set={!props.domainValue}>-</code>
+            </td>
+            <td @if.set={!props.isDomain && props.valueIsBoolean}>
+                <code>{props.value ? 'true' : 'false'}</code>
+            </td>
+            <td @if.set={!props.isDomain && !props.valueIsBoolean}>
+                {props.value}
+            </td>
+        </tr>
+    `
+}

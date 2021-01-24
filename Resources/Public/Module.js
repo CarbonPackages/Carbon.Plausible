@@ -13,16 +13,30 @@ function cookie(domain, maxAge) {
     window.location.reload();
 }
 
+function showMessage(element, key, hightlightRow) {
+    element.querySelector(".-js-error-" + key).classList.remove("neos-hide");
+    [...element.closest("section").querySelectorAll(".-js-row-" + key + " td")].forEach((td) => {
+        td.style.background = "#ff8700";
+    });
+}
+
 window.addEventListener("load", () => {
-    [...document.querySelectorAll(".-js-source-check")].forEach((code) => {
-        const source = code.innerText;
+    [...document.querySelectorAll(".-js-source-check")].forEach((element) => {
+        const code = element.querySelector("code");
+        const match = code ? code.innerText.match(/src="([^"]*)/) : null;
+        const source = match ? match[1] : null;
         if (source) {
-            fetch(source).catch((error) => {
-                code.parentNode.querySelector(".-js-source-invalid").classList.remove("neos-hide");
-                [...code.closest("tr").querySelectorAll("td")].forEach((td) => {
-                    td.style.background = "#ff8700";
+            fetch(source)
+                .then((response) => {
+                    if (response.status >= 300) {
+                        showMessage(element, "plausible");
+                    }
+                })
+                .catch((error) => {
+                    showMessage(element, "host", true);
                 });
-            });
+            return;
         }
+        showMessage(element, "domain", true);
     });
 });
