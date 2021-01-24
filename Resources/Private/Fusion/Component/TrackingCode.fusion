@@ -15,6 +15,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     host = ${this.siteSettings.host || this.defaultSettings.host}
     domain = ${this.siteSettings.domain || this.defaultSettings.domain}
     outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
+    hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
 
     async = true

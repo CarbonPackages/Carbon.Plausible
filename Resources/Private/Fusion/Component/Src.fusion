@@ -2,6 +2,7 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     host = null
     host.@process.fallback = ${value || 'plausible.io'}
     outboundLinks = null
+    hashBasedRouting = null
 
     renderer = Neos.Fusion:Join {
         protocol = 'https://'
@@ -9,6 +10,7 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
         jsFolder = '/js/'
         filename = ${props.host != 'plausible.io' ? 'index' : 'plausible'}
         outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
+        hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
         fileextension = '.js'
     }
 }

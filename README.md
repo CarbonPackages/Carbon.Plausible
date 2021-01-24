@@ -54,12 +54,13 @@ Then run `composer update` in your project root.
 
 If you have a single site setup, you can adjust the configuration under the key `Carbon.Plausible.default` in your [`Settings.yaml`]:
 
-| Key             | Default | Description                                                                                                                                                                                                                                                |
-| --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `domain`        | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                  |
-| `host`          | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                       |
-| `outboundLinks` | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                  |
-| `customEvents`  | `false` | If you want to set [custom events] in your javascript, set this to `true`. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] Mmixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. |
+| Key                | Default | Description                                                                                                                                                                                                                                                                                                                                  |
+| ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `domain`           | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                    |
+| `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                         |
+| `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                    |
+| `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                              |
+| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] mixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. |
 
 ### Multisite setup
 
@@ -70,7 +71,6 @@ Example:
 ```yaml
 Carbon:
     Plausible:
-        enable: false
         sites:
             myfirstsite:
                 host: stats.domain.com
@@ -78,6 +78,10 @@ Carbon:
                 outboundLinks: true
             mysecondsite:
                 domain: domain.org
+                hashBasedRouting: true
+            mythirdsite:
+                domain: domain.net
+                customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
 ```
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
@@ -115,5 +119,6 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [`settings.yaml`]: Configuration/Settings.Carbon.yaml
 [custom domain]: https://plausible.io/docs/custom-domain
 [outbound link click tracking]: https://plausible.io/docs/outbound-link-click-tracking
+[hash-based routing]: https://plausible.io/docs/hash-based-routing
 [carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
 [neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion

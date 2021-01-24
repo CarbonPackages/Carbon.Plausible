@@ -6,7 +6,7 @@ Carbon.Plausible.PlausibleController {
         requestMainDomain = Carbon.Plausible:Component.RequestMainDomain
         disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
 
-        table = ${['domain', 'host', 'outboundLinks', 'customEvents']}
+        table = ${['domain', 'host', 'outboundLinks', 'hashBasedRouting', 'customEvents']}
 
         renderer = afx`
             <h1 style='margin-bottom:20px'>
