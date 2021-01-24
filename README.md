@@ -25,7 +25,7 @@ This package adds a backend module to your Neos instance, which helps check your
 
 ![screenshot of backend module]
 
-It also checks if the resulting javascript path don't return a 404 error:
+It also checks if is something missing or wrong with the configuration:
 
 ![error in the backend module]
 
