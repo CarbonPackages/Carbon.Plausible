@@ -2,6 +2,11 @@ Neos:
   Fusion:
     defaultContext:
       Carbon.Plausible: 'Carbon\Plausible\EelHelper\PlausibleHelper'
+  Flow:
+    mvc:
+      routes:
+        'Carbon.Plausible':
+          position: 'start'
   Neos:
     fusion:
       autoInclude:

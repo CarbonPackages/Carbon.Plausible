@@ -40,7 +40,11 @@ This package contains two mixins:
 
 ### Set cookie for disabling tracking
 
-Every editor can easily set a cookie to disable tracking for the current browser.
+By default, Plausible Analytics tracks every visitor to your website. When you're working on your site, you might not want to record your own visits and page views. To block your (and your co-workers) page views from your Plausible Analytics stats dashboard, you have the following options:
+
+-   Go to `your-domain.tld/~/disable-tracking`. This sets the cookie and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
+-   As an Administrator, you can enable/disable the cookie also in the Plausible administration module: `your-domain.tld/neos/administration/plausible`
+-   Editors can also enable/disable the cookie by clicking a button in the primary toolbar:
 
 ![set cookie in the inspector]
 
