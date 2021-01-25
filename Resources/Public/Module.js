@@ -15,9 +15,11 @@ function cookie(domain, maxAge) {
 
 function showMessage(element, key, hightlightRow) {
     element.querySelector(".-js-error-" + key).classList.remove("neos-hide");
-    [...element.closest("section").querySelectorAll(".-js-row-" + key + " td")].forEach((td) => {
-        td.style.background = "#ff8700";
-    });
+    if (hightlightRow) {
+        [...element.closest("section").querySelectorAll(".-js-row-" + key + " td")].forEach((td) => {
+            td.style.background = "#ff8700";
+        });
+    }
 }
 
 window.addEventListener("load", () => {
