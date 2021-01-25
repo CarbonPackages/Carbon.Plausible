@@ -1,7 +1,4 @@
 prototype(Carbon.Plausible:Component.RequestMainDomain) < prototype(Neos.Fusion:Value) {
     value = ${BaseUri.getConfiguredBaseUriOrFallbackToCurrentRequest(request.httpRequest)}
-    value.@process {
-        withoutProtocol = ${String.pregMatch(value, '/\/\/([^\/]*)/')[1]}
-        mainDomain = ${Array.join(Array.slice(String.split(value, '.'), -2), '.')}
-    }
+    value.@process.mainDomain = ${Carbon.Plausible.mainDomain(value)}
 }

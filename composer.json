@@ -6,7 +6,8 @@
     "keywords": ["flow", "neos", "analytics", "plausible", "carbon"],
     "require": {
         "neos/neos": "^5.0 || ^7.0",
-        "neos/fusion-afx": "*"
+        "neos/fusion-afx": "*",
+        "tedivm/jshrink": "^1.4"
     },
     "suggest": {
         "neos/seo": "SEO configuration and tools for Neos."

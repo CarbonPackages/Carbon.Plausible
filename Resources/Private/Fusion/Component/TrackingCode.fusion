@@ -35,12 +35,19 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             @if.shouldCheck = ${props.checkIfDomainIsTheSameAsRequest}
         }
 
-        eventFromNode = afx`plausible('{props.eventName}'{props.eventJSON ? ',' + props.eventJSON : ''})`
-        eventFromNode.@if.hasEventName = ${props.eventName}
         dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
         dataExclude.@if {
             exclusionIsSet = ${props.exclusions}
             isStringOrArray = ${Type.isString(props.exclusions) || (Type.isArray(props.exclusions) && Array.length(props.exclusions))}
+        }
+
+        inlineJavascript = Neos.Fusion:DataStructure {
+            plausibleVariable = 'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }'
+            eventFromNode = ${'plausible("' + props.eventName + '"' + (props.eventJSON ? ',' + props.eventJSON : '') + ')'}
+            eventFromNode.@if.hasEventName = ${props.eventName}
+            customEvents = ${Type.isString(props.customEvents) ? props.customEvents : null}
+            @if.set = ${props.customEvents || props.eventName}
+            @process.filter = ${Array.join(Array.filter(value, line => !!line), ';')}
         }
 
         @if {
@@ -57,10 +64,8 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             >
                 <Carbon.Plausible:Component.Src @path='attributes.src' {...props} />
             </script>
-            <script @if.set={props.customEvents || props.eventFromNode}>
-                {'window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};'}
-                {props.eventFromNode}
-                {Type.isString(props.customEvents) ? props.customEvents : ''}
+            <script @if.set={props.inlineJavascript}>
+                {Carbon.Plausible.minifyJS(props.inlineJavascript)}
             </script>
         `
     }
