@@ -23,7 +23,7 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
                     href={'https://plausible.io/' + props.value}
                     target='_blank'
                     rel='nofollow noopener'
-                    title={Translation.translate('openOnPlausible', 'Open ' + props.domainValue + ' on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
+                    title={Translation.translate('openOnPlausible', 'Open {0} on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
                 >
                     {props.domainValue}
                 </a>
