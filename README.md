@@ -25,7 +25,7 @@ This package adds a backend module to your Neos instance, which helps check your
 
 ![screenshot of backend module]
 
-It also checks if is something missing or wrong with the configuration:
+It also checks if the resulting javascript path doesn’t return a 404 error:
 
 ![error in the backend module]
 
@@ -36,7 +36,13 @@ This package contains two mixins:
 -   [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
 -   [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
 
-![video of the inspector]
+![set options in the inspector]
+
+### Set cookie for disabling tracking
+
+Every editor can easily set a cookie to disable tracking for the current browser.
+
+![set cookie in the inspector]
 
 ## Installation
 
@@ -54,15 +60,15 @@ Then run `composer update` in your project root.
 
 If you have a single site setup, you can adjust the configuration under the key `Carbon.Plausible.default` in your [`Settings.yaml`]:
 
-| Key                | Default | Description                                                                                                                                                                                                                                                                                                                                  |
-| ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `domain`           | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                    |
-| `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                         |
-| `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                    |
-| `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                              |
-| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] mixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. |
+| Key                | Default | Description                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `domain`           | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
+| `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
+| `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
+| `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
+| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] mixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get’s minified with [JShrink] |
 
-### Multisite setup
+### Multi-site setup
 
 If you run multiple sites on one Neos installation, you can set this under the key `Carbon.Plausible.sites` in your [`Settings.yaml`]. Be aware that if you set one value in `Carbon.Plausible.default`, these are set as the new fallback value. For example, if you set `Carbon.Plausible.default.outboundLinks` to `true`, is `outboundLinks` set to `true` per default for all sites. Of course, you can disable this again if you set this to `false` on your site setting.
 
@@ -108,7 +114,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
 [screenshot of backend module]: https://user-images.githubusercontent.com/4510166/105641464-66e66000-5e84-11eb-86bb-5cc3b9d1e563.png
 [error in the backend module]: https://user-images.githubusercontent.com/4510166/105641443-4f0edc00-5e84-11eb-8c97-085d8157fc53.png
-[video of the inspector]: https://user-images.githubusercontent.com/4510166/105546876-29f06100-5cfe-11eb-98d3-a5f37ad5af2a.gif
+[set cookie in the inspector]: https://user-images.githubusercontent.com/4510166/105755892-3669f900-5f4c-11eb-96ef-4a6db137a936.gif
+[set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
 [plausible]: https://plausible.io
 [plausible analytics tracking script code]: https://docs.plausible.io/plausible-script
@@ -122,3 +129,4 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [hash-based routing]: https://plausible.io/docs/hash-based-routing
 [carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
 [neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion
+[jshrink]: https://github.com/tedious/JShrink
