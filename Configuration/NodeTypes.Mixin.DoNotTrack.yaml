@@ -1,4 +1,4 @@
-'Carbon.Plausible.Mixin:DoNotTrack':
+'Carbon.Plausible:Mixin.DoNotTrack':
   abstract: true
   properties:
     plausibleDoNotTrack:

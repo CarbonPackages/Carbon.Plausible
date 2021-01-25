@@ -33,8 +33,8 @@ It also checks if is something missing or wrong with the configuration:
 
 This package contains two mixins:
 
--   [Carbon.Plausible.Mixin:CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
--   [Carbon.Plausible.Mixin:DoNotTrack]: This allows you to disable the tracking for a specific document
+-   [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
+-   [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
 
 ![video of the inspector]
 
@@ -113,8 +113,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [plausible]: https://plausible.io
 [plausible analytics tracking script code]: https://docs.plausible.io/plausible-script
 [plausible domain]: https://docs.plausible.io/add-website
-[carbon.plausible.mixin:customevent]: Configuration/NodeTypes.Mixin.CustomEvent.yaml
-[carbon.plausible.mixin:donottrack]: Configuration/NodeTypes.Mixin.DoNotTrack.yaml
+[carbon.plausible:mixin.customevent]: Configuration/NodeTypes.Mixin.CustomEvent.yaml
+[carbon.plausible:mixin.donottrack]: Configuration/NodeTypes.Mixin.DoNotTrack.yaml
 [custom events]: https://plausible.io/docs/custom-event-goals
 [`settings.yaml`]: Configuration/Settings.Carbon.yaml
 [custom domain]: https://plausible.io/docs/custom-domain
