@@ -15,6 +15,10 @@
                 <source>Tracking</source>
                 <target>Tracking</target>
             </trans-unit>
+            <trans-unit id="disableCookie" xml:space="preserve">
+                <source>Tracking for {0} from this browser is now disabled</source>
+                <target>Tracking von {0} ist in diesem Browser nun deaktiviert</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

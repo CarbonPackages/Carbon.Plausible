@@ -6,7 +6,7 @@ Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 
 ## Introduction
 
-[Plausible] is a lightweight and open-source website analytics tool. It doesn’t use cookies and is fully compliant with GDPR, CCPA, and PECR. This plugin is meant to remove all friction from adding the [Plausible Analytics tracking script code] to your Neos site. All you need to do is define your [Plausible domain] in your Neos [`Settings.yaml`] file.
+[Plausible] is a lightweight and open-source website analytics tool. It doesn't use cookies and is fully compliant with GDPR, CCPA, and PECR. This plugin is meant to remove all friction from adding the [Plausible Analytics tracking script code] to your Neos site. All you need to do is define your [Plausible domain] in your Neos [`Settings.yaml`] file.
 
 ## Features
 
@@ -25,7 +25,7 @@ This package adds a backend module to your Neos instance, which helps check your
 
 ![screenshot of backend module]
 
-It also checks if the resulting javascript path doesn’t return a 404 error:
+It also checks if the resulting javascript path doesn't return a 404 error:
 
 ![error in the backend module]
 
@@ -40,7 +40,11 @@ This package contains two mixins:
 
 ### Set cookie for disabling tracking
 
-Every editor can easily set a cookie to disable tracking for the current browser.
+By default, Plausible Analytics tracks every visitor to your website. When you're working on your site, you might not want to record your own visits and page views. To block your (and your co-workers) page views from your Plausible Analytics stats dashboard, you have the following options:
+
+-   Go to `your-domain.tld/~/disable-tracking`. This sets the cookie and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
+-   As an Administrator, you can enable/disable the cookie also in the Plausible administration module: `your-domain.tld/neos/administration/plausible`
+-   Editors can also enable/disable the cookie by clicking a button in the primary toolbar:
 
 ![set cookie in the inspector]
 
@@ -67,7 +71,7 @@ If you have a single site setup, you can adjust the configuration under the key 
 | `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
 | `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
 | `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the [exclusion variant], set this to `true`                                                                                                                                                                                                                  |
-| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible.Mixin:CustomEvent] mixin, you don’t have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get’s minified with [JShrink] |
+| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
 
 ### Multi-site setup
 

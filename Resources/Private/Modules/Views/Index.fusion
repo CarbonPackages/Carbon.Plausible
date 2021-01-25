@@ -33,10 +33,10 @@ Carbon.Plausible.PlausibleController {
             </h2>
 
             <p @if.set={props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.disabled', 'Tracking from ' + props.requestMainDomain + ' is <strong>disabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
+                {Translation.translate('cookieStatus.disabled', 'Tracking from {0} is <strong>disabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
             </p>
             <p @if.set={!props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.enabled', 'Tracking from ' + props.requestMainDomain + ' is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
+                {Translation.translate('cookieStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
             </p>
 
 

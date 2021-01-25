@@ -1,0 +1,12 @@
+- name: 'Set cookie for disable tracking'
+  uriPattern: '{node}~/disable-tracking'
+  defaults:
+    '@package': 'Neos.Neos'
+    '@controller': 'Frontend\Node'
+    '@action': 'show'
+    'disablePlausibleTracking': true
+  routeParts:
+    node:
+      handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
+      options:
+        onlyMatchSiteNodes: true
