@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="properties.plausibleDoNotTrack" xml:space="preserve">
+                <source>Exclude from web-analytics</source>
+                <target>Von der Web-Statistik auschließen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
+

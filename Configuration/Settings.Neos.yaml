@@ -3,6 +3,12 @@ Neos:
     fusion:
       autoInclude:
         Carbon.Plausible: true
+    userInterface:
+      translation:
+        autoInclude:
+          Carbon.Plausible:
+            - Main
+            - 'NodeTypes/*'
     modules:
       administration:
         submodules:
@@ -13,6 +19,9 @@ Neos:
             controller: \Carbon\Plausible\Controller\PlausibleController
             privilegeTarget: 'Carbon.Plausible:ViewConfiguration'
             position: end
+            mainStylesheet: Lite
             additionalResources:
               javaScripts:
                 - 'resource://Carbon.Plausible/Public/Module.js'
+              styleSheets:
+                - 'resource://Carbon.Plausible/Public/Module.css'

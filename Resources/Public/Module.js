@@ -14,16 +14,17 @@ function cookie(domain, maxAge) {
 }
 
 function showMessage(element, key, hightlightRow) {
-    element.querySelector(".-js-error-" + key).classList.remove("neos-hide");
+    element.querySelector(".plausible-error--" + key).classList.remove("plausible-hide");
     if (hightlightRow) {
-        [...element.closest("section").querySelectorAll(".-js-row-" + key + " td")].forEach((td) => {
-            td.style.background = "#ff8700";
-        });
+        const row = element.closest("section").querySelector(".plausible-row--" + key);
+        if (row) {
+            row.classList.add("plausible-row--error");
+        }
     }
 }
 
 window.addEventListener("load", () => {
-    [...document.querySelectorAll(".-js-source-check")].forEach((element) => {
+    [...document.querySelectorAll(".plausible-markup")].forEach((element) => {
         const code = element.querySelector("code");
         const match = code ? code.innerText.match(/src="([^"]*)/) : null;
         const source = match ? match[1] : null;
@@ -34,7 +35,7 @@ window.addEventListener("load", () => {
                         showMessage(element, "plausible");
                     }
                 })
-                .catch((error) => {
+                .catch(() => {
                     showMessage(element, "host", true);
                 });
             return;

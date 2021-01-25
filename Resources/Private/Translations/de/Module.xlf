@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" target-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="markup.headline" xml:space="preserve">
+                <source>Resulting Markup</source>
+                <target>Resultierendes Markup</target>
+            </trans-unit>
+            <trans-unit id="error.domain" xml:space="preserve">
+                <source><![CDATA[<strong>No domain defined.</strong> Please update your configuration.]]></source>
+                <target><![CDATA[<strong>Keine Domain definiert.</strong> Bitte aktualisieren Sie Ihre Konfiguration.]]></target>
+            </trans-unit>
+            <trans-unit id="error.host" xml:space="preserve">
+                <source><![CDATA[<strong>The requested source returns a 404 error.</strong> Please check your host url.]]></source>
+                <target><![CDATA[<strong>Die angeforderte Quelle liefert einen 404-Fehler.</strong> Bitte überprüfen Sie Ihre Host-URL.]]></target>
+            </trans-unit>
+            <trans-unit id="error.plausible" xml:space="preserve">
+                <source><![CDATA[<strong>The host was found, but the file is not available on this server.</strong> Please check your settings.]]></source>
+                <target><![CDATA[<strong>Der Host wurde gefunden, aber die Datei ist auf diesem Server nicht verfügbar.</strong> Bitte überprüfen Sie Ihre Einstellungen.]]></target>
+            </trans-unit>
+            <trans-unit id="openOnPlausible" xml:space="preserve">
+                <source>Open {0} on plausible.io</source>
+                <target>{0} auf plausible.io öffnen</target>
+            </trans-unit>
+            <trans-unit id="plausible.status.disabled" xml:space="preserve">
+                <source>Plausible is disabled</source>
+                <target>Plausible ist deaktiviert</target>
+            </trans-unit>
+            <trans-unit id="plausible.status.enabled" xml:space="preserve">
+                <source>Plausible is enabled</source>
+                <target>Plausible ist aktiviert</target>
+            </trans-unit>
+            <trans-unit id="plausible.status.title'" xml:space="preserve">
+                <source>Based on the setting Carbon.Plausible.enable</source>
+                <target>Basierend auf der Einstellung Carbon.Plausible.enable</target>
+            </trans-unit>
+            <trans-unit id="cookieStatus.enabled" xml:space="preserve">
+                <source><![CDATA[Tracking from {0} is <strong>enabled</strong> in this browser.]]></source>
+                <target><![CDATA[Tracking von {0} ist in diesem Browser <strong>aktiviert</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="cookieStatus.disabled" xml:space="preserve">
+                <source><![CDATA[Tracking from {0} is <strong>disabled</strong> in this browser.]]></source>
+                <target><![CDATA[Tracking von {0} ist in diesem Browser <strong>deaktiviert</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="defaultSettings" xml:space="preserve">
+                <source>Default settings</source>
+                <target>Standardeinstellungen</target>
+            </trans-unit>
+            <trans-unit id="th.key" xml:space="preserve">
+                <source>Key</source>
+                <target>Schlüssel</target>
+            </trans-unit>
+            <trans-unit id="th.value" xml:space="preserve">
+                <source>Value</source>
+                <target>Wert</target>
+            </trans-unit>
+            <trans-unit id="th.rootNodeName" xml:space="preserve">
+                <source>Root node name</source>
+                <target>Name vom Root Node</target>
+            </trans-unit>
+            <trans-unit id="siteMappings" xml:space="preserve">
+                <source>Site mappings</source>
+                <target>Zuordnungen von Seiten</target>
+            </trans-unit>
+            <trans-unit id="noSiteMappings" xml:space="preserve">
+                <source>No specific mapping set.</source>
+                <target>Es ist keine spezifische Zuordnung gesetzt.</target>
+            </trans-unit>
+            <trans-unit id="button.dontTrack" xml:space="preserve">
+                <source>Don't track visits in this browser</source>
+                <target>Besuche in diesem Browser nicht tracken</target>
+            </trans-unit>
+            <trans-unit id="button.doTrack" xml:space="preserve">
+                <source>Track visits in this browser</source>
+                <target>Besuche in diesem Browser tracken</target>
+            </trans-unit>
+            <trans-unit id="button.documentation" xml:space="preserve">
+                <source>Open documentation</source>
+                <target>Dokumentation öffnen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

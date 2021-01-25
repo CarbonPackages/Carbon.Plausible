@@ -1,0 +1,11 @@
+prototype(Carbon.Plausible:Component.TableHeader) < prototype(Neos.Fusion:Component) {
+    first = ${Translation.translate('th.key', 'Key', [], 'Module', 'Carbon.Plausible')}
+    second = ${Translation.translate('th.value', 'Value', [], 'Module', 'Carbon.Plausible')}
+    renderer = afx`
+        <tr>
+            <th>{props.first}</th>
+            <th>{props.second}</th>
+        </tr>
+    `
+}
+

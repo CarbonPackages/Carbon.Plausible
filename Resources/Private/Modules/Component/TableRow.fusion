@@ -1,4 +1,4 @@
-prototype(Carbon.Plausible:Component.Value) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component) {
     key = null
     value = null
     fallback = null
@@ -12,7 +12,7 @@ prototype(Carbon.Plausible:Component.Value) < prototype(Neos.Fusion:Component) {
     @if.set = ${this.isDomain || this.valueIsBoolean || this.hasString}
 
     renderer = afx`
-        <tr class={'-js-row-' + String.toLowercase(props.key)}>
+        <tr class={'plausible-row plausible-row--' + String.toLowercase(props.key)}>
             <td>
                 {props.key}
             </td>
@@ -23,7 +23,7 @@ prototype(Carbon.Plausible:Component.Value) < prototype(Neos.Fusion:Component) {
                     href={'https://plausible.io/' + props.value}
                     target='_blank'
                     rel='nofollow noopener'
-                    title={'Open ' + props.domainValue + ' on plausible.io'}
+                    title={Translation.translate('openOnPlausible', 'Open ' + props.domainValue + ' on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
                 >
                     {props.domainValue}
                 </a>
