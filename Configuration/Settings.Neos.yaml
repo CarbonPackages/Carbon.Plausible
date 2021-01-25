@@ -1,4 +1,7 @@
 Neos:
+  Fusion:
+    defaultContext:
+      Carbon.Plausible: 'Carbon\Plausible\EelHelper\PlausibleHelper'
   Neos:
     fusion:
       autoInclude:
