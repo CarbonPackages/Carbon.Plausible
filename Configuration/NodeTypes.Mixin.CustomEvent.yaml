@@ -11,6 +11,7 @@
         inspector:
           group: seometa
           position: 310
+          hidden: 'ClientEval:node.properties.plausibleDoNotTrack ? true : false'
       validation:
         Neos.Neos/Validation/LabelValidator: []
     plausibleCustomEventJSON:
@@ -32,14 +33,12 @@
         inspector:
           group: seometa
           position: 320
-          hidden: 'ClientEval:node.properties.plausibleCustomEventName ? false : true'
+          hidden: 'ClientEval:!node.properties.plausibleCustomEventName || node.properties.plausibleDoNotTrack ? true : false'
           editor: 'Neos.Neos/Inspector/Editors/CodeEditor'
           editorOptions:
-            buttonLabel: 'Edit JSON'
             highlightingMode: 'text/javascript'
-            placeholder: '{ props: { path: document.location.pathname }, callback: myFunction() }'
       validation:
         Neos.Neos/Validation/StringValidator: []
         Neos.Neos/Validation/RegularExpressionValidator:
           # Very basic JSON validation
-          regularExpression: '/^\s*\{.*\:.*\}\s*$/'
+          regularExpression: '/^\s*\{[\s\S]*:[\s\S]*\}$/'
