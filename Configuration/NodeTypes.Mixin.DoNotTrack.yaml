@@ -4,7 +4,7 @@
     plausibleDoNotTrack:
       type: boolean
       ui:
-        label: 'Do not track on Plausible'
+        label: i18n
         reloadIfChanged: false
         inspector:
           group: seometa

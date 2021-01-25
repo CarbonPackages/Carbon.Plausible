@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="properties.plausibleCustomEventName" xml:space="preserve">
+                <source>Plausible custom event name</source>
+                <target>Plausible custom event name</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleCustomEventName.ui.help.message" xml:space="preserve">
+                <source>Add here the exact custom event name, who you have entered on your settings page on plausible.io. The event name can be anything. [More information](https://plausible.io/docs/custom-event-goals)</source>
+                <target>Add here the exact custom event name, who you have entered on your settings page on plausible.io. The event name can be anything. [More information](https://plausible.io/docs/custom-event-goals)</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleCustomEventJSON" xml:space="preserve">
+                <source>Plausible custom event options</source>
+                <target>Plausible custom event options</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleCustomEventJSON.ui.help.message" xml:space="preserve">
+                <source>As a second parameter, you can also send an object with options. The supported options at the moment are:
+
+**`callback`** – a function that is called once the event is logged successfully
+
+**`props`** – an object with custom properties for the event
+
+Examle:
+```
+{ 
+  props: {
+    path: document.location.pathname
+  },
+  callback: myFunction()
+}
+```</source>
+                <target>As a second parameter, you can also send an object with options. The supported options at the moment are:
+
+**`callback`** – a function that is called once the event is logged successfully
+
+**`props`** – an object with custom properties for the event
+
+Examle:
+```
+{ 
+  props: {
+    path: document.location.pathname
+  },
+  callback: myFunction()
+}
+```</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,59 @@
+.neos.neos strong {
+  font-weight: bold;
+}
+
+.neos.neos h2 {
+  font-size: 18px;
+  margin: 2em 0 1em;
+}
+
+.neos.neos h3 {
+  margin: 2em 0 1em;
+}
+
+.neos .plausible-status .fa-check {
+  color: #00a338;
+  margin-right: 0.5em;
+}
+
+.neos .plausible-status .fa-times {
+  color: #ff8700;
+  margin-right: 0.5em;
+}
+
+.neos .plausible-markup {
+  margin: 0 0 2em;
+}
+
+.neos .plausible-markup code {
+  display: block;
+  padding: 16px;
+  background: #141414;
+}
+
+.neos .plausible-error {
+  background: #ff8700;
+  padding: 16px;
+}
+
+.neos .plausible-error strong {
+  display: block;
+}
+
+.neos .plausible-markup code:empty,
+.neos .plausible-hide {
+  display: none !important;
+}
+
+.neos .plausible-row--error td {
+  background: #ff8700 !important;
+}
+
+.neos .neos-button .fas {
+  margin-right: 0.5em;
+}
+
+.neos .neos-table th:first-child {
+  width: 1%;
+  white-space: nowrap;
+}

@@ -9,34 +9,46 @@ Carbon.Plausible.PlausibleController {
         table = ${['domain', 'host', 'outboundLinks', 'hashBasedRouting', 'exclusions', 'customEvents']}
 
         renderer = afx`
-            <h1 style='margin-bottom:20px'>
+            <h1>
                 <img width='152' alt='Plausible'>
                     <Neos.Fusion:ResourceUri @path='attributes.src' path='resource://Carbon.Plausible/Public/Logo.png' />
                 </img>
             </h1>
 
-            <h2 style='font-size:18px;margin:2em 0 1em'>
-                <i class='fas fa-check' style='color:#00a338;margin-right:0.5em' @if.set={props.settings.enable}></i>
-                <i class='fas fa-times' style='color:#ff8700;margin-right:0.5em' @if.set={!props.settings.enable}></i>
-                Plausible is {props.settings.enable ? 'enabled' : 'disabled'}
+            <h2
+                @if.set={!props.settings.enable}
+                class='plausible-status'
+                title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
+            >
+                <i class='fas fa-times' aria-hidden='true' ></i>
+                {Translation.translate('plausible.status.disabled', 'Plausible is disabled', [], 'Module', 'Carbon.Plausible')}
+            </h2>
+            <h2
+                @if.set={props.settings.enable}
+                class='plausible-status'
+                title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
+            >
+                <i class='fas fa-check' aria-hidden='true'></i>
+                {Translation.translate('plausible.status.enabled', 'Plausible is enabled', [], 'Module', 'Carbon.Plausible')}
             </h2>
 
-            <p>
-                Tracking from {props.requestMainDomain} is <strong style='font-weight:bold'>{props.disableBecauseOfCookie ? 'disabled' : 'enabled'}</strong> in this browser
+            <p @if.set={props.disableBecauseOfCookie}>
+                {Translation.translate('cookieStatus.disabled', 'Tracking from ' + props.requestMainDomain + ' is <strong>disabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
+            </p>
+            <p @if.set={!props.disableBecauseOfCookie}>
+                {Translation.translate('cookieStatus.enabled', 'Tracking from ' + props.requestMainDomain + ' is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
             </p>
 
+
             <section>
-                <h2 style='font-size:18px;margin:2em 0 1em'>Default settings</h2>
+                <h2>{Translation.translate('defaultSettings', 'Default settings', [], 'Module', 'Carbon.Plausible')}</h2>
                 <table class='neos-table'>
                     <thead>
-                        <tr>
-                            <th width='1%'>Key</th>
-                            <th>Value</th>
-                        </tr>
+                        <Carbon.Plausible:Component.TableHeader />
                     </thead>
                     <tbody>
                         <Neos.Fusion:Loop items={props.table}>
-                            <Carbon.Plausible:Component.Value
+                            <Carbon.Plausible:Component.TableRow
                                 key={item}
                                 value={props.default[item]}
                             />
@@ -46,24 +58,23 @@ Carbon.Plausible.PlausibleController {
                 <Carbon.Plausible:Component.Markup />
             </section>
 
-            <h2 style='font-size:18px;margin:2em 0 1em'>Site mappings</h2>
-            <p @if.set={!props.settings.sites}>No site mapping set.</p>
+            <h2>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
+            <p @if.set={!props.settings.sites}>
+                {Translation.translate('noSiteMappings', 'No specific mapping set.', [], 'Module', 'Carbon.Plausible')}
+            </p>
             <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
                 <section>
                     <table class='neos-table'>
                         <thead>
-                            <tr>
-                                <th width='1%' style='white-space:nowrap'>Root node name</th>
-                                <th>{itemKey}</th>
-                            </tr>
-                            <tr>
-                                <th>Key</th>
-                                <th>Value</th>
-                            </tr>
+                            <Carbon.Plausible:Component.TableHeader
+                                first={Translation.translate('th.rootNodeName', 'Root node name', [], 'Module', 'Carbon.Plausible')}
+                                second={itemKey}
+                            />
+                            <Carbon.Plausible:Component.TableHeader />
                         </thead>
                         <tbody>
                             <Neos.Fusion:Loop items={props.table} itemName='row'>
-                                <Carbon.Plausible:Component.Value
+                                <Carbon.Plausible:Component.TableRow
                                     key={row}
                                     value={item[row]}
                                     fallback={props.default[row]}
@@ -82,7 +93,7 @@ Carbon.Plausible.PlausibleController {
                     class='neos-button neos-button-primary'
                     @if.set={!props.disableBecauseOfCookie}
                 >
-                    <i class='fas fa-times'></i> Don't track visits in this browser
+                    <i class='fas fa-times' aria-hidden='true'></i> {Translation.translate('button.dontTrack', "Don't track visits in this browser", [], 'Module', 'Carbon.Plausible')}
                 </button>
                 <button
                     type='button'
@@ -90,10 +101,10 @@ Carbon.Plausible.PlausibleController {
                     class='neos-button'
                     @if.set={props.disableBecauseOfCookie}
                 >
-                    <i class='fas fa-check'></i> Track visits in this browser
+                    <i class='fas fa-check' aria-hidden='true'></i> {Translation.translate('button.doTrack', 'Track visits in this browser', [], 'Module', 'Carbon.Plausible')}
                 </button>
                 <a class='neos-button' href='https://plausible.io/docs' target='_blank' rel='nofollow noopener'>
-                    <i class='fas fa-book'></i> Open documentation
+                    <i class='fas fa-book' aria-hidden='true'></i> {Translation.translate('button.documentation', 'Open documentation', [], 'Module', 'Carbon.Plausible')}
                 </a>
             </div>
         `
