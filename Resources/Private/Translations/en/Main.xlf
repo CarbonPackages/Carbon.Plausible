@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" target-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="ui.disabled.label" xml:space="preserve">
+                <source>Tracking from this browser is disabled. Click to enable.</source>
+                <target>Tracking from this browser is disabled. Click to enable.</target>
+            </trans-unit>
+            <trans-unit id="ui.enabled.label" xml:space="preserve">
+                <source>Tracking from this browser is enabled. Click to disable.</source>
+                <target>Tracking from this browser is enabled. Click to disable.</target>
+            </trans-unit>
+            <trans-unit id="ui.tracking" xml:space="preserve">
+                <source>Tracking</source>
+                <target>Tracking</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
