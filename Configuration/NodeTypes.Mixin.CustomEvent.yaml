@@ -1,4 +1,4 @@
-'Carbon.Plausible.Mixin:CustomEvent':
+'Carbon.Plausible:Mixin.CustomEvent':
   abstract: true
   properties:
     plausibleCustomEventName:
