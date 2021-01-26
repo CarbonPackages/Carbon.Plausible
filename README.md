@@ -70,6 +70,7 @@ If you have a single site setup, you can adjust the configuration under the key 
 | `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
 | `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
 | `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
+| `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the [exclusion variant], set this to `true`                                                                                                                                                                                                                  |
 | `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
 
 ### Multi-site setup
@@ -89,9 +90,15 @@ Carbon:
             mysecondsite:
                 domain: domain.org
                 hashBasedRouting: true
+                exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
             mythirdsite:
                 domain: domain.net
                 customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
+                exclusions:
+                    - /blog4
+                    - /rule/*
+                    - /how-to-*
+                    - /*/admin
 ```
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
@@ -116,8 +123,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot of backend module]: https://user-images.githubusercontent.com/4510166/105641464-66e66000-5e84-11eb-86bb-5cc3b9d1e563.png
-[error in the backend module]: https://user-images.githubusercontent.com/4510166/105641443-4f0edc00-5e84-11eb-8c97-085d8157fc53.png
+[screenshot of backend module]: https://user-images.githubusercontent.com/4510166/105641544-c5abd980-5e84-11eb-8515-80ae5bda9000.png
+[error in the backend module]: https://user-images.githubusercontent.com/4510166/105641545-c80e3380-5e84-11eb-8fda-31a080e990e2.png
 [set cookie in the inspector]: https://user-images.githubusercontent.com/4510166/105755892-3669f900-5f4c-11eb-96ef-4a6db137a936.gif
 [set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
@@ -131,6 +138,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [custom domain]: https://plausible.io/docs/custom-domain
 [outbound link click tracking]: https://plausible.io/docs/outbound-link-click-tracking
 [hash-based routing]: https://plausible.io/docs/hash-based-routing
+[exclude specific pages]: https://plausible.io/docs/excluding-pages
+[exclusion variant]: https://plausible.io/docs/excluding
 [carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
 [neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion
 [jshrink]: https://github.com/tedious/JShrink

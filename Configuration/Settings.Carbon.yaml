@@ -6,6 +6,7 @@ Carbon:
       host: null
       outboundLinks: false
       hashBasedRouting: false
+      exclusions: false
       customEvents: false
     # sites:
     #   rootNodeName:

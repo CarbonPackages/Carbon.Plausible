@@ -4,6 +4,7 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
     fallback = null
 
     // Internal
+    value.@process.convertExclusionsArray = ${this.key == 'exclusions' && Type.isArray(value) ? Array.join(value, ',') : value}
     isDomain = ${this.key == 'domain'}
     domainValue = ${this.value || this.fallback}
     hasString = ${this.value && Type.isString(this.value)}
