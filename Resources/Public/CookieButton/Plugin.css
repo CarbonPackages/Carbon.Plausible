@@ -16,17 +16,11 @@
 
 .style__disabled___2uKn_ {
     position: relative;
-    color: rgba(255, 255, 255, 0.5);
+    text-decoration: line-through;
 }
 
-.style__disabled___2uKn_::after {
-        position: absolute;
-        content: "";
-        top: 50%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        height: 1px;
+.style__disabled___2uKn_ span {
+        color: rgba(255, 255, 255, 0.5);
     }
 
 

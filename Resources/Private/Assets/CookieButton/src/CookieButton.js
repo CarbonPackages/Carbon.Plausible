@@ -62,7 +62,9 @@ class CookieButton extends Component {
                 onClick={this.toggleCookie}
             >
                 <Icon icon="chart-pie" color={disabledPlausible ? "default" : "warn"} />
-                <span className={finalClassName}>{text}</span>
+                <span className={finalClassName}>
+                    <span>{text}</span>
+                </span>
             </Button>
         );
     }
