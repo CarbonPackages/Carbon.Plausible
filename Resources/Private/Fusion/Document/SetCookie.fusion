@@ -1,23 +1,37 @@
 
-prototype(Carbon.Plausible:Document.SetCookie) < prototype(Neos.Fusion:Component) {
-    setCookie = "var domain=document.location.host.split('.').slice(-2).join('.');document.cookie='disabledPlausible=true;path=/; max-age=31536000000;domain='+domain;setTimeout(function(){window.location='/'},5000);"
-    domain = Carbon.Plausible:Component.RequestMainDomain
-    title = ${Translation.translate('disableCookie', 'Tracking for {0} from this browser is now disabled', [this.domain], null, 'Carbon.Plausible')}
-    renderer = Neos.Fusion:Http.Message {
-        doctype = '<!DOCTYPE html>'
-        content = afx`
-            <html>
-                <head>
-                    <meta charset='UTF-8' />
-                    <title>{props.title}</title>
-                    <meta name='robots' content='noindex,nofollow' />
-                    <script>{props.setCookie}</script>
-                </head>
-                <body style='display:flex;align-items:center;min-height:90vh;'>
-                    <h1 style='margin:1em auto;max-width:30ch;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Cantarell,Noto Sans,sans-serif;'>{props.title}</h1>
-                </body>
-            </html>
-        `
+prototype(Carbon.Plausible:Document.SetCookie) < prototype(Neos.Fusion:Case) {
+    cookieIsAlreadySet {
+        condition = ${request.httpRequest.cookieParams.disabledPlausible}
+        renderer = Neos.Fusion:Http.Message {
+            httpResponseHead {
+                statusCode = 307
+                headers.Location = '/'
+            }
+        }
+    }
+    setCookie {
+        condition = true
+        renderer = Neos.Fusion:Component {
+            setCookie = "var domain=document.location.host.split('.').slice(-2).join('.');document.cookie='disabledPlausible=true;path=/; max-age=31536000000;domain='+domain;setTimeout(function(){window.location='/'},5000);"
+            domain = Carbon.Plausible:Component.RequestMainDomain
+            title = ${Translation.translate('disableCookie', 'Tracking for {0} from this browser is now disabled', [this.domain], null, 'Carbon.Plausible')}
+            renderer = Neos.Fusion:Http.Message {
+                doctype = '<!DOCTYPE html>'
+                content = afx`
+                    <html>
+                        <head>
+                            <meta charset='UTF-8' />
+                            <title>{props.title}</title>
+                            <meta name='robots' content='noindex,nofollow' />
+                            <script>{props.setCookie}</script>
+                        </head>
+                        <body style='display:flex;align-items:center;min-height:90vh;'>
+                            <h1 style='margin:1em auto;max-width:30ch;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Cantarell,Noto Sans,sans-serif;'>{props.title}</h1>
+                        </body>
+                    </html>
+                `
+            }
+        }
     }
 
     @cache {
@@ -33,7 +47,11 @@ prototype(Carbon.Plausible:Document.SetCookie) < prototype(Neos.Fusion:Component
     @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\PageHandler'
 }
 
-root.disableTracking {
-    condition = ${request.arguments.disablePlausibleTracking == true && !request.httpRequest.cookieParams.disabledPlausible}
-    renderer = Carbon.Plausible:Document.SetCookie
+root {
+    disableTracking {
+        @position = 'start'
+        condition = ${request.arguments.disablePlausibleTracking == true}
+        renderer = Carbon.Plausible:Document.SetCookie
+    }
+    @cache.entryIdentifier.disablePlausibleTracking = ${request.arguments.disablePlausibleTracking ? 'true' : 'false'}
 }
