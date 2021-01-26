@@ -29,7 +29,12 @@ class CookieButton extends Component {
         const set = !this.state.disabledPlausible;
         // 1 * 60 * 60 * 24 * 365 * 100 = 31536000000 == 100 years
         const maxAge = set ? 31536000000 : -1;
-        this.cookies.set("disabledPlausible", true, { path: "/", maxAge: maxAge, domain: this.domain });
+        this.cookies.set("disabledPlausible", true, {
+            path: "/",
+            sameSite: "lax",
+            maxAge: maxAge,
+            domain: this.domain,
+        });
         this.setState({ disabledPlausible: set });
     };
 

@@ -89,7 +89,7 @@ Carbon.Plausible.PlausibleController {
             <div class='neos-footer'>
                 <button
                     type='button'
-                    onclick={'setCookie("' + props.requestMainDomain + '")'}
+                    onclick={'setCookie();window.location.reload()'}
                     class='neos-button neos-button-primary'
                     @if.set={!props.disableBecauseOfCookie}
                 >
@@ -97,7 +97,7 @@ Carbon.Plausible.PlausibleController {
                 </button>
                 <button
                     type='button'
-                    onclick={'deleteCookie("' + props.requestMainDomain + '")'}
+                    onclick={'deleteCookie();window.location.reload()'}
                     class='neos-button'
                     @if.set={props.disableBecauseOfCookie}
                 >

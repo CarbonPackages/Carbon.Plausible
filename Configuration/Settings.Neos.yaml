@@ -38,6 +38,7 @@ Neos:
             mainStylesheet: Lite
             additionalResources:
               javaScripts:
+                - 'resource://Carbon.Plausible/Public/Cookie.js'
                 - 'resource://Carbon.Plausible/Public/Module.js'
               styleSheets:
                 - 'resource://Carbon.Plausible/Public/Module.css'
