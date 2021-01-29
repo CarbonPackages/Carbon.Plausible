@@ -9,84 +9,86 @@ Carbon.Plausible.PlausibleController {
         table = ${['domain', 'host', 'outboundLinks', 'hashBasedRouting', 'exclusions', 'customEvents']}
 
         renderer = afx`
-            <h1>
-                <img width='152' alt='Plausible'>
-                    <Neos.Fusion:ResourceUri @path='attributes.src' path='resource://Carbon.Plausible/Public/Logo.png' />
-                </img>
-            </h1>
+            <main class='plausible'>
+                <h1>
+                    <img width='152' alt='Plausible'>
+                        <Neos.Fusion:ResourceUri @path='attributes.src' path='resource://Carbon.Plausible/Public/Logo.png' />
+                    </img>
+                </h1>
 
-            <h2
-                @if.set={!props.settings.enable}
-                class='plausible-status'
-                title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
-            >
-                <i class='fas fa-times' aria-hidden='true' ></i>
-                {Translation.translate('plausible.status.disabled', 'Plausible is disabled', [], 'Module', 'Carbon.Plausible')}
-            </h2>
-            <h2
-                @if.set={props.settings.enable}
-                class='plausible-status'
-                title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
-            >
-                <i class='fas fa-check' aria-hidden='true'></i>
-                {Translation.translate('plausible.status.enabled', 'Plausible is enabled', [], 'Module', 'Carbon.Plausible')}
-            </h2>
+                <h2
+                    @if.set={!props.settings.enable}
+                    class='plausible-status'
+                    title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
+                >
+                    <i class='fas fa-times' aria-hidden='true' ></i>
+                    {Translation.translate('plausible.status.disabled', 'Plausible is disabled', [], 'Module', 'Carbon.Plausible')}
+                </h2>
+                <h2
+                    @if.set={props.settings.enable}
+                    class='plausible-status'
+                    title={Translation.translate('plausible.status.title', 'Based on the setting Carbon.Plausible.enable', [], 'Module', 'Carbon.Plausible')}
+                >
+                    <i class='fas fa-check' aria-hidden='true'></i>
+                    {Translation.translate('plausible.status.enabled', 'Plausible is enabled', [], 'Module', 'Carbon.Plausible')}
+                </h2>
 
-            <p @if.set={props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.disabled', 'Tracking from {0} is <strong>disabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
-            </p>
-            <p @if.set={!props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
-            </p>
+                <p @if.set={props.disableBecauseOfCookie}>
+                    {Translation.translate('cookieStatus.disabled', 'Tracking from {0} is <strong>disabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
+                </p>
+                <p @if.set={!props.disableBecauseOfCookie}>
+                    {Translation.translate('cookieStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
+                </p>
 
 
-            <section>
-                <h2>{Translation.translate('defaultSettings', 'Default settings', [], 'Module', 'Carbon.Plausible')}</h2>
-                <table class='neos-table'>
-                    <thead>
-                        <Carbon.Plausible:Component.TableHeader />
-                    </thead>
-                    <tbody>
-                        <Neos.Fusion:Loop items={props.table}>
-                            <Carbon.Plausible:Component.TableRow
-                                key={item}
-                                value={props.default[item]}
-                            />
-                        </Neos.Fusion:Loop>
-                    </tbody>
-                </table>
-                <Carbon.Plausible:Component.Markup />
-            </section>
-
-            <h2>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
-            <p @if.set={!props.settings.sites}>
-                {Translation.translate('noSiteMappings', 'No specific mapping set.', [], 'Module', 'Carbon.Plausible')}
-            </p>
-            <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
                 <section>
+                    <h2>{Translation.translate('defaultSettings', 'Default settings', [], 'Module', 'Carbon.Plausible')}</h2>
                     <table class='neos-table'>
                         <thead>
-                            <Carbon.Plausible:Component.TableHeader
-                                first={Translation.translate('th.rootNodeName', 'Root node name', [], 'Module', 'Carbon.Plausible')}
-                                second={itemKey}
-                            />
                             <Carbon.Plausible:Component.TableHeader />
                         </thead>
                         <tbody>
-                            <Neos.Fusion:Loop items={props.table} itemName='row'>
+                            <Neos.Fusion:Loop items={props.table}>
                                 <Carbon.Plausible:Component.TableRow
-                                    key={row}
-                                    value={item[row]}
-                                    fallback={props.default[row]}
+                                    key={item}
+                                    value={props.default[item]}
                                 />
                             </Neos.Fusion:Loop>
                         </tbody>
                     </table>
-                    <Carbon.Plausible:Component.Markup siteName={itemKey} />
+                    <Carbon.Plausible:Component.Markup />
                 </section>
-            </Neos.Fusion:Loop>
 
-            <div class='neos-footer'>
+                <h2>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
+                <p @if.set={!props.settings.sites}>
+                    {Translation.translate('noSiteMappings', 'No specific mapping set.', [], 'Module', 'Carbon.Plausible')}
+                </p>
+                <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+                    <section>
+                        <table class='neos-table'>
+                            <thead>
+                                <Carbon.Plausible:Component.TableHeader
+                                    first={Translation.translate('th.rootNodeName', 'Root node name', [], 'Module', 'Carbon.Plausible')}
+                                    second={itemKey}
+                                />
+                                <Carbon.Plausible:Component.TableHeader />
+                            </thead>
+                            <tbody>
+                                <Neos.Fusion:Loop items={props.table} itemName='row'>
+                                    <Carbon.Plausible:Component.TableRow
+                                        key={row}
+                                        value={item[row]}
+                                        fallback={props.default[row]}
+                                    />
+                                </Neos.Fusion:Loop>
+                            </tbody>
+                        </table>
+                        <Carbon.Plausible:Component.Markup siteName={itemKey} />
+                    </section>
+                </Neos.Fusion:Loop>
+            </main>
+
+            <aside class='plausible neos-footer'>
                 <button
                     type='button'
                     onclick={'setCookie();window.location.reload()'}
@@ -106,7 +108,7 @@ Carbon.Plausible.PlausibleController {
                 <a class='neos-button' href='https://plausible.io/docs' target='_blank' rel='nofollow noopener'>
                     <i class='fas fa-book' aria-hidden='true'></i> {Translation.translate('button.documentation', 'Open documentation', [], 'Module', 'Carbon.Plausible')}
                 </a>
-            </div>
+            </aside>
         `
     }
 }
