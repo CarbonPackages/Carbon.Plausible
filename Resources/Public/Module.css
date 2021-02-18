@@ -17,7 +17,7 @@
 }
 
 .plausible .plausible-domain .fa-external-link-alt {
-  margin-left: 0.5em;
+  padding-left: 0.5em;
 }
 
 .plausible .plausible-domain:hover .fa-external-link-alt,
