@@ -1,0 +1,25 @@
+prototype(Carbon.Plausible:Component.Domain) < prototype(Neos.Fusion:Component) {
+    value = null
+    fallback = null
+
+    // Internal
+    domainValue = ${this.value || this.fallback}
+
+    renderer = afx`
+        <a
+            @if.set={props.domainValue && Type.isString(props.domainValue)}
+            class='plausible-domain'
+            href={'https://plausible.io/' + props.value}
+            target='_blank'
+            rel='nofollow noopener'
+            title={Translation.translate('openOnPlausible', 'Open {0} on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
+        >
+            {props.domainValue}
+
+            <i class='fas fa-external-link-alt' aria-hidden='true'></i>
+        </a>
+        {' '}
+        <small @if.set={!props.value && props.domainValue}>(Fallback)</small>
+        <code @if.set={!props.domainValue}>-</code>
+    `
+}

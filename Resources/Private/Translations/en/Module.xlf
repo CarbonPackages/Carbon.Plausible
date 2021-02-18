@@ -19,6 +19,10 @@
                 <source><![CDATA[<strong>The host was found, but the file is not available on this server.</strong> Please check your settings.]]></source>
                 <target><![CDATA[<strong>The host was found, but the file is not available on this server.</strong> Please check your settings.]]></target>
             </trans-unit>
+            <trans-unit id="tracking.headline" xml:space="preserve">
+                <source>Configured trackings</source>
+                <target>Configured trackings</target>
+            </trans-unit>
             <trans-unit id="openOnPlausible" xml:space="preserve">
                 <source>Open {0} on plausible.io</source>
                 <target>Open {0} on plausible.io</target>

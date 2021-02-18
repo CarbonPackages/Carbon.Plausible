@@ -17,16 +17,8 @@ Neos:
           Carbon.Plausible:
             - Main
             - 'NodeTypes/*'
-    Ui:
-      resources:
-        javascript:
-          'Carbon.Plausible:CookieButton':
-            resource: resource://Carbon.Plausible/Public/CookieButton/Plugin.js
-        stylesheets:
-          'Carbon.Plausible:CookieButton':
-            resource: resource://Carbon.Plausible/Public/CookieButton/Plugin.css
     modules:
-      administration:
+      management:
         submodules:
           plausible:
             label: Plausible

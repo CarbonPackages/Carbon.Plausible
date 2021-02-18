@@ -6,6 +6,8 @@ Carbon.Plausible.PlausibleController {
         requestMainDomain = Carbon.Plausible:Component.RequestMainDomain
         disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
 
+        isAdministrator = ${Security.hasRole('Neos.Neos:Administrator')}
+
         table = ${['domain', 'host', 'outboundLinks', 'hashBasedRouting', 'exclusions', 'customEvents']}
 
         renderer = afx`
@@ -40,8 +42,17 @@ Carbon.Plausible.PlausibleController {
                     {Translation.translate('cookieStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestMainDomain], 'Module', 'Carbon.Plausible')}
                 </p>
 
+                <section @if.set={!props.isAdministrator} class='plausible-domainlist'>
+                    <h2>{Translation.translate('tracking.headline', 'Configured trackings', [], 'Module', 'Carbon.Plausible')}</h2>
+                    <ul>
+                        <li><Carbon.Plausible:Component.Domain value={props.default.domain} /></li>
+                        <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+                            <li><Carbon.Plausible:Component.Domain value={item.domain} fallback={props.default.domain} /></li>
+                        </Neos.Fusion:Loop>
+                    </ul>
+                </section>
 
-                <section>
+                <section @if.set={props.isAdministrator}>
                     <h2>{Translation.translate('defaultSettings', 'Default settings', [], 'Module', 'Carbon.Plausible')}</h2>
                     <table class='neos-table'>
                         <thead>
@@ -59,11 +70,11 @@ Carbon.Plausible.PlausibleController {
                     <Carbon.Plausible:Component.Markup />
                 </section>
 
-                <h2>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
-                <p @if.set={!props.settings.sites}>
+                <h2 @if.set={props.isAdministrator}>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
+                <p @if.set={props.isAdministrator && !props.settings.sites}>
                     {Translation.translate('noSiteMappings', 'No specific mapping set.', [], 'Module', 'Carbon.Plausible')}
                 </p>
-                <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
+                <Neos.Fusion:Loop items={props.settings.sites} @if.set={props.isAdministrator && this.items}>
                     <section>
                         <table class='neos-table'>
                             <thead>

@@ -16,6 +16,19 @@
   margin-right: 0.5em;
 }
 
+.plausible .plausible-domain .fa-external-link-alt {
+  margin-left: 0.5em;
+}
+
+.plausible .plausible-domain:hover .fa-external-link-alt,
+.plausible .plausible-domain:focus .fa-external-link-alt {
+  color: #00b5ff;
+}
+
+.plausible .plausible-domainlist li {
+  margin-bottom: 0.5em;
+}
+
 .plausible .plausible-status .fa-times {
   color: #ff8700;
   margin-right: 0.5em;
