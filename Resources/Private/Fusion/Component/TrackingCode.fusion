@@ -31,9 +31,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
 
     renderer = Neos.Fusion:Component {
         @apply.props = ${props}
-        requestMainDomain = Carbon.Plausible:Component.RequestMainDomain {
-            @if.shouldCheck = ${props.checkIfDomainIsTheSameAsRequest}
-        }
+
 
         dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
         dataExclude.@if {
@@ -52,7 +50,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
 
         @if {
             hasDomain = ${this.domain}
-            domainIsTheSameAsRequestDomain = ${props.checkIfDomainIsTheSameAsRequest ? props.domain == this.requestMainDomain : true}
+            domainCheck = ${props.checkIfDomainIsTheSameAsRequest ? Carbon.Plausible.checkDomain(request.httpRequest, props.domain) : true}
         }
 
         renderer = afx`

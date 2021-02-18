@@ -12,7 +12,7 @@ prototype(Carbon.Plausible:Document.SetCookie) < prototype(Neos.Fusion:Case) {
     setCookie {
         condition = true
         renderer = Neos.Fusion:Component {
-            domain = Carbon.Plausible:Component.RequestMainDomain
+            domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
             title = ${Translation.translate('disableCookie', 'Tracking for {0} from this browser is now disabled', [this.domain], null, 'Carbon.Plausible')}
             cookieJS = Neos.Fusion:ResourceUri {
                 path = 'resource://Carbon.Plausible/Public/Cookie.js'

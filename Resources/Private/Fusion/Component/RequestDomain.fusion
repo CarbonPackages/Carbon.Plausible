@@ -1,4 +1,0 @@
-prototype(Carbon.Plausible:Component.RequestMainDomain) < prototype(Neos.Fusion:Value) {
-    value = ${BaseUri.getConfiguredBaseUriOrFallbackToCurrentRequest(request.httpRequest)}
-    value.@process.mainDomain = ${Carbon.Plausible.mainDomain(value)}
-}

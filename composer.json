@@ -5,7 +5,7 @@
     "license": "GPL-3.0",
     "keywords": ["flow", "neos", "analytics", "plausible", "carbon"],
     "require": {
-        "neos/neos": "^5.0 || ^7.0",
+        "neos/neos": "^5.3 || ^7.0",
         "neos/fusion-afx": "*",
         "tedivm/jshrink": "^1.4"
     },

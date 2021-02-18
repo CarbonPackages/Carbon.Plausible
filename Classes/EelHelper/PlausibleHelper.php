@@ -2,15 +2,19 @@
 
 namespace Carbon\Plausible\EelHelper;
 
-use Neos\Flow\Annotations as Flow;
-use Neos\Eel\ProtectedContextAwareInterface;
 use JShrink\Minifier;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Http\Helper\RequestInformationHelper;
+use Psr\Http\Message\ServerRequestInterface;
+
 
 /**
  * @Flow\Proxy(false)
  */
 class PlausibleHelper implements ProtectedContextAwareInterface
 {
+
     /**
      * Minimze JavaScript
      *
@@ -23,28 +27,40 @@ class PlausibleHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Get main domain from domain string
-     * Remove protocol and trailing slash, and return the domain without subdomain
+     * Return domain without protocol and trailing slash
      *
-     * @param string $domain
+     * @param ServerRequestInterface $request
      * @return string
      */
-    public function mainDomain(string $domain): string
+    public function getDomain(ServerRequestInterface $request): string
     {
+        $domain = (string)RequestInformationHelper::generateBaseUri($request);
         // Remove protocol and trailing slash
-        $number = preg_match('/\/\/([^\/]*)/', (string)$domain, $matches);
+        $number = preg_match('/\/\/([^\/]*)/', $domain, $matches);
         if ($number) {
-            $domain = $matches[1];
-        } else {
-            // Remove trailing slash
-            $number = preg_match('/([^\/]*)/', (string)$domain, $matches);
-            $domain = $matches[1];
+            return $matches[1];
         }
+        // Remove trailing slash
+        $number = preg_match('/([^\/]*)/', $domain, $matches);
+        return $matches[1];
+    }
 
-        // Get domain without subdomain
+    /**
+     * Checks if the requested domain fits into the configured domain
+     *
+     * @param ServerRequestInterface $request
+     * @param string $configuredDomain
+     * @return bool
+     */
+    public function checkDomain(ServerRequestInterface $request, string $configuredDomain): bool
+    {
+        $domain = $this->getDomain($request);
+        $slice = count(explode('.', $configuredDomain)) * -1;
+
+        // Get domain in the same format as configured ($configuredDomain)
         $array = explode('.', $domain);
-        $array = array_slice($array, -2);
-        return implode('.', $array);
+        $array = array_slice($array, $slice);
+        return implode('.', $array) === $configuredDomain;
     }
 
     /**
