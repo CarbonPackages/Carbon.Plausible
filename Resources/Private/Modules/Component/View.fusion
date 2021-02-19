@@ -1,11 +1,10 @@
 prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
     default = ${this.settings.default}
-    isAdministrator = ${Security.hasRole('Neos.Neos:Administrator')}
-
+    screenshot = false
     table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'customEvents']}
 
     renderer = afx`
-        <main class='plausible'>
+        <main class='plausible' data-screenshot={props.screenshot}>
             <h1>
                 <img width='152' alt='Plausible'>
                     <Neos.Fusion:ResourceUri @path='attributes.src' path='resource://Carbon.Plausible/Public/Logo.png' />

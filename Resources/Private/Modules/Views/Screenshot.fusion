@@ -1,0 +1,72 @@
+// This is only for easier screenshots in the readme
+Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
+    defaultView {
+        condition = ${request.httpRequest.queryParams.error == null}
+        renderer = Carbon.Plausible:Component.View {
+            settings = Neos.Fusion:DataStructure {
+                enable = true
+                default {
+                    domain = 'domain.com'
+                    host = null
+                    hashBasedRouting = true
+                    exclusions = false
+                    outboundLinks = true
+                    customEvents = false
+                }
+                sites {
+                    rootNodeName {
+                        domain = 'domain.tld'
+                        host = 'stats.domain.tld'
+                        hashBasedRouting = false
+                        exclusions = '/blog,/rule/*,/how-to-*,/*/admin'
+                    }
+                }
+            }
+            requestDomain = 'domain.com'
+            disableBecauseOfCookie = true
+            screenshot = true
+            isAdministrator = ${request.httpRequest.queryParams.editor == null}
+        }
+    }
+    errorView {
+        condition = true
+        renderer = Neos.Fusion:Component {
+            settings = Neos.Fusion:DataStructure {
+                noDomain {
+                    domain = null
+                }
+                wrongHost {
+                    domain = 'domain.tld'
+                    host = 'stats.domain.tld'
+                }
+                notOnServer {
+                    domain = 'domain.tld'
+                    exclusions = true
+                }
+            }
+            table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'customEvents']}
+            renderer = afx`
+                <main class='plausible' data-screenshot='error'>
+                    <Neos.Fusion:Loop items={props.settings}>
+                        <section>
+                            <table class='neos-table'>
+                                <thead>
+                                    <Carbon.Plausible:Component.TableHeader />
+                                </thead>
+                                <tbody>
+                                    <Neos.Fusion:Loop items={props.table} itemName='row'>
+                                        <Carbon.Plausible:Component.TableRow
+                                            key={row}
+                                            value={item[row]}
+                                        />
+                                    </Neos.Fusion:Loop>
+                                </tbody>
+                            </table>
+                            <Carbon.Plausible:Component.Markup siteName={itemKey} defaultSettings={null} siteSettings={props.settings} />
+                        </section>
+                    </Neos.Fusion:Loop>
+                </main>
+            `
+        }
+    }
+}
