@@ -34,7 +34,13 @@ window.addEventListener("load", () => {
         return;
     }
 
+    const moduleWrap = document.querySelector(".neos-module-wrap");
+    document.getElementById("neos-application").remove();
+    moduleWrap.style.paddingTop = "15px";
+
     if (screenshot === "error") {
+        document.querySelector(".neos-breadcrumb").remove();
+        moduleWrap.style.paddingBottom = "1px";
         markup.forEach((element, index) => {
             if (index === 0) {
                 showMessage(element, "domain", true);
