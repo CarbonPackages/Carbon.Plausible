@@ -10,10 +10,10 @@ Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 
 ## Features
 
-- Multi-site compatibility
-- Backend module
-- Check if the requested domain matches the defined domain to track
-- Enabled per default only on `Production` environment
+-   Multi-site compatibility
+-   Backend module
+-   Check if the requested domain matches the defined domain to track
+-   Enabled per default only on `Production` environment
 
 ### Multi-site compatibility
 
@@ -23,11 +23,11 @@ If you run a multi-site setup, we got you covered! You can set different trackin
 
 This package adds a backend module to your Neos instance, which helps check your configuration and opt-out your browser for tracking.
 
-![screenshot of backend module administrator]
+![screenshot of backend module as administrator]
 
 If a backend user is not an administrator, he'll get a different view:
 
-![screenshot of backend module editor]
+![screenshot of backend module as editor]
 
 It also checks if the resulting javascript path doesn't return a 404 error:
 
@@ -37,8 +37,8 @@ It also checks if the resulting javascript path doesn't return a 404 error:
 
 This package contains two mixins:
 
-- [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
-- [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
+-   [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
+-   [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
 
 ![set options in the inspector]
 
@@ -46,8 +46,8 @@ This package contains two mixins:
 
 By default, Plausible Analytics tracks every visitor to your website. When you're working on your site, you might not want to record your own visits and page views. To block your (and your co-workers) page views from your Plausible Analytics stats dashboard, you have the following options:
 
-- Go to `your-domain.tld/~/disable-tracking`. This sets the cookie and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
-- As an Editor, you can enable/disable the cookie also in the Plausible management module: `your-domain.tld/neos/management/plausible`
+-   Go to `your-domain.tld/~/disable-tracking`. This sets the cookie and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
+-   As an Editor, you can enable/disable the cookie also in the Plausible management module: `your-domain.tld/neos/management/plausible`
 
 ## Installation
 
@@ -82,24 +82,24 @@ Example:
 
 ```yaml
 Carbon:
-  Plausible:
-    sites:
-      myfirstsite:
-        host: stats.domain.com
-        domain: domain.com
-        outboundLinks: true
-      mysecondsite:
-        domain: domain.org
-        hashBasedRouting: true
-        exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
-      mythirdsite:
-        domain: domain.net
-        customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
-        exclusions:
-          - /blog4
-          - /rule/*
-          - /how-to-*
-          - /*/admin
+    Plausible:
+        sites:
+            myfirstsite:
+                host: stats.domain.com
+                domain: domain.com
+                outboundLinks: true
+            mysecondsite:
+                domain: domain.org
+                hashBasedRouting: true
+                exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
+            mythirdsite:
+                domain: domain.net
+                customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
+                exclusions:
+                    - /blog4
+                    - /rule/*
+                    - /how-to-*
+                    - /*/admin
 ```
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
@@ -124,9 +124,9 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot of backend module administrator]: https://user-images.githubusercontent.com/4510166/108421714-d9552080-7235-11eb-8b11-00b9376b25f8.png
-[screenshot of backend module editor]: https://user-images.githubusercontent.com/4510166/108421729-dfe39800-7235-11eb-8d55-51e607d6b8be.png
-[error in the backend module]: https://user-images.githubusercontent.com/4510166/105641545-c80e3380-5e84-11eb-8fda-31a080e990e2.png
+[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/108570990-67510a00-730f-11eb-8e73-b79d6dc977bd.png
+[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/108570996-6b7d2780-730f-11eb-8e5f-a86b3947132e.png
+[error in the backend module]: https://user-images.githubusercontent.com/4510166/108571001-6ddf8180-730f-11eb-9688-de477a6a0409.png
 [set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
 [plausible]: https://plausible.io
