@@ -27,6 +27,14 @@
                 <source>Open {0} on plausible.io</source>
                 <target>{0} auf plausible.io öffnen</target>
             </trans-unit>
+            <trans-unit id="disableTrackingTitle" xml:space="preserve">
+                <source>Disable tracking for {0} in this browser</source>
+                <target>Tracking für {0} in diesem Browser deaktivieren</target>
+            </trans-unit>
+            <trans-unit id="disableTracking" xml:space="preserve">
+                <source>Disable tracking in this browser</source>
+                <target>Tracking in diesem Browser deaktivieren</target>
+            </trans-unit>
             <trans-unit id="plausible.status.disabled" xml:space="preserve">
                 <source>Plausible is disabled</source>
                 <target>Plausible ist deaktiviert</target>

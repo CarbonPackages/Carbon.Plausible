@@ -18,13 +18,11 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
                 {props.key}
             </td>
 
-            <td @if.set={props.isDomain}>
-                <Carbon.Plausible:Component.Domain value={props.value} fallback={props.fallback} />
-            </td>
-            <td @if.set={!props.isDomain && props.valueIsBoolean}>
+            <Carbon.Plausible:Component.Domain @if.set={props.isDomain} value={props.value} fallback={props.fallback} />
+            <td @if.set={!props.isDomain && props.valueIsBoolean} colspan='2'>
                 <code>{props.value ? 'true' : 'false'}</code>
             </td>
-            <td @if.set={!props.isDomain && !props.valueIsBoolean}>
+            <td @if.set={!props.isDomain && !props.valueIsBoolean} colspan='2'>
                 {props.value}
             </td>
         </tr>

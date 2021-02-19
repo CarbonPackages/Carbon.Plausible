@@ -16,12 +16,12 @@
   margin-right: 0.5em;
 }
 
-.plausible .plausible-domain .fa-external-link-alt {
+.plausible .plausible-domain .fas {
   padding-left: 0.5em;
 }
 
-.plausible .plausible-domain:hover .fa-external-link-alt,
-.plausible .plausible-domain:focus .fa-external-link-alt {
+.plausible .plausible-domain:hover .fas,
+.plausible .plausible-domain:focus .fas {
   color: #00b5ff;
 }
 

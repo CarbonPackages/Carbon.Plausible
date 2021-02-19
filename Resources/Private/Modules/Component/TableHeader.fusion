@@ -4,7 +4,7 @@ prototype(Carbon.Plausible:Component.TableHeader) < prototype(Neos.Fusion:Compon
     renderer = afx`
         <tr>
             <th>{props.first}</th>
-            <th>{props.second}</th>
+            <th colspan='2'>{props.second}</th>
         </tr>
     `
 }

@@ -4,22 +4,38 @@ prototype(Carbon.Plausible:Component.Domain) < prototype(Neos.Fusion:Component) 
 
     // Internal
     domainValue = ${this.value || this.fallback}
+    hasDomainValue = ${this.domainValue && Type.isString(this.domainValue)}
+    disableTrackingLink = ${this.hasDomainValue ? '//' + this.domainValue + '/~/disable-tracking' : null}
 
     renderer = afx`
-        <a
-            @if.set={props.domainValue && Type.isString(props.domainValue)}
-            class='plausible-domain'
-            href={'https://plausible.io/' + props.value}
-            target='_blank'
-            rel='nofollow noopener'
-            title={Translation.translate('openOnPlausible', 'Open {0} on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
-        >
-            {props.domainValue}
+        <td>
+            <a
+                @if.set={props.hasDomainValue}
+                class='plausible-domain'
+                href={'https://plausible.io/' + props.value}
+                target='_blank'
+                rel='nofollow noopener'
+                title={Translation.translate('openOnPlausible', 'Open {0} on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
+            >
+                {props.domainValue}
 
-            <i class='fas fa-external-link-alt' aria-hidden='true'></i>
-        </a>
-        {' '}
-        <small @if.set={!props.value && props.domainValue}>(Fallback)</small>
-        <code @if.set={!props.domainValue}>-</code>
+                <i class='fas fa-external-link-alt' aria-hidden='true'></i>
+            </a>
+            {' '}
+            <small @if.set={!props.value && props.domainValue}>(Fallback)</small>
+            <code @if.set={!props.domainValue}>-</code>
+        </td>
+        <td>
+            <a
+                @if.set={props.disableTrackingLink}
+                class='plausible-domain'
+                href={props.disableTrackingLink}
+                target='_blank'
+                title={Translation.translate('disableTrackingTitle', 'Disable tracking for {0} in this browser', [props.domainValue], 'Module', 'Carbon.Plausible')}
+            >
+                {Translation.translate('disableTracking', 'Disable tracking in this browser', [], 'Module', 'Carbon.Plausible')}
+                <i class='fas fa-chart-pie' aria-hidden='true'></i>
+            </a>
+        </td>
     `
 }
