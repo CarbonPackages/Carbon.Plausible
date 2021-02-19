@@ -4,9 +4,9 @@ Carbon:
     default:
       domain: null
       host: null
-      outboundLinks: false
       hashBasedRouting: false
       exclusions: false
+      outboundLinks: false
       customEvents: false
     # sites:
     #   rootNodeName:
