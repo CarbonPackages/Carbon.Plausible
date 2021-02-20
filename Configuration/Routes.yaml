@@ -1,4 +1,4 @@
-- name: 'Set cookie for disable tracking'
+- name: 'Set localStorage flag for disabling tracking'
   uriPattern: '{node}~/disable-tracking'
   defaults:
     '@package': 'Neos.Neos'

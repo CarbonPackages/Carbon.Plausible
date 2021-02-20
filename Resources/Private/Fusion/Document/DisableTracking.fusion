@@ -1,0 +1,46 @@
+prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Component) {
+    domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
+    title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {0} from this browser is now disabled', [this.domain], null, 'Carbon.Plausible')}
+    localStorageJS = Neos.Fusion:ResourceUri {
+        path = 'resource://Carbon.Plausible/Public/LocalStorage.js'
+    }
+
+    renderer = Neos.Fusion:Http.Message {
+        doctype = '<!DOCTYPE html>'
+        content = afx`
+            <html>
+                <head>
+                    <meta charset='UTF-8' />
+                    <title>{props.title}</title>
+                    <meta name='robots' content='noindex,nofollow' />
+                    <script src={props.localStorageJS}></script>
+                    <script>disableAndForward()</script>
+                </head>
+                <body style='display:flex;align-items:center;min-height:90vh;'>
+                    <h1 style='margin:1em auto;max-width:30ch;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Cantarell,Noto Sans,sans-serif;'>{props.title}</h1>
+                </body>
+            </html>
+        `
+    }
+
+    @cache {
+        mode = 'cached'
+        entryIdentifier {
+            site = ${site}
+            plausible = 'CarbonPlausibleDisableTracking'
+        }
+        entryTags {
+            1 = ${Neos.Caching.nodeTag(site)}
+        }
+    }
+    @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\PageHandler'
+}
+
+root {
+    disableTracking {
+        @position = 'start'
+        condition = ${request.arguments.disablePlausibleTracking == true}
+        renderer = Carbon.Plausible:Document.DisableTracking
+    }
+    @cache.entryIdentifier.disablePlausibleTracking = ${request.arguments.disablePlausibleTracking ? 'true' : 'false'}
+}

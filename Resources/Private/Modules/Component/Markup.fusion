@@ -1,6 +1,5 @@
 prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Component.TrackingCode) {
     enable = true
-    disableBecauseOfCookie = false
     doNotTrack = false
     hasCustomEventMixin = null
     eventName = null
@@ -26,8 +25,4 @@ prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Compon
             </p>
         </div>
     `
-
-    @cache {
-        mode = 'embed'
-    }
 }

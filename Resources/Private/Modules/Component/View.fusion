@@ -28,11 +28,11 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                 {Translation.translate('plausible.status.enabled', 'Plausible is enabled', [], 'Module', 'Carbon.Plausible')}
             </h2>
 
-            <p @if.set={props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.disabled', 'Tracking from {0} is <strong>disabled</strong> in this browser.', [props.requestDomain], 'Module', 'Carbon.Plausible')}
+            <p class='plausible-tracking plausible-tracking--disabled'>
+                {Translation.translate('trackingStatus.disabled', 'Tracking from {0} is <strong>disabled</strong> in this browser.', [props.requestDomain], 'Module', 'Carbon.Plausible')}
             </p>
-            <p @if.set={!props.disableBecauseOfCookie}>
-                {Translation.translate('cookieStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestDomain], 'Module', 'Carbon.Plausible')}
+            <p class='plausible-tracking plausible-tracking--enabled'>
+                {Translation.translate('trackingStatus.enabled', 'Tracking from {0} is <strong>enabled</strong> in this browser.', [props.requestDomain], 'Module', 'Carbon.Plausible')}
             </p>
 
             <section @if.set={!props.isAdministrator} class='plausible-domainlist'>
@@ -97,25 +97,23 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
         </main>
 
         <aside class='plausible neos-footer' style={props.screenshot ? 'position:static' : null}>
+            <a class='neos-button' href='https://plausible.io/docs' target='_blank' rel='nofollow noopener'>
+                <i class='fas fa-book' aria-hidden='true'></i> {Translation.translate('button.documentation', 'Open documentation', [], 'Module', 'Carbon.Plausible')}
+            </a>
             <button
                 type='button'
-                onclick={'setCookie();window.location.reload()'}
-                class='neos-button neos-button-primary'
-                @if.set={!props.disableBecauseOfCookie}
+                onclick={'disableTracking();setStatus()'}
+                class='neos-button neos-button-primary plausible-tracking plausible-tracking--enabled'
             >
                 <i class='fas fa-times' aria-hidden='true'></i> {Translation.translate('button.dontTrack', "Don't track visits in this browser", [], 'Module', 'Carbon.Plausible')}
             </button>
             <button
                 type='button'
-                onclick={'deleteCookie();window.location.reload()'}
-                class='neos-button'
-                @if.set={props.disableBecauseOfCookie}
+                onclick={'enableTracking();setStatus()'}
+                class='neos-button plausible-tracking plausible-tracking--disabled'
             >
                 <i class='fas fa-check' aria-hidden='true'></i> {Translation.translate('button.doTrack', 'Track visits in this browser', [], 'Module', 'Carbon.Plausible')}
             </button>
-            <a class='neos-button' href='https://plausible.io/docs' target='_blank' rel='nofollow noopener'>
-                <i class='fas fa-book' aria-hidden='true'></i> {Translation.translate('button.documentation', 'Open documentation', [], 'Module', 'Carbon.Plausible')}
-            </a>
         </aside>
     `
 }

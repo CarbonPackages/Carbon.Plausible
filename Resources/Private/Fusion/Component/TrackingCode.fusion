@@ -1,6 +1,5 @@
 prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Component) {
     enable = ${Configuration.setting('Carbon.Plausible.enable')}
-    disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
     doNotTrack = ${q(node).is('[instanceof Carbon.Plausible:Mixin.DoNotTrack]') && q(node).property('plausibleDoNotTrack')}
 
     hasCustomEventMixin = ${q(node).is('[instanceof Carbon.Plausible:Mixin.CustomEvent]')}
@@ -25,7 +24,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     checkIfDomainIsTheSameAsRequest = true
 
     @if {
-        isEnabled = ${this.enable && !this.disableBecauseOfCookie && !this.doNotTrack}
+        isEnabled = ${this.enable && !this.doNotTrack}
         notInBackend = ${!node.context.inBackend}
     }
 
@@ -66,22 +65,5 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 {Carbon.Plausible.minifyJS(props.inlineJavascript)}
             </script>
         `
-    }
-    @cache {
-        mode = 'dynamic'
-        maximumLifetime = 0
-        entryIdentifier {
-            node = ${node}
-            site = ${site}
-        }
-        entryDiscriminator = ${request.httpRequest.cookieParams.disabledPlausible ? 'disablePlausible' : 'enablePlausible'}
-        context {
-            1 = 'node'
-            2 = 'documentNode'
-            3 = 'site'
-        }
-        entryTags {
-            1 = ${Neos.Caching.nodeTag(node)}
-        }
     }
 }

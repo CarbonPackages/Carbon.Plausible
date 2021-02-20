@@ -8,6 +8,16 @@ function showMessage(element, key, hightlightRow) {
     }
 }
 
+const docClassList = document.documentElement.classList;
+
+function setStatus() {
+    const disabled = trackingIsDisabled();
+    docClassList[disabled ? "add" : "remove"]("-plausible-tracking-disabled");
+    docClassList[disabled ? "remove" : "add"]("-plausible-tracking-enabled");
+}
+
+setStatus();
+
 window.addEventListener("load", () => {
     const screenshot = document.querySelector("main.plausible").dataset.screenshot;
     const markup = [...document.querySelectorAll(".plausible-markup")];

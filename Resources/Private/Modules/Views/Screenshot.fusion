@@ -23,7 +23,6 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                 }
             }
             requestDomain = 'domain.com'
-            disableBecauseOfCookie = true
             screenshot = true
             isAdministrator = ${request.httpRequest.queryParams.editor == null}
         }

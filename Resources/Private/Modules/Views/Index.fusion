@@ -1,6 +1,5 @@
 Carbon.Plausible.PlausibleController.index = Carbon.Plausible:Component.View {
     settings = ${Configuration.setting('Carbon.Plausible')}
     requestDomain = ${Carbon.Plausible.getDomain(request.httpRequest)}
-    disableBecauseOfCookie = ${!!request.httpRequest.cookieParams.disabledPlausible}
     isAdministrator = ${Security.hasRole('Neos.Neos:Administrator')}
 }

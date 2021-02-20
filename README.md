@@ -10,10 +10,10 @@ Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 
 ## Features
 
--   Multi-site compatibility
--   Backend module
--   Check if the requested domain matches the defined domain to track
--   Enabled per default only on `Production` environment
+- Multi-site compatibility
+- Backend module
+- Check if the requested domain matches the defined domain to track
+- Enabled per default only on `Production` environment
 
 ### Multi-site compatibility
 
@@ -37,17 +37,18 @@ It also checks if the resulting javascript path doesn't return a 404 error:
 
 This package contains two mixins:
 
--   [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
--   [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
+- [Carbon.Plausible:Mixin.CustomEvent]: This allows you to set [custom events] to a document via the inspector. Of course, you can do this also directly in your JavaScript or Fusion
+- [Carbon.Plausible:Mixin.DoNotTrack]: This allows you to disable the tracking for a specific document
 
 ![set options in the inspector]
 
-### Set cookie for disabling tracking
+### Opt out and exclude your visits from the analytics
 
-By default, Plausible Analytics tracks every visitor to your website. When you're working on your site, you might not want to record your own visits and page views. To block your (and your co-workers) page views from your Plausible Analytics stats dashboard, you have the following options:
+By default, Plausible Analytics tracks every visitor to your website. When you're working on your site, you might not want to record your own visits and page views. To prevent counting your visits, you can set a special localStorage flag in the browser. Here's how.
 
--   Go to `your-domain.tld/~/disable-tracking`. This sets the cookie and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
--   As an Editor, you can enable/disable the cookie also in the Plausible management module: `your-domain.tld/neos/management/plausible`
+- Go to `your-domain.tld/~/disable-tracking`. This sets the flag and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
+- As an Editor, you can enable/disable the flag also in the Plausible management module: `your-domain.tld/neos/management/plausible`
+- You can do this also by yourself by following the [excluding guide on plausible.io]
 
 ## Installation
 
@@ -70,7 +71,7 @@ If you have a single site setup, you can adjust the configuration under the key 
 | `domain`           | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
 | `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
 | `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
-| `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the [exclusion variant], set this to `true`                                                                                                                                                                                                                  |
+| `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the exclusion variant, set this to `true`                                                                                                                                                                                                                    |
 | `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
 | `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
 
@@ -82,24 +83,24 @@ Example:
 
 ```yaml
 Carbon:
-    Plausible:
-        sites:
-            myfirstsite:
-                host: stats.domain.com
-                domain: domain.com
-                outboundLinks: true
-            mysecondsite:
-                domain: domain.org
-                hashBasedRouting: true
-                exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
-            mythirdsite:
-                domain: domain.net
-                customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
-                exclusions:
-                    - /blog4
-                    - /rule/*
-                    - /how-to-*
-                    - /*/admin
+  Plausible:
+    sites:
+      myfirstsite:
+        host: stats.domain.com
+        domain: domain.com
+        outboundLinks: true
+      mysecondsite:
+        domain: domain.org
+        hashBasedRouting: true
+        exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
+      mythirdsite:
+        domain: domain.net
+        customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
+        exclusions:
+          - /blog4
+          - /rule/*
+          - /how-to-*
+          - /*/admin
 ```
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
@@ -124,8 +125,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/108570990-67510a00-730f-11eb-8e73-b79d6dc977bd.png
-[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/108570996-6b7d2780-730f-11eb-8e5f-a86b3947132e.png
+[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/108609839-0853c980-73d1-11eb-974f-f031570bafbe.png
+[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/108609841-0984f680-73d1-11eb-86b2-0b4b96f21b53.png
 [error in the backend module]: https://user-images.githubusercontent.com/4510166/108571001-6ddf8180-730f-11eb-9688-de477a6a0409.png
 [set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
@@ -137,10 +138,10 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [custom events]: https://plausible.io/docs/custom-event-goals
 [`settings.yaml`]: Configuration/Settings.Carbon.yaml
 [custom domain]: https://plausible.io/docs/custom-domain
+[excluding guide on plausible.io]: https://plausible.io/docs/excluding
 [outbound link click tracking]: https://plausible.io/docs/outbound-link-click-tracking
 [hash-based routing]: https://plausible.io/docs/hash-based-routing
 [exclude specific pages]: https://plausible.io/docs/excluding-pages
-[exclusion variant]: https://plausible.io/docs/excluding
 [carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
 [neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion
 [jshrink]: https://github.com/tedious/JShrink

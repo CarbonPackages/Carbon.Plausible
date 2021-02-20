@@ -47,11 +47,11 @@
                 <source>Based on the setting Carbon.Plausible.enable</source>
                 <target>Basierend auf der Einstellung Carbon.Plausible.enable</target>
             </trans-unit>
-            <trans-unit id="cookieStatus.enabled" xml:space="preserve">
+            <trans-unit id="trackingStatus.enabled" xml:space="preserve">
                 <source><![CDATA[Tracking from {0} is <strong>enabled</strong> in this browser.]]></source>
                 <target><![CDATA[Tracking von {0} ist in diesem Browser <strong>aktiviert</strong>.]]></target>
             </trans-unit>
-            <trans-unit id="cookieStatus.disabled" xml:space="preserve">
+            <trans-unit id="trackingStatus.disabled" xml:space="preserve">
                 <source><![CDATA[Tracking from {0} is <strong>disabled</strong> in this browser.]]></source>
                 <target><![CDATA[Tracking von {0} ist in diesem Browser <strong>deaktiviert</strong>.]]></target>
             </trans-unit>
