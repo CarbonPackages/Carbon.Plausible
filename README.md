@@ -125,8 +125,8 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166108609996-659c4a80-73d2-11eb-915a-45d3223d4d1b.png
-[screenshot of backend module as editor]: https://user-images.githubuserconten.com/4510166/108609998-66cd7780-73d2-11eb-9fb1-d6dbab2713e8.png
+[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/108609996-659c4a80-73d2-11eb-915a-45d3223d4d1b.png
+[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/108609998-66cd7780-73d2-11eb-9fb1-d6dbab2713e8.png
 [error in the backend module]: https://user-images.githubusercontent.com/4510166/108571001-6ddf8180-730f-11eb-9688-de477a6a0409.png
 [set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
