@@ -26,4 +26,8 @@ prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Compon
             </p>
         </div>
     `
+
+    @cache {
+        mode = 'embed'
+    }
 }

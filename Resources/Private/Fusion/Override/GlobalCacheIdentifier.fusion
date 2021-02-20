@@ -1,3 +1,0 @@
-prototype(Neos.Fusion:GlobalCacheIdentifiers) {
-    disablePlausible = ${request.httpRequest.cookieParams.disabledPlausible ? 'true' : 'false'}
-}
