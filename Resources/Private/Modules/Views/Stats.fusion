@@ -1,0 +1,33 @@
+Carbon.Plausible.PlausibleController.stats = Neos.Fusion:Component {
+    sharedLink = Neos.Fusion:Component {
+        site = ${request.httpRequest.uri.query}
+        settings = ${Configuration.setting('Carbon.Plausible')}
+
+        renderer = Neos.Fusion:Case {
+            default {
+                condition = ${!props.site && Type.isString(props.settings.default.sharedLink)}
+                renderer = ${props.settings.default.sharedLink}
+            }
+            sites {
+                condition = ${props.site && Type.isString(props.settings.sites[props.site]['sharedLink'])}
+                renderer = ${props.settings.sites[props.site]['sharedLink']}
+            }
+        }
+    }
+    arguments = ${(String.indexOf(this.sharedLink, '?') == -1 ? '?' : '&') + 'embed=true&theme=dark&background=transparent'}
+
+    @if.set = ${this.sharedLink}
+
+    renderer = afx`
+        <iframe
+            plausible-embed
+            src={props.sharedLink + props.arguments}
+            scrolling='no'
+            frameborder='0'
+            loading='lazy'
+            style='width: 1px;min-width:100%;height:1600px'>
+        </iframe>
+        <script async src='https://plausible.io/js/embed.host.js'></script>
+    `
+}
+

@@ -8,6 +8,7 @@ Carbon:
       exclusions: false
       outboundLinks: false
       customEvents: false
+      sharedLink: null
     # sites:
     #   rootNodeName:
     #     host: stats.domain.tld

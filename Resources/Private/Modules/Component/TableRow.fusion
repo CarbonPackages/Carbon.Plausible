@@ -2,6 +2,7 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
     key = null
     value = null
     fallback = null
+    siteName = null
 
     // Internal
     value.@process.convertExclusionsArray = ${this.key == 'exclusions' && Type.isArray(value) ? Array.join(value, ',') : value}
@@ -18,7 +19,7 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
                 {props.key}
             </td>
 
-            <Carbon.Plausible:Component.Domain @if.set={props.isDomain} value={props.value} fallback={props.fallback} />
+            <Carbon.Plausible:Component.Domain @if.set={props.isDomain} value={props.value} fallback={props.fallback} siteName={props.siteName} />
             <td @if.set={!props.isDomain && props.valueIsBoolean} colspan='2'>
                 <code>{props.value ? 'true' : 'false'}</code>
             </td>

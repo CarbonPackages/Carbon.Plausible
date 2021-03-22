@@ -1,21 +1,23 @@
 prototype(Carbon.Plausible:Component.Domain) < prototype(Neos.Fusion:Component) {
     value = null
     fallback = null
+    siteName = null
 
     // Internal
     domainValue = ${this.value || this.fallback}
     hasDomainValue = ${this.domainValue && Type.isString(this.domainValue)}
     disableTrackingLink = ${this.hasDomainValue ? '//' + this.domainValue + '/~/disable-tracking' : null}
+    embedUrl = ${props.siteName ? '/neos/management/plausible/stats' + (props.siteName == 'default' ? '' : '?' + props.siteName) : null}
 
     renderer = afx`
         <td>
             <a
                 @if.set={props.hasDomainValue}
                 class='plausible-domain'
-                href={'https://plausible.io/' + props.value}
-                target='_blank'
-                rel='nofollow noopener'
-                title={Translation.translate('openOnPlausible', 'Open {0} on plausible.io', [props.domainValue], 'Module', 'Carbon.Plausible')}
+                href={props.embedUrl || 'https://plausible.io/' + props.value}
+                target={props.embedUrl ? null : '_blank'}
+                rel={props.embedUrl ? null : 'nofollow noopener'}
+                title={Translation.translate(props.embedUrl ? 'openEmbedStats' : 'openOnPlausible', 'Open stats from {0}' + (props.embedUrl ? '' : ' on plausible.io'), [props.domainValue], 'Module', 'Carbon.Plausible')}
             >
                 {props.domainValue}
 

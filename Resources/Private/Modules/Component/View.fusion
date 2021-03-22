@@ -40,10 +40,19 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                 <table class='neos-table'>
                     <tbody>
                         <tr>
-                            <Carbon.Plausible:Component.Domain value={props.default.domain} />
+                            <Carbon.Plausible:Component.Domain
+                                value={props.default.domain}
+                                siteName={props.default.sharedLink ? 'default' : null}
+                            />
                         </tr>
                         <Neos.Fusion:Loop items={props.settings.sites} @if.set={this.items}>
-                            <tr><Carbon.Plausible:Component.Domain value={item.domain} fallback={props.default.domain} /></tr>
+                            <tr>
+                                <Carbon.Plausible:Component.Domain
+                                    value={item.domain}
+                                    fallback={props.default.domain}
+                                    siteName={item.sharedLink ? itemKey : null}
+                                />
+                            </tr>
                         </Neos.Fusion:Loop>
                     </tbody>
                 </table>
@@ -60,6 +69,7 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                             <Carbon.Plausible:Component.TableRow
                                 key={item}
                                 value={props.default[item]}
+                                siteName={props.default.sharedLink ? 'default' : null}
                             />
                         </Neos.Fusion:Loop>
                     </tbody>
@@ -82,11 +92,12 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                             <Carbon.Plausible:Component.TableHeader />
                         </thead>
                         <tbody>
-                            <Neos.Fusion:Loop items={props.table} itemName='row'>
+                            <Neos.Fusion:Loop items={props.table} itemName='row' itemKey='rowKey'>
                                 <Carbon.Plausible:Component.TableRow
                                     key={row}
                                     value={item[row]}
                                     fallback={props.default[row]}
+                                    siteName={item.sharedLink ? itemKey : null}
                                 />
                             </Neos.Fusion:Loop>
                         </tbody>

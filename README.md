@@ -14,6 +14,7 @@ Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 - Backend module
 - Check if the requested domain matches the defined domain to track
 - Enabled per default only on `Production` environment
+- Embed stats directly into the Neos Backend
 
 ### Multi-site compatibility
 
@@ -74,6 +75,7 @@ If you have a single site setup, you can adjust the configuration under the key 
 | `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the exclusion variant, set this to `true`                                                                                                                                                                                                                    |
 | `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
 | `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
+| `sharedLink`       | `null`  | If you have opened up your [website stats to the public] or created a [private and secure link], enter it to enable the embedded view of the stats in the backend.                                                                                                                                                                                                                               |
 
 ### Multi-site setup
 
@@ -89,10 +91,12 @@ Carbon:
         host: stats.domain.com
         domain: domain.com
         outboundLinks: true
+        sharedLink: https://plausible.io/share/domain.com?auth=abcdefghijklmnopqrstu
       mysecondsite:
         domain: domain.org
         hashBasedRouting: true
         exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
+        sharedLink: https://plausible.io/domain.org
       mythirdsite:
         domain: domain.net
         customEvent: "plausible('Download', {props: {method: 'HTTP'}})"

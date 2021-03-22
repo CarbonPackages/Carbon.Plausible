@@ -46,6 +46,13 @@ class PlausibleController extends AbstractModuleController
     }
 
     /**
+     * Renders the statistic view
+     */
+    public function statsAction(): void
+    {
+    }
+
+    /**
      * Renders the screenshot view
      */
     public function screenshotAction(): void

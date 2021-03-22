@@ -24,8 +24,12 @@
                 <target>Configured trackings</target>
             </trans-unit>
             <trans-unit id="openOnPlausible" xml:space="preserve">
-                <source>Open {0} on plausible.io</source>
-                <target>Open {0} on plausible.io</target>
+                <source>Open stats from {0} on plausible.io</source>
+                <target>Open stats from {0} on plausible.io</target>
+            </trans-unit>
+            <trans-unit id="openEmbedStats" xml:space="preserve">
+                <source>Open stats from {0}</source>
+                <target>Open stats from {0}</target>
             </trans-unit>
             <trans-unit id="disableTrackingTitle" xml:space="preserve">
                 <source>Disable tracking for {0} in this browser</source>
