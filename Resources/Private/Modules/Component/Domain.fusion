@@ -7,7 +7,7 @@ prototype(Carbon.Plausible:Component.Domain) < prototype(Neos.Fusion:Component) 
     domainValue = ${this.value || this.fallback}
     hasDomainValue = ${this.domainValue && Type.isString(this.domainValue)}
     disableTrackingLink = ${this.hasDomainValue ? '//' + this.domainValue + '/~/disable-tracking' : null}
-    embedUrl = ${props.siteName ? '/neos/management/plausible/stats' + (props.siteName == 'default' ? '' : '?' + props.siteName) : null}
+    embedUrl = ${this.siteName ? '/neos/management/plausible/stats' + (this.siteName == 'default' ? '' : '?' + this.siteName) : null}
 
     renderer = afx`
         <td>
