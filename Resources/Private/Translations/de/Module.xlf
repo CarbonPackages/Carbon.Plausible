@@ -80,8 +80,8 @@
                 <target>Zuordnungen von Seiten</target>
             </trans-unit>
             <trans-unit id="noSiteMappings" xml:space="preserve">
-                <source>No specific mapping set.</source>
-                <target>Es ist keine spezifische Zuordnung gesetzt.</target>
+                <source>No specific mappings are set.</source>
+                <target>Es ist keine spezifische Zuordnungen gesetzt.</target>
             </trans-unit>
             <trans-unit id="button.dontTrack" xml:space="preserve">
                 <source>Don't track visits in this browser</source>

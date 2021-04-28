@@ -80,8 +80,8 @@
                 <target>Site mappings</target>
             </trans-unit>
             <trans-unit id="noSiteMappings" xml:space="preserve">
-                <source>No specific mapping set.</source>
-                <target>No specific mapping set.</target>
+                <source>No specific mappings are set.</source>
+                <target>No specific mappings are set.</target>
             </trans-unit>
             <trans-unit id="button.dontTrack" xml:space="preserve">
                 <source>Don't track visits in this browser</source>
