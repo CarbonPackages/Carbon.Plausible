@@ -23,14 +23,13 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
 
     checkIfDomainIsTheSameAsRequest = true
 
-    @if {
-        isEnabled = ${this.enable && !this.doNotTrack}
-        notInBackend = ${!node.context.inBackend}
-    }
+    renderPlausibleScriptTag = ${this.enable && !this.doNotTrack && this.domain && !node.context.inBackend && (this.checkIfDomainIsTheSameAsRequest ? Carbon.Plausible.checkDomain(request.httpRequest, this.domain) : true)}
+    renderInlineScriptTag = ${this.renderPlausibleScriptTag}
+
+    @if.renderTags = ${this.renderPlausibleScriptTag || this.renderInlineScriptTag}
 
     renderer = Neos.Fusion:Component {
         @apply.props = ${props}
-
 
         dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
         dataExclude.@if {
@@ -51,20 +50,16 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             @apply.props = ${props}
         }
 
-        @if {
-            hasDomain = ${this.domain}
-            domainCheck = ${props.checkIfDomainIsTheSameAsRequest ? Carbon.Plausible.checkDomain(request.httpRequest, props.domain) : true}
-        }
-
         renderer = afx`
             <script
+                @if.set={props.renderPlausibleScriptTag}
                 src={props.plausibleSrc}
                 data-domain={props.domain}
                 data-exclude={props.dataExclude}
                 async={props.async}
                 defer={props.defer}
             ></script>
-            <script @if.set={props.inlineJavascript}>
+            <script @if.set={props.renderInlineScriptTag && props.inlineJavascript}>
                 {Carbon.Plausible.minifyJS(props.inlineJavascript)}
             </script>
         `
