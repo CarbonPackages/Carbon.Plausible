@@ -47,6 +47,10 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             @process.filter = ${Array.join(Array.filter(value, line => !!line), ';')}
         }
 
+        plausibleSrc = Carbon.Plausible:Component.Src {
+            @apply.props = ${props}
+        }
+
         @if {
             hasDomain = ${this.domain}
             domainCheck = ${props.checkIfDomainIsTheSameAsRequest ? Carbon.Plausible.checkDomain(request.httpRequest, props.domain) : true}
@@ -54,13 +58,12 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
 
         renderer = afx`
             <script
-                async={props.async}
-                defer={props.defer}
+                src={props.plausibleSrc}
                 data-domain={props.domain}
                 data-exclude={props.dataExclude}
-            >
-                <Carbon.Plausible:Component.Src @path='attributes.src' {...props} />
-            </script>
+                async={props.async}
+                defer={props.defer}
+            ></script>
             <script @if.set={props.inlineJavascript}>
                 {Carbon.Plausible.minifyJS(props.inlineJavascript)}
             </script>
