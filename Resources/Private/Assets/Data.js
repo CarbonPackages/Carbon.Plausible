@@ -75,4 +75,4 @@ const registerEvent = (data) => {
 };
 
 registerAnalyticsEvents("a", handleLinkEvent);
-registerAnalyticsEvents("button", handleFormEvent);
+registerAnalyticsEvents("button[type='submit']", handleFormEvent);
