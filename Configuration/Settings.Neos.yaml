@@ -30,7 +30,6 @@ Neos:
             mainStylesheet: Lite
             additionalResources:
               javaScripts:
-                - 'resource://Carbon.Plausible/Public/LocalStorage.js'
                 - 'resource://Carbon.Plausible/Public/Module.js'
               styleSheets:
                 - 'resource://Carbon.Plausible/Public/Module.css'
