@@ -1,9 +1,6 @@
 prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Component) {
     domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
     title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {0} from this browser is now disabled.', [this.domain], 'Main', 'Carbon.Plausible')}
-    localStorageJS = Neos.Fusion:ResourceUri {
-        path = 'resource://Carbon.Plausible/Public/LocalStorage.js'
-    }
 
     renderer = Neos.Fusion:Http.Message {
         doctype = '<!DOCTYPE html>'
@@ -13,8 +10,7 @@ prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Com
                     <meta charset='UTF-8' />
                     <title>{props.title}</title>
                     <meta name='robots' content='noindex,nofollow' />
-                    <script src={props.localStorageJS}></script>
-                    <script>disableAndForward()</script>
+                    <script>{StaticResource.content('Carbon.Plausible', 'Public/LocalStorage.js')}</script>
                 </head>
                 <body style='display:flex;align-items:center;min-height:90vh;'>
                     <h1 style='margin:1em auto;max-width:30ch;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Cantarell,Noto Sans,sans-serif;'>{props.title}</h1>

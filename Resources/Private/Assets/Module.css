@@ -1,0 +1,77 @@
+.plausible.plausible strong {
+    font-weight: bold;
+}
+
+.plausible.plausible h2 {
+    font-size: 18px;
+    margin: 2em 0 1em;
+}
+
+.plausible.plausible h3 {
+    margin: 2em 0 1em;
+}
+
+.plausible .plausible-status .fa-check {
+    color: #00a338;
+    margin-right: 0.5em;
+}
+
+.plausible .plausible-domain .fas {
+    padding-left: 0.5em;
+}
+
+.plausible .plausible-domain:is(:hover, :focus) .fas {
+    color: #00b5ff;
+}
+
+.plausible .plausible-domainlist li {
+    margin-bottom: 0.5em;
+}
+
+.plausible .plausible-status .fa-times {
+    color: #ff8700;
+    margin-right: 0.5em;
+}
+
+.plausible .plausible-markup {
+    margin: 0 0 2em;
+}
+
+.plausible .plausible-markup code {
+    display: block;
+    padding: 16px;
+    background: #141414;
+}
+
+.plausible .plausible-error {
+    background: #ff8700;
+    padding: 16px;
+}
+
+.plausible .plausible-error strong {
+    display: block;
+}
+
+.plausible :is(.plausible-markup code:empty, .plausible-hide) {
+    display: none !important;
+}
+
+.plausible .plausible-row--error td {
+    background: #ff8700 !important;
+}
+
+.plausible .neos-button .fas {
+    margin-right: 0.5em;
+}
+
+.plausible .neos-table th:first-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+html:not(.-plausible-tracking-enabled):not(.-plausible-tracking-disabled)
+    .plausible-tracking,
+.-plausible-tracking-enabled .plausible-tracking--disabled,
+.-plausible-tracking-disabled .plausible-tracking--enabled {
+    display: none;
+}
