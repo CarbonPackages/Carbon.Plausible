@@ -1,6 +1,6 @@
 prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Component) {
     domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
-    title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {0} from this browser is now disabled', [this.domain], null, 'Carbon.Plausible')}
+    title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {0} from this browser is now disabled.', [this.domain], 'Main', 'Carbon.Plausible')}
     localStorageJS = Neos.Fusion:ResourceUri {
         path = 'resource://Carbon.Plausible/Public/LocalStorage.js'
     }

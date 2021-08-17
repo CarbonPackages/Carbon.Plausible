@@ -4,8 +4,8 @@
     <file original="" product-name="Carbon.Plausible" source-language="en" target-language="en" datatype="plaintext">
         <body>
             <trans-unit id="trackingIsNowDisabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is now disabled</source>
-                <target>Tracking for {0} from this browser is now disabled</target>
+                <source>Tracking for {0} from this browser is now disabled.</source>
+                <target>Tracking for {0} from this browser is now disabled.</target>
             </trans-unit>
         </body>
     </file>
