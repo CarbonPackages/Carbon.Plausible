@@ -17,6 +17,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
     exclusions = ${this.siteSettings.exclusions || Type.isBoolean(this.siteSettings.exclusions) ? this.siteSettings.exclusions : this.defaultSettings.exclusions}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
+    dataAnalyticsTracking = ${this.siteSettings.dataAnalyticsTracking || this.defaultSettings.dataAnalyticsTracking}
 
     async = true
     defer = true
@@ -42,12 +43,16 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             eventFromNode = ${'plausible("' + props.eventName + '"' + (props.eventJSON ? ',' + props.eventJSON : '') + ')'}
             eventFromNode.@if.hasEventName = ${props.eventName}
             customEvents = ${Type.isString(props.customEvents) ? props.customEvents : null}
-            @if.set = ${props.customEvents || props.eventName}
+            @if.set = ${props.renderInlineScriptTag && (props.customEvents || props.eventName || props.dataAnalyticsTracking)}
             @process.filter = ${Array.join(Array.filter(value, line => !!line), ';')}
         }
 
         plausibleSrc = Carbon.Plausible:Component.Src {
             @apply.props = ${props}
+        }
+        dataAnalyticsTrackingSrc = Neos.Fusion:ResourceUri {
+            @if.set = ${props.renderInlineScriptTag && props.dataAnalyticsTracking}
+            path = 'resource://Carbon.Plausible/Public/Data.js'
         }
 
         renderer = afx`
@@ -59,9 +64,14 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 async={props.async}
                 defer={props.defer}
             ></script>
-            <script @if.set={props.renderInlineScriptTag && props.inlineJavascript}>
+            <script @if.set={props.inlineJavascript}>
                 {Carbon.Plausible.minifyJS(props.inlineJavascript)}
             </script>
+            <script
+                @if.set={props.dataAnalyticsTrackingSrc}
+                src={props.dataAnalyticsTrackingSrc}
+                defer
+            ></script>
         `
     }
 }

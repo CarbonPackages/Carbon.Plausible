@@ -1,7 +1,7 @@
 prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
     default = ${this.settings.default}
     screenshot = false
-    table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'customEvents']}
+    table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'customEvents', 'dataAnalyticsTracking']}
 
     renderer = afx`
         <main class='plausible' data-screenshot={props.screenshot}>
@@ -113,14 +113,14 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
             </a>
             <button
                 type='button'
-                onclick={'disableTracking();setStatus()'}
+                onclick='disableTracking();setStatus()'
                 class='neos-button neos-button-primary plausible-tracking plausible-tracking--enabled'
             >
                 <i class='fas fa-times' aria-hidden='true'></i> {Translation.translate('button.dontTrack', "Don't track visits in this browser", [], 'Module', 'Carbon.Plausible')}
             </button>
             <button
                 type='button'
-                onclick={'enableTracking();setStatus()'}
+                onclick='enableTracking();setStatus()'
                 class='neos-button plausible-tracking plausible-tracking--disabled'
             >
                 <i class='fas fa-check' aria-hidden='true'></i> {Translation.translate('button.doTrack', 'Track visits in this browser', [], 'Module', 'Carbon.Plausible')}

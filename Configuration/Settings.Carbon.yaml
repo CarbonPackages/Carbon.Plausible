@@ -9,6 +9,7 @@ Carbon:
       outboundLinks: false
       customEvents: false
       sharedLink: null
+      dataAnalyticsTracking: false
     # sites:
     #   rootNodeName:
     #     host: stats.domain.tld
