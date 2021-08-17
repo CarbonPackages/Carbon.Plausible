@@ -7,6 +7,22 @@
                 <source>Tracking for {0} from this browser is now disabled.</source>
                 <target>Tracking von {0} ist in diesem Browser nun deaktiviert.</target>
             </trans-unit>
+            <trans-unit id="trackingIsDisabled" xml:space="preserve">
+                <source>Tracking for {0} from this browser is disabled.</source>
+                <target>Tracking von {0} ist in diesem Browser deaktiviert.</target>
+            </trans-unit>
+            <trans-unit id="trackingIsEnabled" xml:space="preserve">
+                <source>Tracking for {0} from this browser is enabled.</source>
+                <target>Tracking von {0} ist in diesem Browser aktiviert.</target>
+            </trans-unit>
+            <trans-unit id="enableTracking" xml:space="preserve">
+                <source>Enable tracking</source>
+                <target>Tracking aktivieren</target>
+            </trans-unit>
+            <trans-unit id="disableTracking" xml:space="preserve">
+                <source>Disable tracking</source>
+                <target>Tracking deaktivieren</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
