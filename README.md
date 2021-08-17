@@ -49,7 +49,30 @@ By default, Plausible Analytics tracks every visitor to your website. When you'r
 
 - Go to `your-domain.tld/~/disable-tracking`. This sets the flag and redirects the visitor to the homepage. Great for people without access to the Neos Backend.
 - As an Editor, you can enable/disable the flag also in the Plausible management module: `your-domain.tld/neos/management/plausible`
+- Add the component [Carbon.Plausible:Component.Toggle] to a document and click the button.
 - You can do this also by yourself by following the [excluding guide on plausible.io]
+
+### Tracking custom event goals with `data-analytics`
+
+To use this feature, you have to enable the `dataAnalyticsTracking` setting. Register events in the HTML with the use of an attribute tag `data-analytics`.
+
+**Note: Watch your quotes!** Especially in the props as we want to be able to create an object.
+
+```html
+<!-- Tracking a form -->
+<form>
+  ...
+  <button type="submit" data-analytics='"Contact"'>Send Message...</button>
+</form>
+
+<!-- Tracking a link -->
+<a
+  href="/register"
+  data-analytics='"Register", {"props":{"plan":"Navigation"}}'
+>
+  Register
+</a>
+```
 
 ## Installation
 
@@ -67,15 +90,16 @@ Then run `composer update` in your project root.
 
 If you have a single site setup, you can adjust the configuration under the key `Carbon.Plausible.default` in your [`Settings.yaml`]:
 
-| Key                | Default | Description                                                                                                                                                                                                                                                                                                                                                                                      |
-| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `domain`           | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
-| `host`             | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
-| `hashBasedRouting` | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
-| `exclusions`       | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the exclusion variant, set this to `true`                                                                                                                                                                                                                    |
-| `outboundLinks`    | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
-| `customEvents`     | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
-| `sharedLink`       | `null`  | If you have opened up your [website stats to the public] or created a [private and secure link], enter it to enable the embedded view of the stats in the backend.                                                                                                                                                                                                                               |
+| Key                     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `domain`                | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
+| `host`                  | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
+| `hashBasedRouting`      | `false` | If you want the enable [Hash-based routing], set this to `true`                                                                                                                                                                                                                                                                                                                                  |
+| `exclusions`            | `false` | If you want to [exclude specific pages] from the analytics, you can set an array with strings or a string. If you want to load just the exclusion variant, set this to `true`                                                                                                                                                                                                                    |
+| `outboundLinks`         | `false` | If you want the enable [outbound link click tracking], set this to `true`                                                                                                                                                                                                                                                                                                                        |
+| `customEvents`          | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
+| `dataAnalyticsTracking` | `false` | If you want to enable `data-analytics` for tracking links and form submits set this to `true`.                                                                                                                                                                                                                                                                                                   |
+| `sharedLink`            | `null`  | If you have opened up your [website stats to the public] or created a [private and secure link], enter it to enable the embedded view of the stats in the backend.                                                                                                                                                                                                                               |
 
 ### Multi-site setup
 
@@ -109,7 +133,9 @@ Carbon:
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.
 
-## Fusion Component
+## Fusion Components
+
+### Carbon.Plausible:Component.TrackingCode
 
 The main Fusion component is [Carbon.Plausible:Component.TrackingCode]. This component gets included into [Neos.Neos:Page] under the path `plausibleTrackingCode`. So if you want to add a [custom event][custom events] to a ceratin document, you can do it like this:
 
@@ -118,6 +144,10 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
     plausibleTrackingCode.customEvents = 'plausible("404",{ props: { path: document.location.pathname } });'
 }
 ```
+
+### Carbon.Plausible:Component.Toggle
+
+[Carbon.Plausible:Component.Toggle] is a small component to let the user if he wants to opt-out from tracking.
 
 [packagist]: https://packagist.org/packages/carbon/plausible
 [latest stable version]: https://poser.pugx.org/carbon/plausible/v/stable
@@ -147,5 +177,6 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [hash-based routing]: https://plausible.io/docs/hash-based-routing
 [exclude specific pages]: https://plausible.io/docs/excluding-pages
 [carbon.plausible:component.trackingcode]: Resources/Private/Fusion/Component/TrackingCode.fusion
+[carbon.plausible:component.toggle]: Resources/Private/Fusion/Component/Toggle.fusion
 [neos.neos:page]: Resources/Private/Fusion/Override/Page.fusion
 [jshrink]: https://github.com/tedious/JShrink
