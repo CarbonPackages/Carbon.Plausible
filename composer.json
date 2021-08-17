@@ -3,7 +3,13 @@
     "type": "neos-carbon",
     "description": "Track visits of your Neos site with plausible.io",
     "license": "GPL-3.0",
-    "keywords": ["flow", "neos", "analytics", "plausible", "carbon"],
+    "keywords": [
+        "flow",
+        "neos",
+        "analytics",
+        "plausible",
+        "carbon"
+    ],
     "require": {
         "neos/neos": "^5.3 || ^7.0",
         "neos/fusion-afx": "*",
@@ -32,9 +38,12 @@
             ".gitattributes",
             ".github",
             ".gitignore",
+            ".nvmrc",
             ".prettierrc",
             "CODE_OF_CONDUCT.md",
-            "LICENSE"
+            "LICENSE",
+            "package.json",
+            "yarn.lock"
         ]
     }
 }

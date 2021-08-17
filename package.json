@@ -1,0 +1,22 @@
+{
+    "license": "GPL-3.0",
+    "private": true,
+    "scripts": {
+        "build": "concurrently -r yarn:build:*",
+        "build:js": "esbuild Resources/Private/Assets/{Data,LocalStorage,Module,Toggle}.js --bundle --minify --outdir=Resources/Public",
+        "build:css": "postcss --use postcss-pseudo-is autoprefixer cssnano  --no-map --dir Resources/Public Resources/Private/Assets/*.css",
+        "watch": "concurrently -r yarn:watch:*",
+        "watch:js": "esbuild Resources/Private/Assets/*.js --bundle --watch --outdir=Resources/Public",
+        "watch:css": "postcss --use postcss-pseudo-is autoprefixer --watch --no-map --dir Resources/Public Resources/Private/Assets/*.css",
+        "pipeline": "yarn install --silent --non-interactive;yarn build"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.3.1",
+        "concurrently": "^6.2.1",
+        "cssnano": "^5.0.7",
+        "esbuild": "^0.12.20",
+        "postcss": "^8.3.6",
+        "postcss-cli": "^8.3.1",
+        "postcss-pseudo-is": "^0.2.0"
+    }
+}
