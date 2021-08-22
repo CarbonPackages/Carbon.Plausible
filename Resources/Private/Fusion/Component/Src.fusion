@@ -4,6 +4,8 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     outboundLinks = null
     hashBasedRouting = null
     exclusions = null
+    compat = null
+    local = null
 
     renderer = Neos.Fusion:Join {
         protocol = 'https://'
@@ -13,6 +15,8 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
         hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
         exclusions = ${props.exclusions ? '.exclusions' : ''}
         outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
+        compat = ${props.compat ? '.compat' : ''}
+        local = ${props.local ? '.local' : ''}
         fileextension = '.js'
     }
 }

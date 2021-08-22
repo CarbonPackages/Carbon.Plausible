@@ -7,6 +7,8 @@ Carbon:
       hashBasedRouting: false
       exclusions: false
       outboundLinks: false
+      compat: false
+      local: false
       customEvents: false
       dataAnalyticsTracking: false
       sharedLink: null

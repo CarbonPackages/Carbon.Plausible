@@ -19,6 +19,7 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                         domain = 'domain.tld'
                         host = 'stats.domain.tld'
                         hashBasedRouting = false
+                        compat = true
                         exclusions = '/blog,/rule/*,/how-to-*,/*/admin'
                     }
                 }
@@ -44,7 +45,7 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                     exclusions = true
                 }
             }
-            table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'customEvents']}
+            table = ${['domain', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'compat', 'local', 'customEvents']}
             renderer = afx`
                 <main class='plausible' data-screenshot='error'>
                     <Neos.Fusion:Loop items={props.settings}>
