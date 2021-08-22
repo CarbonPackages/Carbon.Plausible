@@ -19,7 +19,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
     dataAnalyticsTracking = ${this.siteSettings.dataAnalyticsTracking || this.defaultSettings.dataAnalyticsTracking}
 
-    async = true
+    async = false
     defer = true
 
     checkIfDomainIsTheSameAsRequest = true
