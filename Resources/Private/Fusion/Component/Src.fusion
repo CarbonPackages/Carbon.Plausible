@@ -9,8 +9,8 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     local = null
 
     renderer = Neos.Fusion:Join {
-        protocol = 'https://'
-        host = ${props.host}
+        protocol = ${props.reverseProxy ? null : 'https://'}
+        host = ${props.reverseProxy ? null : props.host}
         filename = Neos.Fusion:Case {
             useReverseProxy {
                 condition = ${props.reverseProxy}
