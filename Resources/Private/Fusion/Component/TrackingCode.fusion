@@ -11,8 +11,9 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
     siteSettings.@process.isDefined = ${this.siteName && Type.isArray(value) && Type.isArray(value[this.siteName]) ? value[this.siteName] : this.defaultSettings}
 
-    host = ${this.siteSettings.host || this.defaultSettings.host}
     domain = ${this.siteSettings.domain || this.defaultSettings.domain}
+    reverseProxy = ${Type.isBoolean(this.siteSettings.reverseProxy) ? this.siteSettings.reverseProxy : this.defaultSettings.reverseProxy}
+    host = ${this.reverseProxy ? null : (this.siteSettings.host || this.defaultSettings.host)}
     outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
     hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
     exclusions = ${this.siteSettings.exclusions || Type.isBoolean(this.siteSettings.exclusions) ? this.siteSettings.exclusions : this.defaultSettings.exclusions}
