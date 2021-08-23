@@ -12,7 +12,7 @@
     ],
     "require": {
         "neos/neos": "^5.3 || ^7.0",
-        "neos/cache": "^5.3 || ^7.0",
+        "neos/cache": "^6.3 || ^7.0",
         "neos/fusion-afx": "*",
         "carbon/eel": "^1.12.0",
         "tedivm/jshrink": "^1.4",
