@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Neos\Cache\Frontend\VariableFrontend;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Http\Component\SetHeaderComponent;
 use Neos\Flow\Mvc\Controller\ActionController;
 
 
@@ -157,7 +158,9 @@ class ReverseProxyController extends ActionController
             $this->response->setContentType($config['contentType']);
         }
         foreach ($config['header'] as $key => $value) {
-            $this->response->setHttpHeader($key, $value);
+            // If Neos 5.3 is no more supported, use the following line instead
+            // $this->response->setHttpHeader($key, $value);
+            $this->response->setComponentParameter(SetHeaderComponent::class, $key, $value);
         }
     }
 }
