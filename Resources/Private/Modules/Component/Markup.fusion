@@ -9,7 +9,7 @@ prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Compon
 
     checkIfDomainIsTheSameAsRequest = false
 
-    renderScriptTag = true
+    renderPlausibleScriptTag = true
     @process.wrap = afx`
         <h3>{Translation.translate('markup.headline', 'Resulting Markup', [], 'Module', 'Carbon.Plausible')}</h3>
         <div class='plausible-markup'>
