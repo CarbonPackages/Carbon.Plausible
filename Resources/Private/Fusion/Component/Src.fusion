@@ -1,4 +1,5 @@
 prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
+    reverseProxy = null
     host = null
     host.@process.fallback = ${value || 'plausible.io'}
     outboundLinks = null
@@ -10,8 +11,20 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     renderer = Neos.Fusion:Join {
         protocol = 'https://'
         host = ${props.host}
-        jsFolder = '/js/'
-        filename = ${props.host != 'plausible.io' ? 'index' : 'plausible'}
+        filename = Neos.Fusion:Case {
+            useReverseProxy {
+                condition = ${props.reverseProxy}
+                renderer = '/~plausible'
+            }
+            ownHost {
+                condition = ${props.host != 'plausible.io'}
+                renderer = '/js/index'
+            }
+            default {
+                condition = true
+                renderer = '/js/plausible'
+            }
+        }
         hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
         exclusions = ${props.exclusions ? '.exclusions' : ''}
         outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}

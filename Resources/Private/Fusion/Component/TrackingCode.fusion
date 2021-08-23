@@ -61,9 +61,10 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             <script
                 @if.set={props.renderPlausibleScriptTag}
                 id={props.compat ? 'plausible' : null}
-                src={props.plausibleSrc}
                 data-domain={props.domain}
+                data-api={props.reverseProxy ? '/~plausible' : null}
                 data-exclude={props.dataExclude}
+                src={props.plausibleSrc}
                 async={props.async}
                 defer={props.defer}
             ></script>
