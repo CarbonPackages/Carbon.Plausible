@@ -10,3 +10,20 @@
       handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
       options:
         onlyMatchSiteNodes: true
+
+- name: 'API for reverse proxy'
+  uriPattern: '~plausible'
+  defaults:
+    '@package': 'Carbon.Plausible'
+    '@controller': 'ReverseProxy'
+    '@action': 'apiEvent'
+  httpMethods: ['POST']
+
+- name: 'Files for reverse proxy'
+  uriPattern: '~plausible({filename}).js'
+  defaults:
+    '@package': 'Carbon.Plausible'
+    '@controller': 'ReverseProxy'
+    '@action': 'file'
+    'filename': 'default'
+  httpMethods: ['GET']

@@ -2,6 +2,8 @@ privilegeTargets:
   'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
     'Carbon.Plausible:ViewConfiguration':
       matcher: 'method(public Carbon\Plausible\Controller\PlausibleController->(.*)Action())'
+    'Carbon.Plausible:ReverseProxy':
+      matcher: 'method(public Carbon\Plausible\Controller\ReverseProxyController->(.*)Action())'
 
   'Neos\Neos\Security\Authorization\Privilege\ModulePrivilege':
     'Carbon.Plausible:Backend.Module.Management.Plausible':
@@ -13,4 +15,9 @@ roles:
       - privilegeTarget: 'Carbon.Plausible:ViewConfiguration'
         permission: GRANT
       - privilegeTarget: 'Carbon.Plausible:Backend.Module.Management.Plausible'
+        permission: GRANT
+
+  'Neos.Flow:Everybody':
+    privileges:
+      - privilegeTarget: 'Carbon.Plausible:ReverseProxy'
         permission: GRANT

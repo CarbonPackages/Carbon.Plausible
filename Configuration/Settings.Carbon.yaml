@@ -3,6 +3,7 @@ Carbon:
     enable: false
     default:
       domain: null
+      reverseProxy: true
       host: null
       hashBasedRouting: false
       exclusions: false

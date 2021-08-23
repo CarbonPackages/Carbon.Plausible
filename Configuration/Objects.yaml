@@ -1,0 +1,9 @@
+Carbon\Plausible\Controller\ReverseProxyController:
+  properties:
+    cache:
+      object:
+        factoryObjectName: Neos\Flow\Cache\CacheManager
+        factoryMethodName: getCache
+        arguments:
+          1:
+            value: CarbonPlausible_Cache
