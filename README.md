@@ -15,6 +15,7 @@ Easily integrate [Plausible Analytics][plausible] into your [Neos site][neos].
 - Check if the requested domain matches the defined domain to track
 - Enabled per default only on `Production` environment
 - Embed stats directly into the Neos Backend
+- Proxies the needed JS files (cached for 6 hours) and API from Plausible
 
 ### Multi-site compatibility
 
@@ -93,7 +94,9 @@ If you have a single site setup, you can adjust the configuration under the key 
 | Key                     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                      |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `domain`                | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
-| `host`                  | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.jonnitto.ch`                                                                                                                                                                                                                                                                                                             |
+| `reverseProxy`          | `true`  | Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible. If set, the settings `host` has no effect                                                                                                                                                                                                                                                                       |
+|                         |
+| `host`                  | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.uhlmann.pro`. For new instances you cannot set up a [custom domain], as it is depreciated. To enable this setting, you have to set `reverseProxy` to `false`.                                                                                                                                                            |
 | `hashBasedRouting`      | `false` | Automatically follow frontend navigation when using [hash-based routing]                                                                                                                                                                                                                                                                                                                         |
 | `exclusions`            | `false` | [Exclude certain pages from being tracked]                                                                                                                                                                                                                                                                                                                                                       |
 | `outboundLinks`         | `false` | Automatically [track clicks on outbound links] from your website                                                                                                                                                                                                                                                                                                                                 |
@@ -114,7 +117,6 @@ Carbon:
   Plausible:
     sites:
       myfirstsite:
-        host: stats.domain.com
         domain: domain.com
         outboundLinks: true
         sharedLink: https://plausible.io/share/domain.com?auth=abcdefghijklmnopqrstu
@@ -161,9 +163,9 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [fork]: https://github.com/CarbonPackages/Carbon.Plausible/fork
 [stargazers]: https://github.com/CarbonPackages/Carbon.Plausible/stargazers
 [subscription]: https://github.com/CarbonPackages/Carbon.Plausible/subscription
-[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/108609996-659c4a80-73d2-11eb-915a-45d3223d4d1b.png
-[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/108609998-66cd7780-73d2-11eb-9fb1-d6dbab2713e8.png
-[error in the backend module]: https://user-images.githubusercontent.com/4510166/108571001-6ddf8180-730f-11eb-9688-de477a6a0409.png
+[screenshot of backend module as administrator]: https://user-images.githubusercontent.com/4510166/130530340-11ffb59c-ff27-4d61-8012-5ed4b67c6fcb.png
+[screenshot of backend module as editor]: https://user-images.githubusercontent.com/4510166/130530343-478daf32-50a1-4051-8d01-a97c0f726622.png
+[error in the backend module]: https://user-images.githubusercontent.com/4510166/130530345-41c17f25-014a-4d96-9a61-f0a67697f09e.png
 [set options in the inspector]: https://user-images.githubusercontent.com/4510166/105755934-41248e00-5f4c-11eb-87dc-e4a4434943b0.gif
 [neos]: https://www.neos.io
 [plausible]: https://plausible.io
