@@ -63,7 +63,7 @@ class ReverseProxyController extends ActionController
 
         if (\strlen($config['output'])) {
             // 60 * 60 * 6 = 21600 = 6 hours
-            $this->cache->set($cacheIdentifier, $config, ['Carbon_Plausible_Cache'], 21600);
+            $this->cache->set($cacheIdentifier, $config, ['CarbonPlausible_Cache'], 21600);
         }
         return $config['output'];
     }
