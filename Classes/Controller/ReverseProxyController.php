@@ -12,6 +12,7 @@ use Neos\Flow\Http\Component\SetHeaderComponent;
 use Neos\Flow\Log\Utility\LogEnvironment;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -23,6 +24,12 @@ class ReverseProxyController extends ActionController
      * @Flow\Inject
      */
     protected $cache;
+
+    /**
+     * @Flow\Inject
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     public function __construct()
     {
@@ -78,6 +85,10 @@ class ReverseProxyController extends ActionController
         if (\strlen($config['output'])) {
             // 60 * 60 * 6 = 21600 = 6 hours
             $this->cache->set($cacheIdentifier, $config, ['CarbonPlausible_Cache'], 21600);
+            $this->logger->debug(
+                "Cached $url as \"$cacheIdentifier\"",
+                LogEnvironment::fromMethodName(__METHOD__)
+            );
         }
         return $config['output'];
     }
