@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Carbon\Plausible\Controller;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Neos\Cache\Frontend\VariableFrontend;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Http\Client\Browser;
+use Neos\Flow\Http\Client\CurlEngine;
 use Neos\Flow\Http\Component\SetHeaderComponent;
+use Neos\Flow\Log\Utility\LogEnvironment;
 use Neos\Flow\Mvc\Controller\ActionController;
-
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -23,6 +23,23 @@ class ReverseProxyController extends ActionController
      * @Flow\Inject
      */
     protected $cache;
+
+    public function __construct()
+    {
+        $this->get = new Browser();
+        $this->get->setRequestEngine(new CurlEngine());
+        $this->get->addAutomaticRequestHeader(
+            'Content-Type',
+            'application/javascript; charset=utf-8;'
+        );
+
+        $this->post = new Browser();
+        $this->post->setRequestEngine(new CurlEngine());
+        $this->post->addAutomaticRequestHeader(
+            'Content-Type',
+            'application/json;  charset=utf-8;'
+        );
+    }
 
     /**
      * Set URL of Plausible Analytics
@@ -49,15 +66,7 @@ class ReverseProxyController extends ActionController
             return $config['output'];
         }
 
-        $client = new Client();
-        $request = new Request(
-            "GET",
-            $url,
-            [
-                "Content-Type" => "application/javascript; charset=utf-8"
-            ]
-        );
-        $response = $client->send($request);
+        $response = $this->get->request($url);
         $config = $this->getHeader($response);
         $this->setHeader($config);
         $config['output'] = $this->outputContent($response);
@@ -77,17 +86,14 @@ class ReverseProxyController extends ActionController
     public function apiEventAction(): string
     {
         $url = $this->backendUrl . '/api/event';
-        $client = new Client();
-        $request = new Request(
-            "POST",
+        $response = $this->post->request(
             $url,
-            [
-                "Content-Type" => "application/json; charset=utf-8"
-            ],
+            'POST',
+            [],
+            [],
+            [],
             \file_get_contents('php://input')
         );
-
-        $response = $client->send($request);
         $this->setHeader($this->getHeader($response));
         return $this->outputContent($response);
     }
@@ -96,10 +102,10 @@ class ReverseProxyController extends ActionController
     /**
      * Take the response, get status code and output content
      *
-     * @param Response $response
+     * @param ResponseInterface $response
      * @return string
      */
-    private function outputContent(Response $response): string
+    private function outputContent(ResponseInterface $response): string
     {
         $statusCode = $response->getStatusCode();
         $this->response->setStatusCode($statusCode);
@@ -113,10 +119,10 @@ class ReverseProxyController extends ActionController
     /**
      * Get header from the request response and return the configuration
      *
-     * @param Response $response
+     * @param ResponseInterface $response
      * @return array
      */
-    private function getHeader(Response $response): array
+    private function getHeader(ResponseInterface $response): array
     {
         $contentType = $response->getHeader('Content-Type');
         $cacheControl = $response->getHeader('cache-control');
