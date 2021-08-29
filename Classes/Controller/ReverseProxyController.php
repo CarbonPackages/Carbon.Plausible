@@ -39,6 +39,10 @@ class ReverseProxyController extends ActionController
             'Content-Type',
             'application/json;  charset=utf-8;'
         );
+        $this->post->addAutomaticRequestHeader(
+            'X-Forwarded-For',
+            $this->getClientIP()
+        );
     }
 
     /**
@@ -98,6 +102,21 @@ class ReverseProxyController extends ActionController
         return $this->outputContent($response);
     }
 
+    /**
+     * Get IP address of the client
+     *
+     * @return string
+     */
+    private function getClientIP(): string
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        return $_SERVER['REMOTE_ADDR'];
+    }
 
     /**
      * Take the response, get status code and output content
@@ -128,18 +147,6 @@ class ReverseProxyController extends ActionController
         $cacheControl = $response->getHeader('cache-control');
         $age = $response->getHeader('age');
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        $config = [
-            'header' => [
-                'X-Forwarded-For' => $ip
-            ]
-        ];
         if (\count($contentType)) {
             $config['contentType'] = $contentType[0] . '; charset=utf-8;';
         }
