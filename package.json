@@ -11,12 +11,12 @@
         "pipeline": "yarn install --silent --non-interactive;yarn build"
     },
     "dependencies": {
-        "autoprefixer": "^10.3.1",
-        "concurrently": "^6.2.1",
-        "cssnano": "^5.0.7",
-        "esbuild": "^0.12.20",
-        "postcss": "^8.3.6",
-        "postcss-cli": "^8.3.1",
-        "postcss-pseudo-is": "^0.2.0"
+        "autoprefixer": "^10.4.0",
+        "concurrently": "^6.4.0",
+        "cssnano": "^5.0.11",
+        "esbuild": "^0.13.14",
+        "postcss": "^8.3.11",
+        "postcss-cli": "^9.0.2",
+        "postcss-pseudo-is": "^0.3.0"
     }
 }
