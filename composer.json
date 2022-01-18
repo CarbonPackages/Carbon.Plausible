@@ -14,7 +14,7 @@
         "neos/neos": "^5.3 || ^7.0",
         "neos/cache": "^6.3 || ^7.0",
         "neos/fusion-afx": "*",
-        "carbon/eel": "^1.12.0",
+        "carbon/eel": "^1.12.0 || ^2.0",
         "tedivm/jshrink": "^1.4"
     },
     "suggest": {
@@ -28,8 +28,8 @@
     "authors": [
         {
             "name": "Jon Uhlmann",
-            "email": "me@jonnitto.ch",
-            "homepage": "https://jonnitto.ch",
+            "email": "hello@uhlmann.pro",
+            "homepage": "https://www.uhlmann.pro",
             "role": "Developer"
         }
     ],
