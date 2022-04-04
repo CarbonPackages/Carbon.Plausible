@@ -63,9 +63,9 @@ class ReverseProxyController extends ActionController
      * Proxies the GET request to the Plausible Analytics scripts
      *
      * @param string $filename
-     * @return void
+     * @return string
      */
-    public function fileAction(string $filename)
+    public function fileAction(string $filename): string
     {
         $part = $filename == 'default' ? '' : $filename;
         $cacheIdentifier = implode('_', array_filter(explode('.', $filename)));
