@@ -11,8 +11,8 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^5.3 || ^7.0",
-        "neos/cache": "^6.3 || ^7.0",
+        "neos/neos": "^5.3 || ^7.0 || ^8.0",
+        "neos/cache": "^6.3 || ^7.0 || ^8.0",
         "neos/fusion-afx": "*",
         "carbon/eel": "^1.12.0 || ^2.0",
         "tedivm/jshrink": "^1.4"
