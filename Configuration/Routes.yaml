@@ -19,6 +19,14 @@
     '@action': 'apiEvent'
   httpMethods: ['POST']
 
+- name: 'API for reverse proxy (For headless mode)'
+  uriPattern: '~plausible/api/event'
+  defaults:
+    '@package': 'Carbon.Plausible'
+    '@controller': 'ReverseProxy'
+    '@action': 'apiEvent'
+  httpMethods: ['POST']
+
 - name: 'Files for reverse proxy'
   uriPattern: '~plausible({filename}).js'
   defaults:
