@@ -1,12 +1,12 @@
 prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
-    reverseProxy = null
-    host = null
+    reverseProxy = ${null}
+    host = ${null}
     host.@process.fallback = ${value || 'plausible.io'}
-    outboundLinks = null
-    hashBasedRouting = null
-    exclusions = null
-    compat = null
-    local = null
+    outboundLinks = ${null}
+    hashBasedRouting = ${null}
+    exclusions = ${null}
+    compat = ${null}
+    local = ${null}
 
     renderer = Neos.Fusion:Join {
         protocol = ${props.reverseProxy ? null : 'https://'}

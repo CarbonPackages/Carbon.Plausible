@@ -1,11 +1,11 @@
 prototype(Carbon.Plausible:Component.Markup) < prototype(Carbon.Plausible:Component.TrackingCode) {
     enable = true
     doNotTrack = false
-    hasCustomEventMixin = null
-    eventName = null
-    eventJSON = null
+    hasCustomEventMixin = ${null}
+    eventName = ${null}
+    eventJSON = ${null}
 
-    siteName = null
+    siteName = ${null}
 
     checkIfDomainIsTheSameAsRequest = false
 

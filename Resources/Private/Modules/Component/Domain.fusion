@@ -1,7 +1,7 @@
 prototype(Carbon.Plausible:Component.Domain) < prototype(Neos.Fusion:Component) {
-    value = null
-    fallback = null
-    siteName = null
+    value = ${null}
+    fallback = ${null}
+    siteName = ${null}
 
     // Internal
     domainValue = ${this.value || this.fallback}

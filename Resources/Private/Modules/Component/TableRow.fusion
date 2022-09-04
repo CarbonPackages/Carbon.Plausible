@@ -1,8 +1,8 @@
 prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component) {
-    key = null
-    value = null
-    fallback = null
-    siteName = null
+    key = ${null}
+    value = ${null}
+    fallback = ${null}
+    siteName = ${null}
 
     // Internal
     value.@process.convertExclusionsArray = ${this.key == 'exclusions' && Type.isArray(value) ? Array.join(value, ',') : value}

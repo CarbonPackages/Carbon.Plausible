@@ -1,7 +1,7 @@
 prototype(Carbon.Plausible:Component.Toggle) < prototype(Neos.Fusion:Component) {
     domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
-    statusClass = null
-    buttonClass = null
+    statusClass = ${null}
+    buttonClass = ${null}
 
     renderer = afx`
         <p style='display:none' class={Carbon.String.merge(props.statusClass, '-plausible-status')}>

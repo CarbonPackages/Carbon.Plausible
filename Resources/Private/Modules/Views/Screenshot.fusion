@@ -8,7 +8,7 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                 default {
                     domain = 'domain.com'
                     reverseProxy = true
-                    host = null
+                    host = ${null}
                     hashBasedRouting = false
                     exclusions = false
                     outboundLinks = false
@@ -41,7 +41,7 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
         renderer = Neos.Fusion:Component {
             settings = Neos.Fusion:DataStructure {
                 noDomain {
-                    domain = null
+                    domain = ${null}
                 }
                 wrongHost {
                     domain = 'domain.tld'
