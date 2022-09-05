@@ -3,10 +3,12 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     host = ${null}
     host.@process.fallback = ${value || 'plausible.io'}
     outboundLinks = ${null}
+    fileDownloads = ${null}
     hashBasedRouting = ${null}
     exclusions = ${null}
     compat = ${null}
     local = ${null}
+    manual = ${null}
 
     renderer = Neos.Fusion:Join {
         protocol = ${props.reverseProxy ? null : 'https://'}
@@ -25,11 +27,14 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
                 renderer = '/js/plausible'
             }
         }
+        // Order based on https://github.com/plausible/analytics/blob/master/tracker/compile.js
         hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
-        exclusions = ${props.exclusions ? '.exclusions' : ''}
         outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
+        exclusions = ${props.exclusions ? '.exclusions' : ''}
         compat = ${props.compat ? '.compat' : ''}
         local = ${props.local ? '.local' : ''}
+        manual = ${props.manual ? '.manual' : ''}
+        fileDownloads = ${props.fileDownloads ? '.file-downloads' : ''}
         fileextension = '.js'
     }
 }

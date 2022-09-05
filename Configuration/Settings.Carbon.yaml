@@ -8,8 +8,10 @@ Carbon:
       hashBasedRouting: false
       exclusions: false
       outboundLinks: false
+      fileDownloads: false
       compat: false
       local: false
+      manual: false
       customEvents: false
       dataAnalyticsTracking: false
       sharedLink: null

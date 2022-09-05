@@ -1,7 +1,7 @@
 prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
     default = ${this.settings.default}
     screenshot = false
-    table = ${['domain', 'reverseProxy', 'host', 'hashBasedRouting', 'exclusions', 'outboundLinks', 'compat', 'local', 'customEvents', 'dataAnalyticsTracking']}
+    table = ${['domain', 'reverseProxy', 'host', 'hashBasedRouting', 'outboundLinks', 'fileDownloads', 'exclusions', 'compat', 'local', 'manual', 'customEvents', 'dataAnalyticsTracking']}
 
     renderer = afx`
         <main class='plausible' data-screenshot={props.screenshot}>

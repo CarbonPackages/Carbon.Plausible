@@ -16,9 +16,11 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     host = ${this.reverseProxy ? null : (this.siteSettings.host || this.defaultSettings.host)}
     outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
     hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
+    fileDownloads = ${Type.isBoolean(this.siteSettings.fileDownloads) ? this.siteSettings.fileDownloads : this.defaultSettings.fileDownloads}
     exclusions = ${this.siteSettings.exclusions || Type.isBoolean(this.siteSettings.exclusions) ? this.siteSettings.exclusions : this.defaultSettings.exclusions}
     compat = ${this.siteSettings.compat || Type.isBoolean(this.siteSettings.compat) ? this.siteSettings.compat : this.defaultSettings.compat}
     local = ${this.siteSettings.local || Type.isBoolean(this.siteSettings.local) ? this.siteSettings.local : this.defaultSettings.local}
+    manual = ${this.siteSettings.manual || Type.isBoolean(this.siteSettings.manual) ? this.siteSettings.manual : this.defaultSettings.manual}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
     dataAnalyticsTracking = ${this.siteSettings.dataAnalyticsTracking || this.defaultSettings.dataAnalyticsTracking}
 
