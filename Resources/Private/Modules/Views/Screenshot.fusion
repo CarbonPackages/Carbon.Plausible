@@ -10,10 +10,12 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                     reverseProxy = true
                     host = ${null}
                     hashBasedRouting = false
-                    exclusions = false
                     outboundLinks = false
+                    fileDownloads  = false
+                    exclusions = false
                     compat = false
                     local = false
+                    manual = false
                     customEvents = false
                     dataAnalyticsTracking = false
                 }
