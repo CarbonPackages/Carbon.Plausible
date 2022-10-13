@@ -25,9 +25,8 @@ Carbon.Plausible.PlausibleController.stats = Neos.Fusion:Component {
             scrolling='no'
             frameborder='0'
             loading='lazy'
-            style='width: 1px;min-width:100%;height:1600px'>
+            style='height:1600px;width:100%;max-width:1088px'>
         </iframe>
         <script async src='https://plausible.io/js/embed.host.js'></script>
     `
 }
-
