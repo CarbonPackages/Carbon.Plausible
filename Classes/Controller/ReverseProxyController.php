@@ -6,13 +6,12 @@ namespace Carbon\Plausible\Controller;
 
 use Neos\Cache\Frontend\VariableFrontend;
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Client\Browser;
-use Neos\Flow\Http\Client\CurlEngine;
 use Neos\Flow\Http\Component\SetHeaderComponent;
 use Neos\Flow\Log\Utility\LogEnvironment;
 use Neos\Flow\Mvc\Controller\ActionController;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use function file_get_contents;
+use function strlen;
 
 /**
  * @Flow\Scope("singleton")
@@ -30,27 +29,6 @@ class ReverseProxyController extends ActionController
      * @var LoggerInterface
      */
     protected $logger;
-
-    public function __construct()
-    {
-        $this->get = new Browser();
-        $this->get->setRequestEngine(new CurlEngine());
-        $this->get->addAutomaticRequestHeader(
-            'Content-Type',
-            'application/javascript; charset=utf-8;'
-        );
-
-        $this->post = new Browser();
-        $this->post->setRequestEngine(new CurlEngine());
-        $this->post->addAutomaticRequestHeader(
-            'Content-Type',
-            'application/json;  charset=utf-8;'
-        );
-        $this->post->addAutomaticRequestHeader(
-            'X-Forwarded-For',
-            $this->getClientIP()
-        );
-    }
 
     /**
      * Set URL of Plausible Analytics
@@ -73,24 +51,43 @@ class ReverseProxyController extends ActionController
 
         if ($this->cache->has($cacheIdentifier)) {
             $config = $this->cache->get($cacheIdentifier);
-            $this->setHeader($config);
-            return $config['output'];
-        }
+            if (isset($config['output'])) {
+                $this->logger->debug(
+                    sprintf('Use cache "%s" for the url %s', $cacheIdentifier, $url),
+                    LogEnvironment::fromMethodName(__METHOD__)
+                );
 
-        $response = $this->get->request($url);
-        $config = $this->getHeader($response);
-        $this->setHeader($config);
-        $config['output'] = $this->outputContent($response);
-
-        if (\strlen($config['output'])) {
-            // 60 * 60 * 6 = 21600 = 6 hours
-            $this->cache->set($cacheIdentifier, $config, ['CarbonPlausible_Cache'], 21600);
-            $this->logger->debug(
-                "Cached $url as \"$cacheIdentifier\"",
+                $this->setHeader($config);
+                return $config['output'];
+            }
+            $this->logger->warning(
+                sprintf('%s with the cache identifier "%s" has no output', $url, $cacheIdentifier),
                 LogEnvironment::fromMethodName(__METHOD__)
             );
         }
-        return $config['output'];
+
+        $response = $this->curl($url);
+        $code = $response['code'];
+        $this->setHeader($response);
+
+        if ($code >= 400) {
+            $this->logger->error(
+                sprintf('%s returned code %s', $url, $code),
+                LogEnvironment::fromMethodName(__METHOD__)
+            );
+            return '';
+        }
+
+        if (strlen($response['output'])) {
+            // 60 * 60 * 6 = 21600 = 6 hours
+            $this->cache->set($cacheIdentifier, $response, ['CarbonPlausible_Cache'], 21600);
+            $this->logger->debug(
+                sprintf('Cached %s as "%s" with code %s', $url, $cacheIdentifier, $code),
+                LogEnvironment::fromMethodName(__METHOD__)
+            );
+        }
+
+        return $response['output'];
     }
 
     /**
@@ -101,79 +98,109 @@ class ReverseProxyController extends ActionController
     public function apiEventAction(): string
     {
         $url = $this->backendUrl . '/api/event';
-        $response = $this->post->request(
-            $url,
-            'POST',
-            [],
-            [],
-            [],
-            \file_get_contents('php://input')
-        );
-        $this->setHeader($this->getHeader($response));
-        return $this->outputContent($response);
-    }
+        $response = $this->curl($url, true);
+        $code = $response['code'];
+        $this->setHeader($response);
 
-    /**
-     * Get IP address of the client
-     *
-     * @return string
-     */
-    private function getClientIP(): string
-    {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            return $_SERVER['HTTP_CLIENT_IP'];
-        }
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-        return $_SERVER['REMOTE_ADDR'];
-    }
-
-    /**
-     * Take the response, get status code and output content
-     *
-     * @param ResponseInterface $response
-     * @return string
-     */
-    private function outputContent(ResponseInterface $response): string
-    {
-        $statusCode = $response->getStatusCode();
-        $this->response->setStatusCode($statusCode);
-        if ($statusCode >= 400) {
+        if ($code >= 400) {
+            $this->logger->error(
+                sprintf('POST %s returned code %s', $url, $code),
+                LogEnvironment::fromMethodName(__METHOD__)
+            );
             return '';
         }
-        $content = $response->getBody()->getContents();
-        return $content;
+        return $response['output'];
+    }
+
+
+    /**
+     * Get all headers from request
+     *
+     * @return array
+     */
+    private function getAllHeaders(): array
+    {
+        if (function_exists('getallheaders')) {
+            return getallheaders();
+        } else {
+            if (!is_array($_SERVER)) {
+                return [];
+            }
+            $headers = [];
+
+            $copy_server = [
+                'CONTENT_TYPE'   => 'Content-Type',
+                'CONTENT_LENGTH' => 'Content-Length',
+                'CONTENT_MD5'    => 'Content-Md5',
+            ];
+
+            foreach ($_SERVER as $key => $value) {
+                if (substr($key, 0, 5) === 'HTTP_') {
+                    $key = substr($key, 5);
+                    if (!isset($copy_server[$key]) || !isset($_SERVER[$key])) {
+                        $key = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', $key))));
+                        $headers[$key] = $value;
+                    }
+                } elseif (isset($copy_server[$key])) {
+                    $headers[$copy_server[$key]] = $value;
+                }
+            }
+
+            return $headers;
+        }
     }
 
     /**
-     * Get header from the request response and return the configuration
+     * Call Plausible
      *
-     * @param ResponseInterface $response
+     * @param string $url
+     * @param boolean $apiCall
      * @return array
      */
-    private function getHeader(ResponseInterface $response): array
+    private function curl(string $url, bool $apiCall = false): array
     {
-        $contentType = $response->getHeader('Content-Type');
-        $cacheControl = $response->getHeader('cache-control');
-        $age = $response->getHeader('age');
-        $config = [
-            'header' => []
-        ];
+        $code = 400;
+        $ch = curl_init($url);
+        $headers = [];
+        foreach ($this->getAllHeaders() as $key => $value) {
+            if (!in_array($key, ['Host', 'Accept-Encoding', 'X-Forwarded-For', 'Client-IP'])) {
+                $headers[$key] = $key . ': ' . $value;
+            }
+        }
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        $headers['X-Forwarded-For'] = 'X-Forwarded-For: ' . $ip;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        if (\count($contentType)) {
-            $config['contentType'] = $contentType[0] . '; charset=utf-8;';
+        if ($apiCall) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, file_get_contents('php://input'));
         }
-        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-            $config['header']['User-Agent'] = $_SERVER['HTTP_USER_AGENT'];
-        }
-        if (\count($age)) {
-            $config['header']['age'] = $age[0];
-        }
-        if (\count($cacheControl)) {
-            $config['header']['cache-control'] = $cacheControl[0];
-        }
-        return $config;
+        $output = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+
+        curl_close($ch);
+
+        return [
+            'header' => [
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Credentials' => 'true'
+            ],
+            'output' => $output,
+            'contentType' => $contentType,
+            'code' => $code
+        ];
     }
 
     /**
