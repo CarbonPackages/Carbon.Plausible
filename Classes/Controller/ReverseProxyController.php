@@ -157,9 +157,15 @@ class ReverseProxyController extends ActionController
         $contentType = $response->getHeader('Content-Type');
         $cacheControl = $response->getHeader('cache-control');
         $age = $response->getHeader('age');
+        $config = [
+            'header' => []
+        ];
 
         if (\count($contentType)) {
             $config['contentType'] = $contentType[0] . '; charset=utf-8;';
+        }
+        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
+            $config['header']['User-Agent'] = $_SERVER['HTTP_USER_AGENT'];
         }
         if (\count($age)) {
             $config['header']['age'] = $age[0];
