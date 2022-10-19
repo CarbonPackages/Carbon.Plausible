@@ -41,6 +41,7 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                     <tbody>
                         <tr>
                             <Carbon.Plausible:Component.Domain
+                                @if={!props.default.domain ? !props.settings.sites : true}
                                 value={props.default.domain}
                                 siteName={props.default.sharedLink ? 'default' : null}
                             />
