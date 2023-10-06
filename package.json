@@ -15,7 +15,7 @@
         "concurrently": "^7.1.0",
         "cssnano": "^5.1.7",
         "esbuild": "^0.14.31",
-        "postcss": "^8.4.12",
+        "postcss": "^8.4.31",
         "postcss-cli": "^9.1.0",
         "postcss-pseudo-is": "^0.3.0"
     }
