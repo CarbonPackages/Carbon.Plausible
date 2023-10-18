@@ -41,6 +41,7 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                     <tbody>
                         <tr>
                             <Carbon.Plausible:Component.Domain
+                                @if.set={!props.default.domain ? !props.settings.sites : true}
                                 value={props.default.domain}
                                 siteName={props.default.sharedLink ? 'default' : null}
                             />
@@ -74,7 +75,11 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                         </Neos.Fusion:Loop>
                     </tbody>
                 </table>
-                <Carbon.Plausible:Component.Markup defaultSettings={props.settings.default} siteSettings={props.settings.sites} />
+                <Carbon.Plausible:Component.Markup
+                    @if.set={!props.settings.default.domain ? !props.settings.sites : true}
+                    defaultSettings={props.settings.default}
+                    siteSettings={props.settings.sites}
+                />
             </section>
 
             <h2 @if.set={props.isAdministrator}>{Translation.translate('siteMappings', 'Site mappings', [], 'Module', 'Carbon.Plausible')}</h2>
