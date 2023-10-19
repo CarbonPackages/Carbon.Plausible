@@ -119,7 +119,7 @@ Our "File Downloads Tracking" captures a file download event each time a link is
 You can also specify a custom list of file types to track if you set `fileDownloads` to a string or an array. Say you only want to track `.zip` and `.pdf` files, you can use a snippet like this:
 
 ```yaml
-fileDownloads: `zip,pdf`
+fileDownloads: 'zip,pdf'
 ```
 
 or
