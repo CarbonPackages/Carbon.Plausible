@@ -12,17 +12,27 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     siteSettings.@process.isDefined = ${this.siteName && Type.isArray(value) && Type.isArray(value[this.siteName]) ? value[this.siteName] : this.defaultSettings}
 
     domain = ${this.siteSettings.domain || this.defaultSettings.domain}
-    reverseProxy = ${Type.isBoolean(this.siteSettings.reverseProxy) ? this.siteSettings.reverseProxy : this.defaultSettings.reverseProxy}
+    reverseProxy = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'reverseProxy')}
     host = ${this.reverseProxy ? null : (this.siteSettings.host || this.defaultSettings.host)}
-    outboundLinks = ${Type.isBoolean(this.siteSettings.outboundLinks) ? this.siteSettings.outboundLinks : this.defaultSettings.outboundLinks}
-    hashBasedRouting = ${Type.isBoolean(this.siteSettings.hashBasedRouting) ? this.siteSettings.hashBasedRouting : this.defaultSettings.hashBasedRouting}
-    fileDownloads = ${Type.isBoolean(this.siteSettings.fileDownloads) ? this.siteSettings.fileDownloads : this.defaultSettings.fileDownloads}
-    exclusions = ${this.siteSettings.exclusions || Type.isBoolean(this.siteSettings.exclusions) ? this.siteSettings.exclusions : this.defaultSettings.exclusions}
-    compat = ${this.siteSettings.compat || Type.isBoolean(this.siteSettings.compat) ? this.siteSettings.compat : this.defaultSettings.compat}
-    local = ${this.siteSettings.local || Type.isBoolean(this.siteSettings.local) ? this.siteSettings.local : this.defaultSettings.local}
+    customEvents = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'customEvents')}
+    dataAnalyticsTracking = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'dataAnalyticsTracking')}
+    hashBasedRouting = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'hashBasedRouting')}
+    outboundLinks = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'outboundLinks')}
+    fileDownloads = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'fileDownloads')}
+    taggedEvents = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'taggedEvents')}
+    revenue = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'revenue')}
+    exclusions = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'exclusions')}
+
+    compat = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'compat')}
+    local = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'local')}
+
+    pageviewProps = Neos.Fusion:DataStructure
+
     manual = ${this.siteSettings.manual || Type.isBoolean(this.siteSettings.manual) ? this.siteSettings.manual : this.defaultSettings.manual}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
+
     dataAnalyticsTracking = ${this.siteSettings.dataAnalyticsTracking || this.defaultSettings.dataAnalyticsTracking}
+
 
     async = false
     defer = true
@@ -37,10 +47,16 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     renderer = Neos.Fusion:Component {
         @apply.props = ${props}
 
+        fileTypes = ${Type.isString(props.fileDownloads) ? props.fileDownloads : Array.join(props.fileDownloads, ',')}
+        fileTypes.@if {
+            exclusionIsSet = ${props.fileDownloads}
+            isStringOrArray = ${Type.isString(props.fileDownloads) || Carbon.Array.length(props.fileDownloads)}
+        }
+
         dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
         dataExclude.@if {
             exclusionIsSet = ${props.exclusions}
-            isStringOrArray = ${Type.isString(props.exclusions) || (Type.isArray(props.exclusions) && Array.length(props.exclusions))}
+            isStringOrArray = ${Type.isString(props.exclusions) || Carbon.Array.length(props.exclusions)}
         }
 
         inlineJavascript = Neos.Fusion:DataStructure {
@@ -66,7 +82,9 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 id={props.compat ? 'plausible' : null}
                 data-domain={props.domain}
                 data-api={props.reverseProxy ? '/~plausible' : null}
+                {...Carbon.Plausible.pageviewProps(props.pageviewProps)}
                 data-exclude={props.dataExclude}
+                file-types={props.fileTypes}
                 src={props.plausibleSrc}
                 async={props.async}
                 defer={props.defer}
