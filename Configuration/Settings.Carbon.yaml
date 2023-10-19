@@ -67,3 +67,9 @@ Carbon:
       # https://plausible.io/docs/custom-locations
       # https://plausible.io/docs/custom-query-params
       manual: false
+
+      # With `pageviewProps` you can attach custom properties (also known as custom dimensions in Google Analytics) sending a
+      # pageview in order to create custom metrics. You can add up to 30 custom properties alongside a pageview by adding multiple
+      # attributes to the `pageviewProps` object. (Keys with values)
+      # https://plausible.io/docs/custom-props/introduction
+      pageviewProps: false
