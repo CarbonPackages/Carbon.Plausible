@@ -1,22 +1,69 @@
 Carbon:
   Plausible:
+    # Enable or disable the Plausible integration
+    # Disable per default, enabled in Production context per default
     enable: false
+
     default:
+      # Set here the plausible domain. This setting is required
       domain: null
+
+      # Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible.
+      # If set, the settings host has no effect
       reverseProxy: true
+
+      # If you have set a custom domain, you can set it here. Example: stats.uhlmann.pro.
+      # For new instances you cannot set up a custom domain, as it is depreciated.
+      # To enable this setting, you have to set reverseProxy to false.
       host: null
-      hashBasedRouting: false
-      exclusions: false
-      outboundLinks: false
-      fileDownloads: false
-      compat: false
-      local: false
-      manual: false
-      customEvents: false
-      dataAnalyticsTracking: false
+
+      # If you have opened up your website stats to the public or created a private
+      # and secure link, enter it to enable the embedded view of the stats in the backend
       sharedLink: null
-    # sites:
-    #   rootNodeName:
-    #     host: stats.domain.tld
-    #     domain: domain.tld
-    #     outboundLinks: true
+
+      # If you want to set custom events in your javascript, set this to true or a string.
+      # If set to a string, this whole string gets included on every document.
+      # If you set custom events via Fusion or the Carbon.Plausible:Mixin.CustomEvent mixin,
+      # you don't have to set it to true. The snippet gets activated automatically if needed.
+      customEvents: false
+
+      # If you want to enable data-analytics for tracking links and form submits set this to true
+      dataAnalyticsTracking: false
+
+      # Automatically follow frontend navigation when using hash-based routing
+      # https://plausible.io/docs/hash-based-routing
+      hashBasedRouting: false
+
+      # Automatically track clicks on outbound links from your website
+      # https://plausible.io/docs/outbound-link-click-tracking
+      outboundLinks: false
+
+      # Automatically track file downloads
+      # https://plausible.io/docs/file-downloads-tracking
+      fileDownloads: false
+
+      # Allows you to track standard custom events such as link clicks,
+      # form submits, and any other HTML element clicks
+      # https://plausible.io/docs/custom-event-goals
+      taggedEvents: false
+
+      # Allows you to assign dynamic monetary values to goals and custom events to track revenue attribution
+      # https://plausible.io/docs/ecommerce-revenue-tracking
+      revenue: false
+
+      # Exclude certain pages from being tracked
+      # https://plausible.io/docs/excluding-pages
+      exclusions: null
+
+      # Compatibility mode for tracking users on Internet Explorer (≥IE11)
+      # https://plausible.io/docs/script-extensions#scriptcompatjs
+      compat: false
+
+      # Allow analytics to track on localhost too which is useful in hybrid apps
+      local: false
+
+      # Don't trigger pageviews automatically. Also allows you to specify custom locations to redact URLs with identifiers.
+      # You can also use it to track custom query parameters
+      # https://plausible.io/docs/custom-locations
+      # https://plausible.io/docs/custom-query-params
+      manual: false

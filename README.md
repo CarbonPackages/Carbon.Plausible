@@ -91,22 +91,43 @@ Then run `composer update` in your project root.
 
 If you have a single site setup, you can adjust the configuration under the key `Carbon.Plausible.default` in your [`Settings.yaml`]:
 
-| Key                     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                      |
-| ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `domain`                | `null`  | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
-| `reverseProxy`          | `true`  | Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible. If set, the settings `host` has no effect                                                                                                                                                                                                                                                                       |
-|                         |
-| `host`                  | `null`  | If you have set a [custom domain], you can set it here. Example: `stats.uhlmann.pro`. For new instances you cannot set up a [custom domain], as it is depreciated. To enable this setting, you have to set `reverseProxy` to `false`.                                                                                                                                                            |
-| `hashBasedRouting`      | `false` | Automatically follow frontend navigation when using [hash-based routing]                                                                                                                                                                                                                                                                                                                         |
-| `exclusions`            | `false` | [Exclude certain pages from being tracked]                                                                                                                                                                                                                                                                                                                                                       |
-| `outboundLinks`         | `false` | Automatically [track clicks on outbound links] from your website                                                                                                                                                                                                                                                                                                                                 |
-| `fileDownloads`         | `false` | Automatically [track file downloads]                                                                                                                                                                                                                                                                                                                                                             |
-| `compat`                | `false` | Compatibility mode for tracking users on Internet Explorer                                                                                                                                                                                                                                                                                                                                       |
-| `local`                 | `false` | Allow analytics to track on localhost too which is useful in hybrid apps                                                                                                                                                                                                                                                                                                                         |
-| `manual`                | `false` | [Don't trigger pageviews automatically.] Also allows you to [specify custom locations] to redact URLs with identifiers. You can also use it to track [custom query parameters]                                                                                                                                                                                                                   |
-| `customEvents`          | `false` | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
-| `dataAnalyticsTracking` | `false` | If you want to enable `data-analytics` for tracking links and form submits set this to `true`                                                                                                                                                                                                                                                                                                    |
-| `sharedLink`            | `null`  | If you have opened up your [website stats to the public] or created a [private and secure link], enter it to enable the embedded view of the stats in the backend                                                                                                                                                                                                                                |
+| Key                     | Default |         Type          | Description                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------------- | :-----: | :-------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- |
+| `domain`                | `null`  |       `string`        | Set here the [plausible domain]. This setting is required                                                                                                                                                                                                                                                                                                                                        |
+| `reverseProxy`          | `true`  |        `bool`         | Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible. If set, the settings `host` has no effect                                                                                                                                                                                                                                                                       |
+| `host`                  | `null`  |       `string`        | If you have set a [custom domain], you can set it here. Example: `stats.uhlmann.pro`. For new instances you cannot set up a [custom domain], as it is depreciated. To enable this setting, you have to set `reverseProxy` to `false`.                                                                                                                                                            |
+| `sharedLink`            | `null`  |       `string`        | If you have opened up your website stats to the public or created a private and secure link, enter it to enable the embedded view of the stats in the backend                                                                                                                                                                                                                                    |
+| `customEvents`          | `false` |    `string\|bool`     | If you want to set [custom events] in your javascript, set this to `true` or a string. If set to a string, this whole string gets included on every document. If you set custom events via Fusion or the [Carbon.Plausible:Mixin.CustomEvent] mixin, you don't have to set it to `true`. The snippet gets activated automatically if needed. The inline javascript get's minified with [JShrink] |
+| `dataAnalyticsTracking` | `false` |        `bool`         | If you want to enable `data-analytics` for tracking links and form submits set this to `true`                                                                                                                                                                                                                                                                                                    |
+| `hashBasedRouting`      | `false` |        `bool`         | Automatically follow frontend navigation when using [hash-based routing]                                                                                                                                                                                                                                                                                                                         |
+| `outboundLinks`         | `false` |        `bool`         | Automatically [track clicks on outbound links] from your website                                                                                                                                                                                                                                                                                                                                 |
+| `fileDownloads`         | `false` | `bool\|string\|array` | Automatically [track file downloads]                                                                                                                                                                                                                                                                                                                                                             |
+| `taggedEvents`          | `false` |        `bool`         | Allows you to [track standard custom events] such as link clicks, form submits, and any other HTML element clicks                                                                                                                                                                                                                                                                                |
+| `revenue`               | `false` |        `bool`         | Allows you to assign dynamic [monetary values] to goals and custom events to track revenue attribution                                                                                                                                                                                                                                                                                           |     |
+| `exclusions`            | `null` | `string\|array` | [Exclude certain pages from being tracked]                                                                                                                                                                                                                                                                                                                                                       |
+| `compat`                | `false` |        `bool`         | Compatibility mode for tracking users on Internet Explorer                                                                                                                                                                                                                                                                                                                                       |
+| `local`                 | `false` |        `bool`         | Allow analytics to track on localhost too which is useful in hybrid apps                                                                                                                                                                                                                                                                                                                         |
+| `manual`                | `false` |        `bool`         | [Don't trigger pageviews automatically.] Also allows you to [specify custom locations] to redact URLs with identifiers. You can also use it to track [custom query parameters]                                                                                                                                                                                                                   |
+
+#### fileDownloads
+
+Our "File Downloads Tracking" captures a file download event each time a link is clicked with a document, presentation, text file, compressed file, video, audio or other common file type. Both internal and external files downloads are tracked. These file extensions are tracked by default:
+
+`.pdf`, `.xlsx`, `.docx`, `.txt`, `.rtf`, `.csv`, `.exe`, `.key`, `.pps`, `.ppt`, `.pptx`, `.7z`, `.pkg`, `.rar`, `.gz`, `.zip`, `.avi`, `.mov`, `.mp4`, `.mpeg`, `.wmv`, `.midi`, `.mp3`, `.wav`, `.wma`
+
+You can also specify a custom list of file types to track if you set `fileDownloads` to a string or an array. Say you only want to track `.zip` and `.pdf` files, you can use a snippet like this:
+
+```yaml
+fileDownloads: `zip,pdf`
+```
+
+or
+
+```yaml
+fileDownloads:
+  - zip
+  - pdf
+```
 
 ### Multi-site setup
 
@@ -145,9 +166,23 @@ The key of the site (e.g. `myfirstsite`) is the root node name found under Admin
 
 The main Fusion component is [Carbon.Plausible:Component.TrackingCode]. This component gets included into [Neos.Neos:Page] under the path `plausibleTrackingCode`. So if you want to add a [custom event][custom events] to a ceratin document, you can do it like this:
 
-```
+```elm
 prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
     plausibleTrackingCode.customEvents = 'plausible("404",{ props: { path: document.location.pathname } });'
+}
+```
+
+#### pageviewProps
+
+With `pageviewProps` you can attach [custom properties] (also known as custom dimensions in Google Analytics) sending a pageview in order to create custom metrics
+You can add up to 30 custom properties alongside a pageview by adding multiple attributes:
+
+```elm
+prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
+    plausibleTrackingCode.pageviewProps {
+      author = 'John Doe'
+      darkmode = true
+    }
 }
 ```
 
@@ -190,3 +225,6 @@ prototype(Vendor.Site:Document.NotFound) < prototype(Neos.Neos:Page) {
 [specify custom locations]: https://plausible.io/docs/custom-locations
 [custom query parameters]: https://plausible.io/docs/custom-query-params
 [track file downloads]: https://plausible.io/docs/file-downloads-tracking
+[track standard custom events]: https://plausible.io/docs/custom-event-goals
+[monetary values]: https://plausible.io/docs/ecommerce-revenue-tracking
+[custom properties]: https://plausible.io/docs/custom-props/introduction

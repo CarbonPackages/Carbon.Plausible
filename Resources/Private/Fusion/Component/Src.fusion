@@ -9,6 +9,9 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     compat = ${null}
     local = ${null}
     manual = ${null}
+    pageviewProps = ${null}
+    taggedEvents = ${null}
+    revenue = ${null}
 
     renderer = Neos.Fusion:Join {
         protocol = ${props.reverseProxy ? null : 'https://'}
@@ -35,6 +38,9 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
         local = ${props.local ? '.local' : ''}
         manual = ${props.manual ? '.manual' : ''}
         fileDownloads = ${props.fileDownloads ? '.file-downloads' : ''}
+        pageviewProps = ${Carbon.Array.length(props.pageviewProps) ? '.pageview-props' : ''}
+        taggedEvents = ${props.taggedEvents ? '.tagged-events' : ''}
+        revenue = ${props.revenue ? '.revenue' : ''}
         fileextension = '.js'
     }
 }
