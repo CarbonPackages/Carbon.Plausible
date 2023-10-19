@@ -70,7 +70,7 @@ class PlausibleHelper implements ProtectedContextAwareInterface
      * @param string $key
      * @return bool
      */
-    public function getBooleanValue(array $defaultSettings, array $siteSettings, string $key): bool
+    public function getBooleanValue(?array $defaultSettings, ?array $siteSettings, string $key): bool
     {
         return !!$this->getValue($defaultSettings, $siteSettings, $key);
     }
@@ -83,7 +83,7 @@ class PlausibleHelper implements ProtectedContextAwareInterface
      * @param string $key
      * @return mixed
      */
-    public function getValue(array $defaultSettings, array $siteSettings, string $key)
+    public function getValue(?array $defaultSettings, ?array $siteSettings, string $key)
     {
         if (isset($siteSettings[$key])) {
             return $siteSettings[$key];
@@ -91,16 +91,21 @@ class PlausibleHelper implements ProtectedContextAwareInterface
         if (isset($defaultSettings[$key])) {
             return $defaultSettings[$key];
         }
-        return false;
+        return null;
     }
 
     /**
      * Iterate over the given array and return a string with the key and value
      *
-     * @param array $variable
+     * @param $variable
      * @return array
      */
-    public function pageviewProps(array $variable): array {
+    public function pageviewProps($variable): array
+    {
+        if (!is_array($variable)) {
+            return [];
+        }
+
         $result = [];
         foreach ($variable as $key => $value) {
             $key = $this->getKeyForPageviewProps($key);
@@ -116,7 +121,8 @@ class PlausibleHelper implements ProtectedContextAwareInterface
      * @param string $string
      * @return string
      */
-    private function getKeyForPageviewProps(string $string): string {
+    private function getKeyForPageviewProps(string $string): string
+    {
         $separator = '_';
         $string = strtolower(
             preg_replace(

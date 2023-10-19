@@ -26,7 +26,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     compat = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'compat')}
     local = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'local')}
 
-    pageviewProps = Neos.Fusion:DataStructure
+    pageviewProps = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'pageviewProps')}
 
     manual = ${this.siteSettings.manual || Type.isBoolean(this.siteSettings.manual) ? this.siteSettings.manual : this.defaultSettings.manual}
     customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
