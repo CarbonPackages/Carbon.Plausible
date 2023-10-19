@@ -69,6 +69,15 @@
     white-space: nowrap;
 }
 
+.plausible .neos-table table td {
+    border-top: 0 !important;
+}
+
+.plausible .neos-table table {
+    margin-left: -16px;
+}
+
+
 html:not(.-plausible-tracking-enabled):not(.-plausible-tracking-disabled)
     .plausible-tracking,
 .-plausible-tracking-enabled .plausible-tracking--disabled,

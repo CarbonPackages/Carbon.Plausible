@@ -5,13 +5,14 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
     siteName = ${null}
 
     // Internal
-    value.@process.convertExclusionsArray = ${this.key == 'exclusions' && Type.isArray(value) ? Array.join(value, ',') : value}
+    value.@process.convertArray = ${(this.key == 'exclusions' || this.key == 'fileDownloads') && Type.isArray(value) ? Array.join(value, ',') : value}
     isDomain = ${this.key == 'domain'}
+    isStructure = ${this.key == 'pageviewProps' || Type.isArray(this.value)}
     domainValue = ${this.value || this.fallback}
     hasString = ${this.value && Type.isString(this.value)}
     valueIsBoolean = ${Type.isBoolean(this.value)}
 
-    @if.set = ${this.isDomain || this.valueIsBoolean || this.hasString}
+    @if.set = ${this.isDomain || this.valueIsBoolean || this.hasString || this.isStructure}
 
     renderer = afx`
         <tr class={'plausible-row plausible-row--' + String.toLowercase(props.key)}>
@@ -24,7 +25,18 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
                 <code>{props.value ? 'true' : 'false'}</code>
             </td>
             <td @if.set={!props.isDomain && !props.valueIsBoolean} colspan='2'>
-                {props.value}
+                {props.isStructure ? '' : props.value}
+                <table>
+                    <Neos.Fusion:Loop items={props.value} @if.set={props.isStructure}>
+                        <tr>
+                            <td>{itemKey}</td>
+                            <td @if={Type.isBoolean(item)}>
+                                <code>{item ? 'true' : 'false'}</code>
+                            </td>
+                            <td @if={!Type.isBoolean(item)}>{item}</td>
+                        </tr>
+                    </Neos.Fusion:Loop>
+                </table>
             </td>
         </tr>
     `

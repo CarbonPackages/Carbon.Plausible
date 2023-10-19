@@ -25,8 +25,16 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                         host = 'stats.domain.tld'
                         reverseProxy = false
                         exclusions = '/blog,/rule/*,/how-to-*,/*/admin'
+                        revenue = true
+                        taggedEvents = true
+                        fileDownloads = ${['zip', 'pdf']}
+                        pageviewProps = Neos.Fusion:DataStructure {
+                            author = 'Jon Uhlmann'
+                            hasImage = true
+                            example = false
+                        }
                     }
-                    rootNodeNameTwo{
+                    rootNodeNameTwo {
                         domain = 'domain.io'
                         reverseProxy = false
                         compat = true
