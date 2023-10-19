@@ -18,6 +18,7 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                     manual = false
                     customEvents = false
                     dataAnalyticsTracking = false
+                    pageviewProps = false
                 }
                 sites {
                     rootNodeNameOne {
