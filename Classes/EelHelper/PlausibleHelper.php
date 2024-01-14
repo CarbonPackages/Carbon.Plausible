@@ -2,7 +2,6 @@
 
 namespace Carbon\Plausible\EelHelper;
 
-use JShrink\Minifier;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Http\Helper\RequestInformationHelper;
