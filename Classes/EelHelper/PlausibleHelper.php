@@ -13,18 +13,6 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class PlausibleHelper implements ProtectedContextAwareInterface
 {
-
-    /**
-     * Minimze JavaScript
-     *
-     * @param string $javascript
-     * @return string
-     */
-    public function minifyJS(string $javascript): string
-    {
-        return Minifier::minify($javascript);
-    }
-
     /**
      * Return domain without protocol and trailing slash
      *
@@ -150,9 +138,6 @@ class PlausibleHelper implements ProtectedContextAwareInterface
         }
         return (string)$value;
     }
-
-
-    //  reverseProxy = ${Type.isBoolean(this.siteSettings.reverseProxy) ? this.siteSettings.reverseProxy : this.defaultSettings.reverseProxy}
 
     /**
      * All methods are considered safe
