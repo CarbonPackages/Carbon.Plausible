@@ -90,7 +90,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 defer={props.defer}
             ></script>
             <script @if.set={props.inlineJavascript}>
-                {AlpineJS.minify(props.inlineJavascript)}
+                {Carbon.String.minifyJS(props.inlineJavascript)}
             </script>
             <script
                 @if.set={props.dataAnalyticsTrackingSrc}
