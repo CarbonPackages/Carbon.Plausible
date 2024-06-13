@@ -3,6 +3,8 @@
   properties:
     plausibleDoNotTrack:
       type: boolean
+      search:
+        indexing: false
       ui:
         label: i18n
         reloadIfChanged: false
