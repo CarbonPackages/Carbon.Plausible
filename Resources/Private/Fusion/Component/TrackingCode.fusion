@@ -21,7 +21,6 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     fileDownloads = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'fileDownloads')}
     taggedEvents = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'taggedEvents')}
     revenue = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'revenue')}
-    exclusions = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'exclusions')}
 
     compat = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'compat')}
     local = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'local')}
@@ -53,12 +52,6 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             isStringOrArray = ${Type.isString(props.fileDownloads) || Carbon.Array.length(props.fileDownloads)}
         }
 
-        dataExclude = ${Type.isString(props.exclusions) ? props.exclusions : Array.join(props.exclusions, ',')}
-        dataExclude.@if {
-            exclusionIsSet = ${props.exclusions}
-            isStringOrArray = ${Type.isString(props.exclusions) || Carbon.Array.length(props.exclusions)}
-        }
-
         inlineJavascript = Neos.Fusion:DataStructure {
             plausibleVariable = 'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }'
             eventFromNode = ${'plausible("' + props.eventName + '"' + (props.eventJSON ? ',' + props.eventJSON : '') + ')'}
@@ -83,7 +76,6 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
                 data-domain={props.domain}
                 data-api={props.reverseProxy ? '/~plausible' : null}
                 {...Carbon.Plausible.pageviewProps(props.pageviewProps)}
-                data-exclude={props.dataExclude}
                 file-types={props.fileTypes}
                 src={props.plausibleSrc}
                 async={props.async}

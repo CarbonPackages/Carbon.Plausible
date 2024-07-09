@@ -51,10 +51,6 @@ Carbon:
       # https://plausible.io/docs/ecommerce-revenue-tracking
       revenue: false
 
-      # Exclude certain pages from being tracked
-      # https://plausible.io/docs/excluding-pages
-      exclusions: null
-
       # Compatibility mode for tracking users on Internet Explorer (≥IE11)
       # https://plausible.io/docs/script-extensions#scriptcompatjs
       compat: false

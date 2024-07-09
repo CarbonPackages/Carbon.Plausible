@@ -12,7 +12,6 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                     hashBasedRouting = false
                     outboundLinks = false
                     fileDownloads  = false
-                    exclusions = false
                     compat = false
                     local = false
                     manual = false
@@ -25,7 +24,6 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                         domain = 'domain.tld'
                         host = 'stats.domain.tld'
                         reverseProxy = false
-                        exclusions = '/blog,/rule/*,/how-to-*,/*/admin'
                         revenue = true
                         taggedEvents = true
                         fileDownloads = ${['zip', 'pdf']}
@@ -60,10 +58,9 @@ Carbon.Plausible.PlausibleController.screenshot = Neos.Fusion:Case {
                 }
                 notOnServer {
                     domain = 'domain.tld'
-                    exclusions = true
                 }
             }
-            table = ${['domain', 'host', 'exclusions']}
+            table = ${['domain', 'host']}
             renderer = afx`
                 <main class='plausible' data-screenshot='error'>
                     <Neos.Fusion:Loop items={props.settings}>

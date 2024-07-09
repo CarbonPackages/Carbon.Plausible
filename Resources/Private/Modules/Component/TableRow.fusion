@@ -5,7 +5,7 @@ prototype(Carbon.Plausible:Component.TableRow) < prototype(Neos.Fusion:Component
     siteName = ${null}
 
     // Internal
-    value.@process.convertArray = ${(this.key == 'exclusions' || this.key == 'fileDownloads') && Type.isArray(value) ? Array.join(value, ',') : value}
+    value.@process.convertArray = ${this.key == 'fileDownloads' && Type.isArray(value) ? Array.join(value, ',') : value}
     isDomain = ${this.key == 'domain'}
     isStructure = ${this.key == 'pageviewProps' || Type.isArray(this.value)}
     domainValue = ${this.value || this.fallback}

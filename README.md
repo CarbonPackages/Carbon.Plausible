@@ -104,7 +104,6 @@ If you have a single site setup, you can adjust the configuration under the key 
 | `fileDownloads`         | `false` | `bool\|string\|array` | Automatically [track file downloads]                                                                                                                                                                                                                                                                                                                                                             |
 | `taggedEvents`          | `false` |        `bool`         | Allows you to [track standard custom events] such as link clicks, form submits, and any other HTML element clicks                                                                                                                                                                                                                                                                                |
 | `revenue`               | `false` |        `bool`         | Allows you to assign dynamic [monetary values] to goals and custom events to track revenue attribution                                                                                                                                                                                                                                                                                           |
-| `exclusions`            | `null`  |    `string\|array`    | [Exclude certain pages from being tracked]                                                                                                                                                                                                                                                                                                                                                       |
 | `compat`                | `false` |        `bool`         | Compatibility mode for tracking users on Internet Explorer                                                                                                                                                                                                                                                                                                                                       |
 | `local`                 | `false` |        `bool`         | Allow analytics to track on localhost too which is useful in hybrid apps                                                                                                                                                                                                                                                                                                                         |
 | `manual`                | `false` |        `bool`         | [Don't trigger pageviews automatically.] Also allows you to [specify custom locations] to redact URLs with identifiers. You can also use it to track [custom query parameters]                                                                                                                                                                                                                   |
@@ -147,16 +146,10 @@ Carbon:
       mysecondsite:
         domain: domain.org
         hashBasedRouting: true
-        exclusions: "/blog4, /rule/*, /how-to-*, /*/admin"
         sharedLink: https://plausible.io/domain.org
       mythirdsite:
         domain: domain.net
         customEvent: "plausible('Download', {props: {method: 'HTTP'}})"
-        exclusions:
-          - /blog4
-          - /rule/*
-          - /how-to-*
-          - /*/admin
 ```
 
 The key of the site (e.g. `myfirstsite`) is the root node name found under Administration » Sites Management.

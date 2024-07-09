@@ -5,7 +5,6 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     outboundLinks = ${null}
     fileDownloads = ${null}
     hashBasedRouting = ${null}
-    exclusions = ${null}
     compat = ${null}
     local = ${null}
     manual = ${null}
@@ -33,7 +32,6 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
         // Order based on https://github.com/plausible/analytics/blob/master/tracker/compile.js
         hashBasedRouting = ${props.hashBasedRouting ? '.hash' : ''}
         outboundLinks = ${props.outboundLinks ? '.outbound-links' : ''}
-        exclusions = ${props.exclusions ? '.exclusions' : ''}
         compat = ${props.compat ? '.compat' : ''}
         local = ${props.local ? '.local' : ''}
         manual = ${props.manual ? '.manual' : ''}
