@@ -1,11 +1,12 @@
 prototype(Carbon.Plausible:Component.TableHeader) < prototype(Neos.Fusion:Component) {
     first = ${Translation.translate('th.key', 'Key', [], 'Module', 'Carbon.Plausible')}
     second = ${Translation.translate('th.value', 'Value', [], 'Module', 'Carbon.Plausible')}
+    third = null
     renderer = afx`
         <tr>
             <th>{props.first}</th>
-            <th colspan='2'>{props.second}</th>
+            <th colspan={props.third ? null : '2'}>{props.second}</th>
+            <th @if.set={props.third}>{props.third}</th>
         </tr>
     `
 }
-

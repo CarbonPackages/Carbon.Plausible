@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="groups.plausible" xml:space="preserve">
+                <source>User tracking with Plausible</source>
+            </trans-unit>
+            <trans-unit id="properties.plausibleDomain" xml:space="preserve">
+                <source>Domain</source>
+            </trans-unit>
+            <trans-unit id="properties.plausibleDomain.ui.help.message" xml:space="preserve">
+                <source>Please, remove `https` and `www` from the URL, just keep the hostname. For example, if your site is `https://www.domain.com` then please enter the value `domain.com`.</source>
+            </trans-unit>
+            <trans-unit id="properties.plausibleSharedLink" xml:space="preserve">
+                <source>Shared Link for this domain</source>
+            </trans-unit>
+            <trans-unit id="properties.plausibleOutboundLinks" xml:space="preserve">
+                <source>Track clicks on outbound links</source>
+            </trans-unit>
+            <trans-unit id="properties.plausibleFileDownloads" xml:space="preserve">
+                <source>Track file downloads</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

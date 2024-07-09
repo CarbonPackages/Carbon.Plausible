@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Plausible" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="groups.plausible" xml:space="preserve">
+                <source>User tracking with Plausible</source>
+                <target>Nutzer-Tracking mit Plausible</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleDomain" xml:space="preserve">
+                <source>Domain</source>
+                <target>Domain</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleDomain.ui.help.message" xml:space="preserve">
+                <source>Please, remove `https` and `www` from the URL, just keep the hostname. For example, if your site is `https://www.domain.com` then please enter the value `domain.com`.</source>
+                <target>Bitte entfernen Sie `https` und `www` aus der URL und behalten Sie nur den Hostnamen. Wenn Ihre Website beispielsweise `https://www.domain.com` ist, geben Sie den Wert `domain.com` ein.</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleSharedLink" xml:space="preserve">
+                <source>Shared Link for this domain</source>
+                <target>Freigegebener Link für diese Domain</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleOutboundLinks" xml:space="preserve">
+                <source>Track clicks on outbound links</source>
+                <target>Klicks auf ausgehende Links tracken</target>
+            </trans-unit>
+            <trans-unit id="properties.plausibleFileDownloads" xml:space="preserve">
+                <source>Track file downloads</source>
+                <target>Dateidownloads tracken</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

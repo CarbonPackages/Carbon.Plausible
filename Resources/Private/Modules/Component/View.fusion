@@ -91,8 +91,9 @@ prototype(Carbon.Plausible:Component.View) < prototype(Neos.Fusion:Component) {
                     <table class='neos-table'>
                         <thead>
                             <Carbon.Plausible:Component.TableHeader
-                                first={Translation.translate('th.rootNodeName', 'Root node name', [], 'Module', 'Carbon.Plausible')}
+                                first={Translation.translate('th.siteName', 'Site name', [], 'Module', 'Carbon.Plausible')}
                                 second={itemKey}
+                                third={item.name}
                             />
                             <Carbon.Plausible:Component.TableHeader />
                         </thead>

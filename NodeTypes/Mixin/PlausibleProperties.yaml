@@ -1,0 +1,53 @@
+'Carbon.Plausible:Mixin.PlausibleProperties':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        plausible:
+          label: i18n
+          icon: 'fas fa-chart-pie'
+          tab: meta
+          position: end
+          collapsed: true
+  properties:
+    plausibleDomain:
+      type: string
+      search:
+        indexing: false
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        help:
+          message: i18n
+        inspector:
+          group: plausible
+          position: 10
+    plausibleSharedLink:
+      type: string
+      search:
+        indexing: false
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: plausible
+          hidden: 'ClientEval: !node.properties.plausibleDomain'
+          position: 20
+    plausibleOutboundLinks:
+      type: boolean
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: plausible
+          hidden: 'ClientEval: !node.properties.plausibleDomain'
+          position: 30
+    plausibleFileDownloads:
+      type: boolean
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: plausible
+          hidden: 'ClientEval: !node.properties.plausibleDomain'
+          position: 40

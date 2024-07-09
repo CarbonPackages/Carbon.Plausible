@@ -2,6 +2,7 @@
 
 namespace Carbon\Plausible\EelHelper;
 
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Http\Helper\RequestInformationHelper;
@@ -50,28 +51,35 @@ class PlausibleHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Get the value of a key from the site settings or the default settings
+     * Get the boolean value of a key from the site properties, the site settings or the default settings
      *
      * @param array $defaultSettings
      * @param array $siteSettings
      * @param string $key
+     * @param Nodeinterface|null $siteNode
      * @return bool
      */
-    public function getBooleanValue(?array $defaultSettings, ?array $siteSettings, string $key): bool
+    public function getBooleanValue(?array $defaultSettings, ?array $siteSettings, string $key, ?NodeInterface $siteNode = null): bool
     {
-        return !!$this->getValue($defaultSettings, $siteSettings, $key);
+        return !!$this->getValue($defaultSettings, $siteSettings, $key, $siteNode);
     }
 
     /**
-     * Get the value of a key from the site settings or the default settings
+     * Get the value of a key from the site properties, the site settings or the default settings
      *
      * @param array $defaultSettings
      * @param array $siteSettings
      * @param string $key
+     * @param Nodeinterface|null $siteNode
      * @return mixed
      */
-    public function getValue(?array $defaultSettings, ?array $siteSettings, string $key)
+    public function getValue(?array $defaultSettings, ?array $siteSettings, string $key, ?NodeInterface $siteNode = null)
     {
+        $propertyName = 'plausible' . ucfirst($key);
+        if ($siteNode !== null && $siteNode->hasProperty($propertyName)) {
+            return $siteNode->getProperty($propertyName);
+        }
+
         if (isset($siteSettings[$key])) {
             return $siteSettings[$key];
         }

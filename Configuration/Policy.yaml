@@ -9,7 +9,19 @@ privilegeTargets:
     'Carbon.Plausible:Backend.Module.Management.Plausible':
       matcher: 'management/plausible'
 
+  'Neos\ContentRepository\Security\Authorization\Privilege\Node\EditNodePropertyPrivilege':
+    'Carbon.Plausible:PlausibleSiteSettings':
+      label: Configure Plausible direct on the site
+      matcher: 'nodePropertyIsIn(["plausibleDomain", "plausibleSharedLink", "plausibleOutboundLinks", "plausibleFileDownloads"])'
+
 roles:
+  'Carbon.Plausible:PlausibleSiteSettings':
+    label: Configure Plausible direct on the site
+    description: Grants access to the properties to configure Plausible directly on the site
+    privileges:
+      - privilegeTarget: 'Carbon.Plausible:PlausibleSiteSettings'
+        permission: GRANT
+
   'Neos.Neos:AbstractEditor':
     privileges:
       - privilegeTarget: 'Carbon.Plausible:ViewConfiguration'

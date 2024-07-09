@@ -11,14 +11,13 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
     siteSettings.@process.isDefined = ${this.siteName && Type.isArray(value) && Type.isArray(value[this.siteName]) ? value[this.siteName] : this.defaultSettings}
 
-    domain = ${this.siteSettings.domain || this.defaultSettings.domain}
+    domain = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'domain', site)}
     reverseProxy = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'reverseProxy')}
-    host = ${this.reverseProxy ? null : (this.siteSettings.host || this.defaultSettings.host)}
     customEvents = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'customEvents')}
     dataAnalyticsTracking = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'dataAnalyticsTracking')}
     hashBasedRouting = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'hashBasedRouting')}
-    outboundLinks = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'outboundLinks')}
-    fileDownloads = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'fileDownloads')}
+    outboundLinks = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'outboundLinks', site)}
+    fileDownloads = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'fileDownloads', site)}
     taggedEvents = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'taggedEvents')}
     revenue = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'revenue')}
 

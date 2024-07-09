@@ -1,7 +1,7 @@
 Carbon.Plausible.PlausibleController.stats = Neos.Fusion:Component {
     sharedLink = Neos.Fusion:Component {
         site = ${request.httpRequest.uri.query}
-        settings = ${Configuration.setting('Carbon.Plausible')}
+        settings = ${settings}
 
         renderer = Neos.Fusion:Case {
             default {

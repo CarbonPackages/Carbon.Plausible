@@ -71,9 +71,9 @@
                 <source>Value</source>
                 <target>Value</target>
             </trans-unit>
-            <trans-unit id="th.rootNodeName" xml:space="preserve">
-                <source>Root node name</source>
-                <target>Root node name</target>
+            <trans-unit id="th.siteName" xml:space="preserve">
+                <source>Site name</source>
+                <target>Site name</target>
             </trans-unit>
             <trans-unit id="siteMappings" xml:space="preserve">
                 <source>Site mappings</source>
