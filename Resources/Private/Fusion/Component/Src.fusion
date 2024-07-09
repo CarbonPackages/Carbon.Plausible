@@ -1,7 +1,6 @@
 prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
     reverseProxy = ${null}
-    host = ${null}
-    host.@process.fallback = ${value || 'plausible.io'}
+    host = 'plausible.io'
     outboundLinks = ${null}
     fileDownloads = ${null}
     hashBasedRouting = ${null}
@@ -19,10 +18,6 @@ prototype(Carbon.Plausible:Component.Src) < prototype(Neos.Fusion:Component) {
             useReverseProxy {
                 condition = ${props.reverseProxy}
                 renderer = '/~plausible'
-            }
-            ownHost {
-                condition = ${props.host != 'plausible.io'}
-                renderer = '/js/index'
             }
             default {
                 condition = true

@@ -9,13 +9,7 @@ Carbon:
       domain: null
 
       # Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible.
-      # If set, the settings host has no effect
       reverseProxy: true
-
-      # If you have set a custom domain, you can set it here. Example: stats.uhlmann.pro.
-      # For new instances you cannot set up a custom domain, as it is depreciated.
-      # To enable this setting, you have to set reverseProxy to false.
-      host: null
 
       # If you have opened up your website stats to the public or created a private
       # and secure link, enter it to enable the embedded view of the stats in the backend
