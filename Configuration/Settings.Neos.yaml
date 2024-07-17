@@ -6,7 +6,7 @@ Neos:
     mvc:
       routes:
         'Carbon.Plausible':
-          position: 'start'
+          position: 'start 1'
   Neos:
     fusion:
       autoInclude:
