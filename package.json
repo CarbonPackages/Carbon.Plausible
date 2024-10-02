@@ -11,12 +11,12 @@
         "pipeline": "pnpm install --silent;pnpm build"
     },
     "dependencies": {
-        "autoprefixer": "^10.4.4",
-        "concurrently": "^8.2.2",
-        "cssnano": "^6.0.1",
-        "esbuild": "^0.19.5",
-        "postcss": "^8.4.31",
-        "postcss-cli": "^10.1.0",
+        "autoprefixer": "^10.4.20",
+        "concurrently": "^9.0.1",
+        "cssnano": "^7.0.6",
+        "esbuild": "^0.24.0",
+        "postcss": "^8.4.47",
+        "postcss-cli": "^11.0.0",
         "postcss-pseudo-is": "^0.3.0"
     }
 }
