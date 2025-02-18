@@ -11,8 +11,8 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^7.3 || ^8.0",
-        "neos/cache": "^7.3 || ^8.0",
+        "neos/neos": "^8.3",
+        "neos/cache": "^8.3",
         "neos/fusion-afx": "*",
         "carbon/eel": "^2.10"
     },
@@ -31,19 +31,5 @@
             "homepage": "https://www.uhlmann.pro",
             "role": "Developer"
         }
-    ],
-    "archive": {
-        "exclude": [
-            ".editorconfig",
-            ".gitattributes",
-            ".github",
-            ".gitignore",
-            ".nvmrc",
-            ".prettierrc",
-            "CODE_OF_CONDUCT.md",
-            "LICENSE",
-            "package.json",
-            "yarn.lock"
-        ]
-    }
+    ]
 }
