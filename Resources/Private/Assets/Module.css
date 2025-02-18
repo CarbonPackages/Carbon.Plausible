@@ -78,7 +78,7 @@
 }
 
 
-html:not(.-plausible-tracking-enabled):not(.-plausible-tracking-disabled)
+html:not(.-plausible-tracking-enabled, .-plausible-tracking-disabled)
     .plausible-tracking,
 .-plausible-tracking-enabled .plausible-tracking--disabled,
 .-plausible-tracking-disabled .plausible-tracking--enabled {

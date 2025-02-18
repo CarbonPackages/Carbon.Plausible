@@ -2,21 +2,19 @@
     "license": "GPL-3.0",
     "private": true,
     "scripts": {
-        "build": "concurrently -r pnpm:build:*",
-        "build:js": "esbuild Resources/Private/Assets/{Data,LocalStorage,Module,Toggle}.js --bundle --minify --outdir=Resources/Public",
-        "build:css": "postcss --use postcss-pseudo-is autoprefixer cssnano  --no-map --dir Resources/Public Resources/Private/Assets/*.css",
-        "watch": "concurrently -r pnpm:watch:*",
-        "watch:js": "esbuild Resources/Private/Assets/*.js --bundle --watch --outdir=Resources/Public",
-        "watch:css": "postcss --use postcss-pseudo-is autoprefixer --watch --no-map --dir Resources/Public Resources/Private/Assets/*.css",
+        "build": "pnpm js && pnpm css",
+        "js": "esbuild Resources/Private/Assets/{Data,LocalStorage,Module,Toggle}.js --bundle --minify --outdir=Resources/Public",
+        "css": "lightningcss --minify --bundle Resources/Private/Assets/*.css -d Resources/Public",
         "pipeline": "pnpm install --silent;pnpm build"
     },
     "dependencies": {
-        "autoprefixer": "^10.4.20",
-        "concurrently": "^9.0.1",
-        "cssnano": "^7.0.6",
-        "esbuild": "^0.24.0",
-        "postcss": "^8.4.47",
-        "postcss-cli": "^11.0.0",
-        "postcss-pseudo-is": "^0.3.0"
+        "esbuild": "^0.25.0",
+        "lightningcss-cli": "^1.29.1"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "lightningcss-cli"
+        ]
     }
 }
