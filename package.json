@@ -8,7 +8,7 @@
         "pipeline": "pnpm install --silent;pnpm build"
     },
     "dependencies": {
-        "esbuild": "^0.25.0",
+        "esbuild": "^0.28.1",
         "lightningcss-cli": "^1.29.1"
     },
     "pnpm": {
