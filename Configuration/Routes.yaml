@@ -10,6 +10,7 @@
       handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
       options:
         onlyMatchSiteNodes: true
+  httpMethods: ['GET']
 
 - name: 'API for reverse proxy'
   uriPattern: '~plausible'
