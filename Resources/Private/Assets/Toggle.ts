@@ -4,15 +4,15 @@ import {
     disableTracking,
 } from "./Helper.js";
 
-const disabledStatus = selectorAll(".-plausible-disabled");
-const enabledStatus = selectorAll(".-plausible-enabled");
+const disabledStatus = getElements("disabled");
+const enabledStatus = getElements("enabled");
 
 setStatus(trackingIsDisabled());
 
-selectorAll(".-plausible-status").forEach((element) => {
+getElements("status").forEach((element) => {
     element.style.display = null;
 });
-selectorAll(".-plausible-button").forEach((element) => {
+getElements("button").forEach((element) => {
     element.addEventListener("click", () => setStatus(toggleTracking()));
     element.style.display = null;
 });
@@ -26,8 +26,8 @@ function setStatus(disable: boolean) {
     );
 }
 
-function selectorAll(selector: string): HTMLElement[] {
-    return [...document.querySelectorAll(selector)];
+function getElements(selector: string): HTMLElement[] {
+    return [...document.querySelectorAll(`[data-plausible="${selector}"]`)];
 }
 
 function toggleTracking() {

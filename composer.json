@@ -11,8 +11,7 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^8.4 || ^9.0",
-        "carbon/eel": "^2.27"
+        "neos/neos": "^8.4 || ^9.0"
     },
     "suggest": {
         "ext-curl": "*",

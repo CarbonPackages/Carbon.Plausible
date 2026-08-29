@@ -4,19 +4,19 @@ prototype(Carbon.Plausible:Component.Toggle) < prototype(Neos.Fusion:Component) 
     buttonClass = ${null}
 
     renderer = afx`
-        <p style='display:none' class={Carbon.String.classNames(props.statusClass, '-plausible-status')}>
-            <span class='-plausible-disabled'>
+        <p style='display:none' data-plausible='status' class={props.statusClass}>
+            <span data-plausible='disabled'>
                 {Translation.translate('trackingIsDisabled', 'Tracking for {0} from this browser is disabled.', [props.domain], 'Main', 'Carbon.Plausible')}
             </span>
-            <span class='-plausible-enabled'>
+            <span data-plausible='enabled'>
                 {Translation.translate('trackingIsEnabled', 'Tracking for {0} from this browser is enabled.', [props.domain], 'Main', 'Carbon.Plausible')}
             </span>
         </p>
-        <button style='display:none' class={Carbon.String.classNames(props.buttonClass, '-plausible-button')} type='button'>
-            <span class='-plausible-disabled'>
+        <button style='display:none' data-plausible='button' class={props.buttonClass} type='button'>
+            <span data-plausible='disabled'>
                 {Translation.translate('enableTracking', 'Enable tracking', [], 'Main', 'Carbon.Plausible')}
             </span>
-            <span class='-plausible-enabled'>
+            <span data-plausible='enabled'>
                 {Translation.translate('disableTracking', 'Disable tracking', [], 'Main', 'Carbon.Plausible')}
             </span>
         </button>
