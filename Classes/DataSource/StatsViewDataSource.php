@@ -2,7 +2,6 @@
 
 namespace Carbon\Plausible\DataSource;
 
-use Carbon\Plausible\Service\SiteService;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
 use Neos\Neos\Service\DataSource\AbstractDataSource;
@@ -10,9 +9,6 @@ use Neos\Neos\Service\DataSource\AbstractDataSource;
 class StatsViewDataSource extends AbstractDataSource
 {
     protected static $identifier = 'carbon-plausible-statsview';
-
-    #[Flow\Inject]
-    protected SiteService $siteService;
 
     #[Flow\InjectConfiguration('default')]
     protected array|null $defaultConfig;
@@ -42,9 +38,37 @@ class StatsViewDataSource extends AbstractDataSource
             ];
         }
 
-        $siteName = $this->siteService->getName($node);
+        $siteName = $this->getSiteName($node);
         return [
-            'uri' => $this->sitesConfig[$siteName]['sharedLink'] ?? $this->defaultConfig['sharedLink'] ?? null
+            'uri' => $this->getSharedLinkForSite($siteName)
         ];
+    }
+
+    private function getSiteName(mixed $node): ?string
+    {
+        if (!\is_object($node)) {
+            return null;
+        }
+
+        // Neos 9
+        if (\class_exists(\Neos\ContentRepository\Core\Projection\ContentGraph\Node::class)) {
+            return (string) $node->name ?: null;
+        }
+
+        // Neos 8
+        if (\method_exists($node, 'getName')) {
+            return (string) $node->getName() ?: null;
+        }
+
+        return null;
+    }
+
+    private function getSharedLinkForSite(?string $siteName = null): ?string
+    {
+        if (!empty($siteName) && !empty($this->sitesConfig[$siteName]['sharedLink'])) {
+            return $this->sitesConfig[$siteName]['sharedLink'];
+        }
+
+        return $this->defaultConfig['sharedLink'] ?? null;
     }
 }
