@@ -45,9 +45,9 @@ function StatisticView({ label, focusedNodePath }) {
             <Dialog
                 open={open}
                 setOpen={setOpen}
-                fullWidth
                 fullHeight
                 showCloseButton
+                style={{ maxWidth: 1400, width: "var(--dialog-max-width)" }}
             >
                 {open && (
                     <>
@@ -58,13 +58,11 @@ function StatisticView({ label, focusedNodePath }) {
                             frameBorder="0"
                             loading="lazy"
                             style={{
-                                height: "1600px",
-                                width: "1px",
+                                height: 1600,
+                                width: 1,
                                 minWidth: "100%",
                                 display: "block",
                                 margin: "var(--spacing-GoldenUnit) auto",
-                                width: "100%",
-                                maxWidth: "1088px",
                             }}
                         ></iframe>
                         <script
