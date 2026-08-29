@@ -1,23 +1,18 @@
 'Carbon.Plausible:Mixin.PlausibleProperties':
   abstract: true
+  superTypes:
+    'Carbon.Plausible:Mixin.Group': true
+    'Carbon.Plausible:Mixin.StatisticView': true
+    'Carbon.Plausible:Mixin.TrackingView': true
   ui:
     inspector:
       groups:
         plausible:
-          label: i18n
-          icon: 'fas fa-chart-pie'
-          tab: meta
-          position: end
           collapsed: true
       views:
         statisticView:
           group: document
-          position: 'end 999'
-          view: 'Carbon.Plausible/StatisticView'
-        trackingView:
-          group: plausible
-          position: 2
-          view: 'Carbon.Plausible/TrackingView'
+          position: end
   properties:
     plausibleTrackingCode:
       type: string
@@ -30,7 +25,7 @@
           message: i18n
         inspector:
           group: plausible
-          position: 10
+          position: 110
           editor: Neos.Neos/Inspector/Editors/TextAreaEditor
     plausibleSharedLink:
       type: string
@@ -42,4 +37,4 @@
         inspector:
           group: plausible
           hidden: 'ClientEval: !node.properties.plausibleTrackingCode'
-          position: 20
+          position: 120

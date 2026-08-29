@@ -3,10 +3,6 @@
     xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file original="" product-name="Carbon.Plausible" source-language="en" target-language="de" datatype="plaintext">
         <body>
-            <trans-unit id="groups.plausible" xml:space="preserve">
-                <source>User tracking with Plausible</source>
-                <target>Nutzer-Tracking mit Plausible</target>
-            </trans-unit>
             <trans-unit id="properties.plausibleTrackingCode" xml:space="preserve">
                 <source>Tracking Code</source>
                 <target>Tracking-Code</target>
