@@ -1,11 +1,13 @@
-import { trackingIsDisabled, disableTracking } from "./Helper";
+import {
+    trackingIsDisabled,
+    disableTracking,
+    replaceDomainPlaceholders,
+} from "./Helper";
 
-disableAndForward();
+const timeout = trackingIsDisabled() ? 0 : 5000;
+setTimeout(() => {
+    window.location = "/";
+}, timeout);
 
-export function disableAndForward() {
-    const timeout = trackingIsDisabled() ? 0 : 5000;
-    disableTracking();
-    setTimeout(() => {
-        window.location = "/";
-    }, timeout);
-}
+disableTracking();
+replaceDomainPlaceholders();

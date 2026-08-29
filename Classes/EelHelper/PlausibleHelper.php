@@ -34,25 +34,6 @@ class PlausibleHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Return domain without protocol and trailing slash
-     *
-     * @param ServerRequestInterface $request
-     * @return string
-     */
-    public function getDomain(ServerRequestInterface $request): string
-    {
-        $domain = (string) RequestInformationHelper::generateBaseUri($request);
-        // Remove protocol and trailing slash
-        $number = preg_match('/\/\/([^\/]*)/', $domain, $matches);
-        if ($number) {
-            return $matches[1];
-        }
-        // Remove trailing slash
-        $number = preg_match('/([^\/]*)/', $domain, $matches);
-        return $matches[1];
-    }
-
-    /**
      * All methods are considered safe
      *
      * @param string $methodName The name of the method

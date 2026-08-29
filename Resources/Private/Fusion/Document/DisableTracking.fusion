@@ -1,8 +1,8 @@
 prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Component) {
-    domain = ${Carbon.Plausible.getDomain(request.httpRequest)}
-    title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {0} from this browser is now disabled.', [this.domain], 'Main', 'Carbon.Plausible')}
+    title = ${Translation.translate('trackingIsNowDisabled', 'Tracking for {domain} from this browser is now disabled.', [], 'Main', 'Carbon.Plausible')}
 
     renderer = Neos.Fusion:Http.Message {
+        httpResponseHead.headers.Content-Type = 'text/html;charset=UTF-8'
         doctype = '<!DOCTYPE html>'
         content = afx`
             <html>
@@ -10,14 +10,14 @@ prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Com
                     <meta charset='UTF-8' />
                     <title>{props.title}</title>
                     <meta name='robots' content='noindex,nofollow' />
-                    <script>
-                        {StaticResource.content('Carbon.Plausible', 'Public/LocalStorage.js')}
-                    </script>
                 </head>
                 <body style='display:flex;align-items:center;min-height:90vh;'>
                     <h1 style='margin:1em auto;max-width:30ch;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Cantarell,Noto Sans,sans-serif;'>
                         {props.title}
                     </h1>
+                    <script>
+                        {StaticResource.content('Carbon.Plausible', 'Public/LocalStorage.js')}
+                    </script>
                 </body>
             </html>
         `
@@ -26,11 +26,7 @@ prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Com
     @cache {
         mode = 'cached'
         entryIdentifier {
-            site = ${Neos.Caching.entryIdentifierForNode(site)}
             plausible = 'CarbonPlausibleDisableTracking'
-        }
-        entryTags {
-            1 = ${Neos.Caching.nodeTag(site)}
         }
     }
     @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\PageHandler'

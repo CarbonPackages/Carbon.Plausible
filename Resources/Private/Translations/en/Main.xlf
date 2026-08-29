@@ -4,16 +4,16 @@
     <file original="" product-name="Carbon.Plausible" source-language="en" target-language="en" datatype="plaintext">
         <body>
             <trans-unit id="trackingIsNowDisabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is now disabled.</source>
-                <target>Tracking for {0} from this browser is now disabled.</target>
+                <source>Tracking for {domain} from this browser is now disabled.</source>
+                <target>Tracking for {domain} from this browser is now disabled.</target>
             </trans-unit>
             <trans-unit id="trackingIsDisabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is disabled.</source>
-                <target>Tracking for {0} from this browser is disabled.</target>
+                <source>Tracking for {domain} from this browser is disabled.</source>
+                <target>Tracking for {domain} from this browser is disabled.</target>
             </trans-unit>
             <trans-unit id="trackingIsEnabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is enabled.</source>
-                <target>Tracking for {0} from this browser is enabled.</target>
+                <source>Tracking for {domain} from this browser is enabled.</source>
+                <target>Tracking for {domain} from this browser is enabled.</target>
             </trans-unit>
             <trans-unit id="enableTracking" xml:space="preserve">
                 <source>Enable tracking</source>

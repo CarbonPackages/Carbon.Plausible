@@ -2,10 +2,13 @@ import {
     trackingIsDisabled,
     enableTracking,
     disableTracking,
+    replaceDomainPlaceholders,
 } from "./Helper.js";
 
 const disabledStatus = getElements("disabled");
 const enabledStatus = getElements("enabled");
+
+replaceDomainPlaceholders();
 
 setStatus(trackingIsDisabled());
 

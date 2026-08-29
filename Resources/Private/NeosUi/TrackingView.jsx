@@ -25,7 +25,7 @@ function TrackingView({ i18nRegistry }) {
             labels[key] = i18nRegistry.translate(
                 `Carbon.Plausible:Main:${key}`,
                 "",
-                [domain],
+                { domain },
             );
         });
         return labels;
