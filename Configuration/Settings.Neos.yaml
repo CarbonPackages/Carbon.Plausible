@@ -5,7 +5,7 @@ Neos:
   Flow:
     mvc:
       routes:
-        'Carbon.Plausible':
+        'Carbon.Plausible.Adapter':
           position: 'start 1'
   Neos:
     fusion:

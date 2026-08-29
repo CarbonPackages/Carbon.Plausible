@@ -2,7 +2,7 @@ Carbon:
   Plausible:
     # Enable or disable the Plausible integration
     # Disable per default, enabled in Production context per default
-    enable: true
+    enable: false
 
     # If you set  this to false, all inline javascript will not be rendered and you will have to add the Plausible tracking code manually in your templates
     renderInlineScriptTag: true
