@@ -1,5 +1,0 @@
-Carbon.Plausible.PlausibleController.index = Carbon.Plausible:Component.View {
-    settings = ${settings}
-    requestDomain = ${Carbon.Plausible.getDomain(request.httpRequest)}
-    isAdministrator = ${Security.hasRole('Neos.Neos:Administrator')}
-}

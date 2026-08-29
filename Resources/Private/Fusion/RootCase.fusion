@@ -1,0 +1,19 @@
+root {
+    plausibleScript {
+        @position = 'start'
+        condition = ${request.arguments.plausible == 'script'}
+        renderer = Carbon.Plausible:Document.Script
+    }
+    plausibleApiEvent {
+        @position = 'after plausibleScript'
+        condition = ${request.arguments.plausible == 'apiEvent'}
+        renderer = Carbon.Plausible:Document.ApiEvent
+    }
+    plausibleDisableTracking {
+        @position = 'after plausibleApiEvent'
+        condition = ${request.arguments.plausible == 'disableTracking'}
+        renderer = Carbon.Plausible:Document.DisableTracking
+    }
+
+    @cache.entryIdentifier.plausible = ${request.arguments.plausible || ''}
+}

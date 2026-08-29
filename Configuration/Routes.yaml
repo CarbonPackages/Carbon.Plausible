@@ -1,10 +1,10 @@
 - name: 'Set localStorage flag for disabling tracking'
-  uriPattern: '{node}~/disable-tracking'
+  uriPattern: '{node}~pls/disable-tracking'
   defaults:
     '@package': 'Neos.Neos'
     '@controller': 'Frontend\Node'
     '@action': 'show'
-    'disablePlausibleTracking': true
+    'plausible': 'disableTracking'
   routeParts:
     node:
       handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
@@ -12,27 +12,30 @@
         onlyMatchSiteNodes: true
   httpMethods: ['GET']
 
-- name: 'API for reverse proxy'
-  uriPattern: '~plausible'
+- name: 'Event API proxy'
+  uriPattern: '{node}~pls/api/event'
   defaults:
-    '@package': 'Carbon.Plausible'
-    '@controller': 'ReverseProxy'
-    '@action': 'apiEvent'
+    '@package': 'Neos.Neos'
+    '@controller': 'Frontend\Node'
+    '@action': 'show'
+    'plausible': 'apiEvent'
   httpMethods: ['POST']
+  routeParts:
+    node:
+      handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
+      options:
+        onlyMatchSiteNodes: true
 
-- name: 'API for reverse proxy (For headless mode)'
-  uriPattern: '~plausible/api/event'
+- name: 'Javascript file proxy'
+  uriPattern: '{node}~pls/js/script.js'
   defaults:
-    '@package': 'Carbon.Plausible'
-    '@controller': 'ReverseProxy'
-    '@action': 'apiEvent'
-  httpMethods: ['POST']
-
-- name: 'Files for reverse proxy'
-  uriPattern: '~plausible({filename}).js'
-  defaults:
-    '@package': 'Carbon.Plausible'
-    '@controller': 'ReverseProxy'
-    '@action': 'file'
-    'filename': 'default'
+    '@package': 'Neos.Neos'
+    '@controller': 'Frontend\Node'
+    '@action': 'show'
+    'plausible': 'script'
   httpMethods: ['GET']
+  routeParts:
+    node:
+      handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
+      options:
+        onlyMatchSiteNodes: true

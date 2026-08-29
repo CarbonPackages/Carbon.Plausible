@@ -10,7 +10,7 @@
           position: end
           collapsed: true
   properties:
-    plausibleDomain:
+    plausibleTrackingCode:
       type: string
       search:
         indexing: false
@@ -22,6 +22,7 @@
         inspector:
           group: plausible
           position: 10
+          editor: Neos.Neos/Inspector/Editors/TextAreaEditor
     plausibleSharedLink:
       type: string
       search:
@@ -33,25 +34,3 @@
           group: plausible
           hidden: 'ClientEval: !node.properties.plausibleDomain'
           position: 20
-    plausibleOutboundLinks:
-      type: boolean
-      search:
-        indexing: false
-      ui:
-        label: i18n
-        reloadIfChanged: false
-        inspector:
-          group: plausible
-          hidden: 'ClientEval: !node.properties.plausibleDomain'
-          position: 30
-    plausibleFileDownloads:
-      type: boolean
-      search:
-        indexing: false
-      ui:
-        label: i18n
-        reloadIfChanged: false
-        inspector:
-          group: plausible
-          hidden: 'ClientEval: !node.properties.plausibleDomain'
-          position: 40

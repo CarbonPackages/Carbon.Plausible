@@ -1,0 +1,36 @@
+prototype(Carbon.Plausible:Component.TrackingTarget) < prototype(Neos.Fusion:Component) {
+    // The tracking code to use. If not set, the tracking code will be taken from the site settings or the default settings.
+    trackingCode = ${q(site).property('plausibleTrackingCode')}
+
+    // The name of the site. Used to get the specdific site settings
+    siteName = ${Neos.Site.findBySiteNode(site).name}
+
+    @private {
+        defaultSettings = ${Configuration.setting('Carbon.Plausible.default.trackingCode')}
+        siteSettings = ${props.siteName ? Configuration.setting('Carbon.Plausible.sites.' + props.siteName + '.trackingCode') : null}
+    }
+
+    renderer = Neos.Fusion:Case {
+        @process.split = ${Carbon.Plausible.splitTrackingCode(value)}
+        disabled {
+            condition = ${!props.enable  || props.doNotTrack || props.inBackend}
+            renderer = false
+        }
+        fromProperties {
+            condition = ${props.trackingCode}
+            renderer = ${props.trackingCode}
+        }
+        fromSiteSettings {
+            condition = ${private.siteSettings}
+            renderer = ${private.siteSettings}
+        }
+        fromDefaultSettings {
+            condition = ${private.defaultSettings}
+            renderer = ${private.defaultSettings}
+        }
+        noTrackingCode {
+            condition = true
+            renderer = false
+        }
+    }
+}

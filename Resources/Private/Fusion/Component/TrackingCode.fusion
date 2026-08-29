@@ -1,93 +1,78 @@
 prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Component) {
-    enable = ${Configuration.setting('Carbon.Plausible.enable')}
+    // Enable or disable the tracking code.
+    enable = ${Configuration.setting('Carbon.Plausible.enable') && !renderingMode.isEdit}
+
+    // If true, no tracking code will be rendered, even if the tracking code is enabled in the settings.
     doNotTrack = ${q(node).is('[instanceof Carbon.Plausible:Mixin.DoNotTrack]') && q(node).property('plausibleDoNotTrack')}
 
+    // Custom events
     hasCustomEventMixin = ${q(node).is('[instanceof Carbon.Plausible:Mixin.CustomEvent]')}
     eventName = ${this.hasCustomEventMixin ? q(node).property('plausibleCustomEventName') : null}
     eventJSON = ${this.eventName ? String.trim(q(node).property('plausibleCustomEventJSON')) : null}
 
-    defaultSettings = ${Configuration.setting('Carbon.Plausible.default')}
-    siteName = ${site.name}
-    siteSettings = ${Configuration.setting('Carbon.Plausible.sites')}
-    siteSettings.@process.isDefined = ${this.siteName && Type.isArray(value) && Type.isArray(value[this.siteName]) ? value[this.siteName] : this.defaultSettings}
+    // The tracking code to use. If not set, the tracking code will be taken from the site settings or the default settings.
+    trackingCode = ${q(site).property('plausibleTrackingCode')}
 
-    domain = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'domain', site)}
-    reverseProxy = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'reverseProxy')}
-    customEvents = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'customEvents')}
-    dataAnalyticsTracking = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'dataAnalyticsTracking')}
-    hashBasedRouting = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'hashBasedRouting')}
-    outboundLinks = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'outboundLinks', site)}
-    fileDownloads = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'fileDownloads', site)}
-    taggedEvents = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'taggedEvents')}
-    revenue = ${Carbon.Plausible.getBooleanValue(this.defaultSettings, this.siteSettings, 'revenue')}
+    // The name of the site. Used to get the specdific site settings
+    siteName = ${Neos.Site.findBySiteNode(site).name}
 
-    compat = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'compat')}
-    local = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'local')}
+    // The definition of the plausible variable
+    definePlausibleJavscript = ${Configuration.setting('Carbon.Plausible.definePlausibleJavscript')}
 
-    pageviewProps = ${Carbon.Plausible.getValue(this.defaultSettings, this.siteSettings, 'pageviewProps')}
+    // Initialization options for the plausible tracking code.
+    // See https://plausible.io/docs/script-extensions#plausibleinit-configuration for more information.
+    initOptions = Neos.Fusion:DataStructure {
+        // Make sure the endpoint is always set, even if no other options are set
+        // You also have to take care to set `'` around any string
+        endpoint = "'/~pls/api/event'"
+    }
 
-    manual = ${this.siteSettings.manual || Type.isBoolean(this.siteSettings.manual) ? this.siteSettings.manual : this.defaultSettings.manual}
-    customEvents = ${this.siteSettings.customEvents || Type.isBoolean(this.siteSettings.customEvents) ? this.siteSettings.customEvents : this.defaultSettings.customEvents}
+    // You can disable the rendering of the inline script tag. This is useful if you want to render the tracking code in a different way, e.g. in a custom template.
+    renderInlineScriptTag = true
 
-    dataAnalyticsTracking = ${this.siteSettings.dataAnalyticsTracking || this.defaultSettings.dataAnalyticsTracking}
+    // The status code of the current request. Used to determine if a 404 event should be sent.
+    statusCode = ${statusCode}
 
+    // Send the event plausible('404') if the status code is between 400 and 499.
+    set404Event = true
 
-    async = false
-    defer = true
+    @private {
+        is404Page = ${props.set404Event && props.statusCode ? (props.statusCode >= 400 && props.statusCode < 500) : false}
 
-    checkIfDomainIsTheSameAsRequest = true
+        trackingTarget = Carbon.Plausible:Component.TrackingTarget {
+            trackingCode = ${props.trackingCode}
+            siteName = ${props.siteName}
+        }
 
-    renderPlausibleScriptTag = ${this.enable && !this.doNotTrack && this.domain && !node.context.inBackend && (this.checkIfDomainIsTheSameAsRequest ? Carbon.Plausible.checkDomain(request.httpRequest, this.domain) : true)}
-    renderInlineScriptTag = ${this.renderPlausibleScriptTag}
-
-    @if.renderTags = ${this.renderPlausibleScriptTag || this.renderInlineScriptTag}
-
-    renderer = Neos.Fusion:Component {
-        @apply.props = ${props}
-
-        fileTypes = ${Type.isString(props.fileDownloads) ? props.fileDownloads : Array.join(props.fileDownloads, ',')}
-        fileTypes.@if {
-            exclusionIsSet = ${props.fileDownloads}
-            isStringOrArray = ${Type.isString(props.fileDownloads) || Carbon.Array.length(props.fileDownloads)}
+        initOptions = Neos.Fusion:Loop {
+            @glue = ','
+            items = ${props.initOptions}
+            itemRenderer = ${itemKey + ':' + itemValue}
         }
 
         inlineJavascript = Neos.Fusion:DataStructure {
-            plausibleVariable = 'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }'
+            definePlausibleJavscript = ${props.definePlausibleJavscript}
+            init = ${'plausible.init({' + private.initOptions + '})'}
             eventFromNode = ${'plausible("' + props.eventName + '"' + (props.eventJSON ? ',' + props.eventJSON : '') + ')'}
             eventFromNode.@if.hasEventName = ${props.eventName}
-            customEvents = ${Type.isString(props.customEvents) ? props.customEvents : null}
-            @if.set = ${props.renderInlineScriptTag && (props.customEvents || props.eventName || props.dataAnalyticsTracking)}
+            set404Event ${private.is404Page ? "document.addEventListener('DOMContentLoaded',()=>{plausible('404')})" : null}
             @process.filter = ${Array.join(Array.filter(value, line => !!line), ';')}
         }
+    }
 
-        plausibleSrc = Carbon.Plausible:Component.Src {
-            @apply.props = ${props}
+    renderer = Neos.Fusion:Join {
+        @if.enabled = ${private.trackingTarget}
+        external = Neos.Fusion:Tag {
+            tagName = 'script'
+            attributes {
+                src = '~pls/js/script.js'
+                async = true
+            }
         }
-        dataAnalyticsTrackingSrc = Neos.Fusion:ResourceUri {
-            @if.set = ${props.renderInlineScriptTag && props.dataAnalyticsTracking}
-            path = 'resource://Carbon.Plausible/Public/Data.js'
+        inline = Neos.Fusion:Tag {
+            @if.set = ${props.renderInlineScriptTag}
+            tagName = 'script'
+            content = ${private.inlineJavascript}
         }
-
-        renderer = afx`
-            <script
-                @if.set={props.renderPlausibleScriptTag && props.domain}
-                id={props.compat ? 'plausible' : null}
-                data-domain={props.domain}
-                data-api={props.reverseProxy ? '/~plausible' : null}
-                {...Carbon.Plausible.pageviewProps(props.pageviewProps)}
-                file-types={props.fileTypes}
-                src={props.plausibleSrc}
-                async={props.async}
-                defer={props.defer}
-            ></script>
-            <script @if.set={props.inlineJavascript}>
-                {Carbon.String.minifyJS(props.inlineJavascript)}
-            </script>
-            <script
-                @if.set={props.dataAnalyticsTrackingSrc}
-                src={props.dataAnalyticsTrackingSrc}
-                defer
-            ></script>
-        `
     }
 }

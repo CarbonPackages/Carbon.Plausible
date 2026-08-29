@@ -17,19 +17,3 @@ Neos:
           Carbon.Plausible:
             - Main
             - 'NodeTypes/*'
-    modules:
-      management:
-        submodules:
-          plausible:
-            label: Plausible
-            description: 'Check your configuration for Plausible and disable/enable tracking from this browser'
-            icon: 'fas fa-chart-pie'
-            controller: \Carbon\Plausible\Controller\PlausibleController
-            privilegeTarget: 'Carbon.Plausible:ViewConfiguration'
-            position: end
-            mainStylesheet: Lite
-            additionalResources:
-              javaScripts:
-                - 'resource://Carbon.Plausible/Public/Module.js'
-              styleSheets:
-                - 'resource://Carbon.Plausible/Public/Module.css'

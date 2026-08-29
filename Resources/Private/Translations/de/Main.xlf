@@ -23,6 +23,10 @@
                 <source>Disable tracking</source>
                 <target>Tracking deaktivieren</target>
             </trans-unit>
+            <trans-unit id="openEmbedStats" xml:space="preserve">
+                <source>Open stats</source>
+                <target>Statistik öffnen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

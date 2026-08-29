@@ -1,2 +1,0 @@
-CarbonPlausible_Cache:
-  frontend: Neos\Cache\Frontend\VariableFrontend
