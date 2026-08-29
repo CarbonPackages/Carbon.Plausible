@@ -1,4 +1,10 @@
 prototype(Carbon.Plausible:Component.TrackingTarget) < prototype(Neos.Fusion:Component) {
+    // Enable or disable the tracking code.
+    enable = ${Configuration.setting('Carbon.Plausible.enable') && !renderingMode.isEdit}
+
+    // If true, no tracking code will be rendered, even if the tracking code is enabled in the settings.
+    doNotTrack = ${q(node).is('[instanceof Carbon.Plausible:Mixin.DoNotTrack]') && q(node).property('plausibleDoNotTrack')}
+
     // The tracking code to use. If not set, the tracking code will be taken from the site settings or the default settings.
     trackingCode = ${q(site).property('plausibleTrackingCode')}
 
@@ -11,9 +17,9 @@ prototype(Carbon.Plausible:Component.TrackingTarget) < prototype(Neos.Fusion:Com
     }
 
     renderer = Neos.Fusion:Case {
-        @process.split = ${Carbon.Plausible.splitTrackingCode(value)}
+        @process.split = ${value ? Carbon.Plausible.splitTrackingCode(value) : null}
         disabled {
-            condition = ${!props.enable  || props.doNotTrack || props.inBackend}
+            condition = ${!props.enable || props.doNotTrack}
             renderer = false
         }
         fromProperties {

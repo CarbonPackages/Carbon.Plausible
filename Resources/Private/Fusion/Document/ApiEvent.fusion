@@ -17,13 +17,13 @@ prototype(Carbon.Plausible:Document.ApiEvent) < prototype(Neos.Fusion:Component)
     }
 
     @cache {
-        // 60 * 60 * 6 = 21600 = 6 hours
-        maximumLifetime = 21600
+        // 60 * 60 * 24 = 86400 = 24 hours
+        maximumLifetime = 86400
         mode = 'cached'
         entryIdentifier {
-            documentNode = ${Neos.Caching.entryIdentifierForNode(site)}
+            site = ${Neos.Caching.entryIdentifierForNode(site)}
             editPreviewMode = ${renderingMode.name}
-            plausible = 'plausibleApi'
+            plausible = 'CarbonPlausibleApiEvent'
         }
         entryTags {
             1 = ${Neos.Caching.nodeTag(site)}

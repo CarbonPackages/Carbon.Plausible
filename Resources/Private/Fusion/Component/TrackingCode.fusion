@@ -14,7 +14,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     trackingCode = ${q(site).property('plausibleTrackingCode')}
 
     // The name of the site. Used to get the specdific site settings
-    siteName = ${Neos.Site.findBySiteNode(site).name}
+    siteName = ${Neos.Site.findBySiteNode(site).nodeName}
 
     // The definition of the plausible variable
     definePlausibleJavscript = ${Configuration.setting('Carbon.Plausible.definePlausibleJavscript')}
@@ -28,13 +28,13 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
     }
 
     // You can disable the rendering of the inline script tag. This is useful if you want to render the tracking code in a different way, e.g. in a custom template.
-    renderInlineScriptTag = true
+    renderInlineScriptTag = ${Configuration.setting('Carbon.Plausible.renderInlineScriptTag')}
 
     // The status code of the current request. Used to determine if a 404 event should be sent.
     statusCode = ${statusCode}
 
     // Send the event plausible('404') if the status code is between 400 and 499.
-    set404Event = true
+    set404Event = ${Configuration.setting('Carbon.Plausible.set404Event')}
 
     @private {
         is404Page = ${props.set404Event && props.statusCode ? (props.statusCode >= 400 && props.statusCode < 500) : false}
@@ -42,12 +42,14 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
         trackingTarget = Carbon.Plausible:Component.TrackingTarget {
             trackingCode = ${props.trackingCode}
             siteName = ${props.siteName}
+            enable = ${props.enable}
+            doNotTrack = ${props.doNotTrack}
         }
 
         initOptions = Neos.Fusion:Loop {
             @glue = ','
             items = ${props.initOptions}
-            itemRenderer = ${itemKey + ':' + itemValue}
+            itemRenderer = ${itemKey + ':' + item}
         }
 
         inlineJavascript = Neos.Fusion:DataStructure {
@@ -55,7 +57,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             init = ${'plausible.init({' + private.initOptions + '})'}
             eventFromNode = ${'plausible("' + props.eventName + '"' + (props.eventJSON ? ',' + props.eventJSON : '') + ')'}
             eventFromNode.@if.hasEventName = ${props.eventName}
-            set404Event ${private.is404Page ? "document.addEventListener('DOMContentLoaded',()=>{plausible('404')})" : null}
+            set404Event = ${private.is404Page ? "document.addEventListener('DOMContentLoaded',()=>{plausible('404')})" : null}
             @process.filter = ${Array.join(Array.filter(value, line => !!line), ';')}
         }
     }
@@ -65,7 +67,7 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
         external = Neos.Fusion:Tag {
             tagName = 'script'
             attributes {
-                src = '~pls/js/script.js'
+                src = '/~pls/js/script.js'
                 async = true
             }
         }
@@ -73,6 +75,19 @@ prototype(Carbon.Plausible:Component.TrackingCode) < prototype(Neos.Fusion:Compo
             @if.set = ${props.renderInlineScriptTag}
             tagName = 'script'
             content = ${private.inlineJavascript}
+        }
+    }
+
+    @cache {
+        mode = 'cached'
+        entryIdentifier {
+            node = ${Neos.Caching.entryIdentifierForNode(node)}
+            editPreviewMode = ${renderingMode.name}
+            plausible = 'CarbonPlausibleTrackingCode'
+        }
+        entryTags {
+            1 = ${Neos.Caching.nodeTag(site)}
+            2 = ${Neos.Caching.nodeTag(node)}
         }
     }
 }

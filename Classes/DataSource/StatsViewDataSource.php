@@ -34,12 +34,15 @@ class StatsViewDataSource extends AbstractDataSource
         }
         $flowQuery = new FlowQuery([$node]);
         $siteNode = $flowQuery->closest('[instanceof Carbon.Plausible:Mixin.PlausibleProperties]')->get(0);
-        $link = $siteNode ? $siteNode->getProperty('plausibleSharedLink') : null;
 
-        if (!empty($link)) {
-            return [
-                'uri' => $link
-            ];
+        if ($siteNode) {
+            $link = $siteNode->getProperty('plausibleTrackingCode') ? $siteNode->getProperty('plausibleSharedLink') : null;
+
+            if (!empty($link)) {
+                return [
+                    'uri' => $link
+                ];
+            }
         }
 
         $siteName = $this->siteService->getName($node);

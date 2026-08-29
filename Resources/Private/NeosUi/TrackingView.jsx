@@ -14,6 +14,7 @@ function TrackingView({ i18nRegistry }) {
 
     // Translate labels
     const label = useMemo(() => {
+        const domain = window.location.hostname;
         const labels = {};
         [
             "enableTracking",
@@ -23,6 +24,8 @@ function TrackingView({ i18nRegistry }) {
         ].forEach((key) => {
             labels[key] = i18nRegistry.translate(
                 `Carbon.Plausible:Main:${key}`,
+                "",
+                [domain],
             );
         });
         return labels;

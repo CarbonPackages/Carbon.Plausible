@@ -7,7 +7,7 @@ use Carbon\Plausible\Service\SplitTrackingCodeService;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Http\Helper\RequestInformationHelper;
-use Psr\Http\Message\ServerRequestInterface;
+use Neos\Flow\Mvc\ActionRequest;
 
 class PlausibleHelper implements ProtectedContextAwareInterface
 {
@@ -17,7 +17,7 @@ class PlausibleHelper implements ProtectedContextAwareInterface
     #[Flow\Inject]
     protected SplitTrackingCodeService $splitTrackingCodeService;
 
-    public function proxyUrl(string $url, ?ServerRequestInterface $request = null): string
+    public function proxyUrl(string $url, ?ActionRequest $request = null): string
     {
         return $this->proxyService->proxy($url, $request);
     }

@@ -26,7 +26,7 @@ function StatisticView({ label, focusedNodePath }) {
         if (!sharedLink) {
             return;
         }
-        const binder = sharedLink.includes("?") ? "?" : "&";
+        const binder = sharedLink.includes("?") ? "&" : "?";
         setIframeSrc(
             `${sharedLink}${binder}embed=true&theme=dark&background=transparent`,
         );
@@ -38,9 +38,9 @@ function StatisticView({ label, focusedNodePath }) {
 
     return (
         <>
-            <Button style="lighter" onClick={() => setOpen(true)}>
-                <Icon icon="chart" padded="right" />
-                <span>{label}</span>
+            <Button style="lighter" onClick={() => setOpen(true)} title={label}>
+                <Icon icon="chart-pie" padded="right" />
+                <span>Plausible</span>
             </Button>
             <Dialog
                 open={open}
@@ -52,11 +52,20 @@ function StatisticView({ label, focusedNodePath }) {
                 {open && (
                     <>
                         <iframe
-                            plausible-embed
+                            plausible-embed="true"
                             src={iframeSrc}
                             scrolling="no"
                             frameBorder="0"
-                            style="height:1600px;width:100%;max-width:1088px"
+                            loading="lazy"
+                            style={{
+                                height: "1600px",
+                                width: "1px",
+                                minWidth: "100%",
+                                display: "block",
+                                margin: "var(--spacing-GoldenUnit) auto",
+                                width: "100%",
+                                maxWidth: "1088px",
+                            }}
                         ></iframe>
                         <script
                             async
@@ -68,6 +77,11 @@ function StatisticView({ label, focusedNodePath }) {
         </>
     );
 }
+
+/*
+
+
+                        */
 
 const neosifier = neos((globalRegistry) => ({
     label: globalRegistry

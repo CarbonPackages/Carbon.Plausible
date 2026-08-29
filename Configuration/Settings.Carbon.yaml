@@ -2,8 +2,16 @@ Carbon:
   Plausible:
     # Enable or disable the Plausible integration
     # Disable per default, enabled in Production context per default
-    enable: false
+    enable: true
 
+    # If you set  this to false, all inline javascript will not be rendered and you will have to add the Plausible tracking code manually in your templates
+    renderInlineScriptTag: true
+
+    # If you set this to false, the 404 event will not be sent to Plausible, even if the status code is between 400 and 499
+    set404Event: true
+
+    # Function to define the plausible object in the window, used for the embedded view of the stats in the backend
+    # Usually you don't need to change this, but if you have a custom plausible tracking code, you can change it here
     definePlausibleJavscript: 'window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}'
 
     default:

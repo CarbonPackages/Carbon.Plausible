@@ -9,6 +9,15 @@
           tab: meta
           position: end
           collapsed: true
+      views:
+        statisticView:
+          group: document
+          position: 'end 999'
+          view: 'Carbon.Plausible/StatisticView'
+        trackingView:
+          group: plausible
+          position: 2
+          view: 'Carbon.Plausible/TrackingView'
   properties:
     plausibleTrackingCode:
       type: string
@@ -32,5 +41,5 @@
         reloadIfChanged: false
         inspector:
           group: plausible
-          hidden: 'ClientEval: !node.properties.plausibleDomain'
+          hidden: 'ClientEval: !node.properties.plausibleTrackingCode'
           position: 20

@@ -17,3 +17,13 @@ Neos:
           Carbon.Plausible:
             - Main
             - 'NodeTypes/*'
+    Ui:
+      resources:
+        javascript:
+          Carbon.Plausible:Editor:
+            resource: resource://Carbon.Plausible/Public/Plugin.js
+            attributes:
+              type: 'module'
+        stylesheets:
+          Carbon.Plausible:Editor:
+            resource: resource://Carbon.Plausible/Public/stylex.css

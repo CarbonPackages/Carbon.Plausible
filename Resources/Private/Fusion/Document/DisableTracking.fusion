@@ -26,7 +26,7 @@ prototype(Carbon.Plausible:Document.DisableTracking) < prototype(Neos.Fusion:Com
     @cache {
         mode = 'cached'
         entryIdentifier {
-            site = ${site}
+            site = ${Neos.Caching.entryIdentifierForNode(site)}
             plausible = 'CarbonPlausibleDisableTracking'
         }
         entryTags {

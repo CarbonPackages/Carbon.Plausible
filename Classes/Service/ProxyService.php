@@ -4,13 +4,14 @@ namespace Carbon\Plausible\Service;
 
 use InvalidArgumentException;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\ActionRequest;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
 #[Flow\Scope('singleton')]
 class ProxyService
 {
-    public function proxy(string $url, ?ServerRequestInterface $request = null): string
+    public function proxy(string $url, ?ActionRequest $request = null): string
     {
         if (!function_exists('curl_init')) {
             throw new RuntimeException('The cURL PHP extension is required to proxy URLs.');
@@ -34,9 +35,10 @@ class ProxyService
         ];
 
         if ($request !== null) {
-            $options[CURLOPT_CUSTOMREQUEST] = $request->getMethod();
+            $httpRequest = $request->getHttpRequest();
+            $options[CURLOPT_CUSTOMREQUEST] = $httpRequest->getMethod();
             $options[CURLOPT_HTTPHEADER] = $this->buildRequestHeaders($request);
-            $options[CURLOPT_POSTFIELDS] = (string) $request->getBody();
+            $options[CURLOPT_POSTFIELDS] = (string) $httpRequest->getBody();
         }
 
         curl_setopt_array($handle, $options);
@@ -66,26 +68,40 @@ class ProxyService
      *
      * @return list<string>
      */
-    private function buildRequestHeaders(ServerRequestInterface $request): array
+    private function buildRequestHeaders(ActionRequest $request): array
     {
+        $httpRequest = $request->getHttpRequest();
         $headers = [];
 
         foreach (['Content-Type', 'Content-Encoding', 'User-Agent'] as $headerName) {
-            $value = $request->getHeaderLine($headerName);
+            $value = $httpRequest->getHeaderLine($headerName);
             if ($value !== '') {
                 $headers[] = $headerName . ': ' . $value;
             }
         }
 
-        $forwardedFor = $request->getHeaderLine('X-Forwarded-For');
-        $remoteAddress = $request->getServerParams()['REMOTE_ADDR'] ?? null;
-        if (is_string($remoteAddress) && $remoteAddress !== '') {
-            $forwardedFor = $forwardedFor === '' ? $remoteAddress : $forwardedFor . ', ' . $remoteAddress;
-        }
-        if ($forwardedFor !== '') {
-            $headers[] = 'X-Forwarded-For: ' . $forwardedFor;
+        $ipAdress = $this->userIP($httpRequest);
+        if (!empty($ipAdress)) {
+            $headers[] = 'X-Forwarded-For: ' . $ipAdress;
         }
 
         return $headers;
+    }
+
+    private function userIP(ServerRequestInterface $request): ?string
+    {
+        if ($request->hasHeader('X-Forwarded-For')) {
+            $userIp = $request->getHeaderLine('X-Forwarded-For');
+            // This can be a comma-separated list of IP addresses (e.g., “Client IP, Proxy1 IP”)
+            return explode(',', $userIp)[0];
+        }
+
+        if ($request->hasHeader('CF-Connecting-IP')) {
+            // Cloudflare
+            return (string) $request->getHeaderLine('CF-Connecting-IP');
+        }
+
+        $serverParams = $request->getServerParams();
+        return isset($serverParams['REMOTE_ADDR']) ? (string) $serverParams['REMOTE_ADDR'] : null;
     }
 }
