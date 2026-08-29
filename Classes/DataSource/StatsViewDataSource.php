@@ -25,7 +25,7 @@ class StatsViewDataSource extends AbstractDataSource
      * @param array $arguments Additional arguments (key / value)
      * @return array{uri:string}
      */
-    public function getData(?mixed $node = null, array $arguments = [])
+    public function getData(mixed $node = null, array $arguments = [])
     {
         if (empty($node)) {
             return [
