@@ -24,8 +24,16 @@
                 <target>Tracking deaktivieren</target>
             </trans-unit>
             <trans-unit id="openEmbedStats" xml:space="preserve">
-                <source>Open stats</source>
+                <source>Open statistics</source>
                 <target>Statistik öffnen</target>
+            </trans-unit>
+            <trans-unit id="blockedIframe" xml:space="preserve">
+                <source>The embedded view was blocked by the browser.</source>
+                <target>Die integrierte Ansicht wurde vom Browser blockiert.</target>
+            </trans-unit>
+            <trans-unit id="openEmbedStatsInNewWindow" xml:space="preserve">
+                <source>Open statistics in new window</source>
+                <target>Statistik in neuem Fenster öffnen</target>
             </trans-unit>
         </body>
     </file>
