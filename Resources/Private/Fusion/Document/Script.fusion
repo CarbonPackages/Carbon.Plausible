@@ -1,0 +1,34 @@
+prototype(Carbon.Plausible:Document.Script) < prototype(Neos.Fusion:Component) {
+    // The tracking code to use. If not set, the tracking code will be taken from the site settings or the default settings.
+    trackingCode = ${q(site).property('plausibleTrackingCode')}
+
+    // The name of the site. Used to get the specdific site settings
+    siteName = ${Neos.Site.findBySiteNode(site).nodeName}
+
+    @private {
+        trackingTarget = Carbon.Plausible:Component.TrackingTarget {
+            trackingCode = ${props.trackingCode}
+            siteName = ${props.siteName}
+        }
+        markup = ${private.trackingTarget ? Carbon.Plausible.proxyUrl(private.trackingTarget.script) : null}
+    }
+
+    renderer = Neos.Fusion:Http.Message {
+        httpResponseHead.headers.Content-Type = 'text/javascript'
+        markup = ${private.markup}
+    }
+
+    @cache {
+        // 60 * 60 * 24 = 86400 = 24 hours
+        maximumLifetime = 86400
+        mode = 'cached'
+        entryIdentifier {
+            site = ${Neos.Caching.entryIdentifierForNode(site)}
+            editPreviewMode = ${renderingMode.name}
+            plausible = 'CarbonPlausibleScript'
+        }
+        entryTags {
+            1 = ${Neos.Caching.nodeTag(site)}
+        }
+    }
+}

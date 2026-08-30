@@ -4,16 +4,16 @@
     <file original="" product-name="Carbon.Plausible" source-language="en" target-language="en" datatype="plaintext">
         <body>
             <trans-unit id="trackingIsNowDisabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is now disabled.</source>
-                <target>Tracking for {0} from this browser is now disabled.</target>
+                <source>Tracking for {domain} from this browser is now disabled.</source>
+                <target>Tracking for {domain} from this browser is now disabled.</target>
             </trans-unit>
             <trans-unit id="trackingIsDisabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is disabled.</source>
-                <target>Tracking for {0} from this browser is disabled.</target>
+                <source>Tracking for {domain} from this browser is disabled.</source>
+                <target>Tracking for {domain} from this browser is disabled.</target>
             </trans-unit>
             <trans-unit id="trackingIsEnabled" xml:space="preserve">
-                <source>Tracking for {0} from this browser is enabled.</source>
-                <target>Tracking for {0} from this browser is enabled.</target>
+                <source>Tracking for {domain} from this browser is enabled.</source>
+                <target>Tracking for {domain} from this browser is enabled.</target>
             </trans-unit>
             <trans-unit id="enableTracking" xml:space="preserve">
                 <source>Enable tracking</source>
@@ -22,6 +22,18 @@
             <trans-unit id="disableTracking" xml:space="preserve">
                 <source>Disable tracking</source>
                 <target>Disable tracking</target>
+            </trans-unit>
+            <trans-unit id="openEmbedStats" xml:space="preserve">
+                <source>Open statistics</source>
+                <target>Open statistics</target>
+            </trans-unit>
+            <trans-unit id="blockedIframe" xml:space="preserve">
+                <source>The embedded view was blocked by the browser.</source>
+                <target>The embedded view was blocked by the browser.</target>
+            </trans-unit>
+            <trans-unit id="openEmbedStatsInNewWindow" xml:space="preserve">
+                <source>Open statistics in new window</source>
+                <target>Open statistics in new window</target>
             </trans-unit>
         </body>
     </file>

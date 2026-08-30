@@ -1,0 +1,11 @@
+'Carbon.Plausible:Mixin.StatisticView':
+  abstract: true
+  superTypes:
+    'Carbon.Plausible:Mixin.Group': true
+  ui:
+    inspector:
+      views:
+        statisticView:
+          group: plausible
+          position: 10
+          view: 'Carbon.Plausible/StatisticView'

@@ -1,0 +1,32 @@
+prototype(Carbon.Plausible:Document.ApiEvent) < prototype(Neos.Fusion:Component) {
+    trackingTarget = Carbon.Plausible:Component.TrackingTarget
+
+    @context.trackingTargetApi = ${this.trackingTarget ? this.trackingTarget.api : null}
+
+    renderer = Neos.Fusion:Http.Message {
+        httpResponseHead.headers.Content-Type = 'text/javascript'
+        markup = ${Carbon.Plausible.proxyUrl(trackingTargetApi, request)}
+
+        @cache {
+            mode = 'uncached'
+            context {
+                1 = 'trackingTargetApi'
+                2 = 'request'
+            }
+        }
+    }
+
+    @cache {
+        // 60 * 60 * 24 = 86400 = 24 hours
+        maximumLifetime = 86400
+        mode = 'cached'
+        entryIdentifier {
+            site = ${Neos.Caching.entryIdentifierForNode(site)}
+            editPreviewMode = ${renderingMode.name}
+            plausible = 'CarbonPlausibleApiEvent'
+        }
+        entryTags {
+            1 = ${Neos.Caching.nodeTag(site)}
+        }
+    }
+}

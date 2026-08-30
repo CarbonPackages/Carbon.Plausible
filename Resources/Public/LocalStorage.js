@@ -1,1 +1,1 @@
-(()=>{var t=()=>localStorage.plausible_ignore==="true",l=()=>localStorage.plausible_ignore=!0;var o=()=>{let e=t()?0:5e3;l(),setTimeout(()=>{window.location="/"},e)};o();})();
+(()=>{var o=localStorage,n="plausible_ignore";function t(){return o[n]==="true"}function a(){o[n]="true"}function l(){let i=window.location.hostname,r=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_TEXT),e;for(;e=r.nextNode();)e.nodeValue.includes("{domain}")&&(e.nodeValue=e.nodeValue.replaceAll("{domain}",i))}var c=t()?0:5e3;setTimeout(()=>{window.location="/"},c);a();l();})();

@@ -11,12 +11,10 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^8.3",
-        "neos/cache": "^8.3",
-        "neos/fusion-afx": "*",
-        "carbon/eel": "^2.10"
+        "carbon/plausible-adapter": "^1.0 || ^2.0"
     },
     "suggest": {
+        "ext-curl": "*",
         "neos/seo": "SEO configuration and tools for Neos."
     },
     "autoload": {

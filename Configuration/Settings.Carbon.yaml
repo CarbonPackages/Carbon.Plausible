@@ -4,62 +4,30 @@ Carbon:
     # Disable per default, enabled in Production context per default
     enable: false
 
+    # If you set  this to false, all inline javascript will not be rendered and you will have to add the Plausible tracking code manually in your templates
+    renderInlineScriptTag: true
+
+    # If you set this to false, the 404 event will not be sent to Plausible, even if the status code is between 400 and 499
+    set404Event: true
+
+    # Function to define the plausible object in the window, used for the embedded view of the stats in the backend
+    # Usually you don't need to change this, but if you have a custom plausible tracking code, you can change it here
+    definePlausibleJavscript: 'window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}'
+
     default:
-      # Set here the plausible domain. This setting is required
-      domain: null
-
-      # Proxies the needed Javascript (cached for 6 hours) and API calls from Plausible.
-      reverseProxy: true
-
       # If you have opened up your website stats to the public or created a private
       # and secure link, enter it to enable the embedded view of the stats in the backend
       sharedLink: null
 
-      # If you want to set custom events in your javascript, set this to true or a string.
-      # If set to a string, this whole string gets included on every document.
-      # If you set custom events via Fusion or the Carbon.Plausible:Mixin.CustomEvent mixin,
-      # you don't have to set it to true. The snippet gets activated automatically if needed.
-      customEvents: false
-
-      # If you want to enable data-analytics for tracking links and form submits set this to true
-      dataAnalyticsTracking: false
-
-      # Automatically follow frontend navigation when using hash-based routing
-      # https://plausible.io/docs/hash-based-routing
-      hashBasedRouting: false
-
-      # Automatically track clicks on outbound links from your website
-      # https://plausible.io/docs/outbound-link-click-tracking
-      outboundLinks: false
-
-      # Automatically track file downloads
-      # https://plausible.io/docs/file-downloads-tracking
-      fileDownloads: false
-
-      # Allows you to track standard custom events such as link clicks,
-      # form submits, and any other HTML element clicks
-      # https://plausible.io/docs/custom-event-goals
-      taggedEvents: false
-
-      # Allows you to assign dynamic monetary values to goals and custom events to track revenue attribution
-      # https://plausible.io/docs/ecommerce-revenue-tracking
-      revenue: false
-
-      # Compatibility mode for tracking users on Internet Explorer (≥IE11)
-      # https://plausible.io/docs/script-extensions#scriptcompatjs
-      compat: false
-
-      # Allow analytics to track on localhost too which is useful in hybrid apps
-      local: false
-
-      # Don't trigger pageviews automatically. Also allows you to specify custom locations to redact URLs with identifiers.
-      # You can also use it to track custom query parameters
-      # https://plausible.io/docs/custom-locations
-      # https://plausible.io/docs/custom-query-params
-      manual: false
-
-      # With `pageviewProps` you can attach custom properties (also known as custom dimensions in Google Analytics) sending a
-      # pageview in order to create custom metrics. You can add up to 30 custom properties alongside a pageview by adding multiple
-      # attributes to the `pageviewProps` object. (Keys with values)
-      # https://plausible.io/docs/custom-props/introduction
-      pageviewProps: false
+      # Add here your Plausible tracking code
+      # To ad a multiline tracking code, use the following format:
+      # trackingCode: |
+      #   <!-- Privacy-friendly analytics by Plausible -->
+      #   <script async src="https://plausible.io/js/pa-XXXXXXXX.js"></script>
+      #   <script>
+      #     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      #     plausible.init()
+      #   </script>
+      # You can also ad only the external script part <script async src="https://plausible.io/js/pa-XXXXXXXX.js"></script>
+      # or the source only https://plausible.io/js/pa-XXXXXXXX.js
+      trackingCode: null

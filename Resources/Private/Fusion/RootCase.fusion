@@ -1,0 +1,14 @@
+root {
+    plausibleScript {
+        condition = ${request.format == 'plausible.script'}
+        renderer = Carbon.Plausible:Document.Script
+    }
+    plausibleApiEvent {
+        condition = ${request.format == 'plausible.api'}
+        renderer = Carbon.Plausible:Document.ApiEvent
+    }
+    plausibleDisableTracking {
+        condition = ${request.format == 'plausible.disable'}
+        renderer = Carbon.Plausible:Document.DisableTracking
+    }
+}

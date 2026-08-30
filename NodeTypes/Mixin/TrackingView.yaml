@@ -1,0 +1,11 @@
+'Carbon.Plausible:Mixin.TrackingView':
+  abstract: true
+  superTypes:
+    'Carbon.Plausible:Mixin.Group': true
+  ui:
+    inspector:
+      views:
+        trackingView:
+          group: plausible
+          position: 20
+          view: 'Carbon.Plausible/TrackingView'

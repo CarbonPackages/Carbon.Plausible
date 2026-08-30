@@ -1,0 +1,10 @@
+'Carbon.Plausible:Mixin.Group':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        plausible:
+          label: i18n
+          icon: 'fas fa-chart-pie'
+          tab: meta
+          position: end

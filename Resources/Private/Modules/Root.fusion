@@ -1,2 +1,0 @@
-include: ../Fusion/Component/*.fusion
-include: **/*.fusion
