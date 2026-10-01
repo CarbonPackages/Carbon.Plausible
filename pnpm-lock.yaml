@@ -599,8 +599,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  moment@2.30.1:
-    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+  moment@2.31.0:
+    resolution: {integrity: sha512-0acOTfMiWOheYS4eoWb80yYMb/JLvVv9SHbs2PehaDzfUG0Bw855SKyk0IKTnPGa5+U2bmi3W68l1+sGLX/pvw==}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -1066,14 +1066,14 @@ snapshots:
       lodash.isfunction: 3.0.9
       lodash.omit: 4.18.0
       lodash.throttle: 4.1.1
-      moment: 2.30.1
+      moment: 2.31.0
       notosans-fontface: 1.3.0
       plow-js: 3.0.0
       prop-types: 15.8.1
       raf: 3.4.1
       react: 16.14.0
       react-collapse: 5.1.1(react@16.14.0)
-      react-datetime: 2.16.3(moment@2.30.1)(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
+      react-datetime: 2.16.3(moment@2.31.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
       react-dnd: 10.0.2(@types/react@19.2.18)(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
       react-dnd-html5-backend: 10.0.2
       react-dom: 16.14.0(react@16.14.0)
@@ -1331,7 +1331,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  moment@2.30.1: {}
+  moment@2.31.0: {}
 
   ms@2.1.3: {}
 
@@ -1376,10 +1376,10 @@ snapshots:
       react: 16.14.0
       react-dom: 16.14.0(react@16.14.0)
 
-  react-datetime@2.16.3(moment@2.30.1)(react-dom@16.14.0(react@16.14.0))(react@16.14.0):
+  react-datetime@2.16.3(moment@2.31.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0):
     dependencies:
       create-react-class: 15.7.0
-      moment: 2.30.1
+      moment: 2.31.0
       object-assign: 3.0.0
       prop-types: 15.8.1
       react: 16.14.0
